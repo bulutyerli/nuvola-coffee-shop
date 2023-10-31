@@ -18,7 +18,7 @@ export default function SmallCoffee({ coffee }) {
   return (
     <div className="relative">
       <Image
-        className="w-30 opacity-70 transition-opacity hover:opacity-100 cursor-pointer group"
+        className="w-30 opacity-70 transition-opacity hover:opacity-100 cursor-pointer"
         src={`/images/${coffee}-pack.png`}
         alt={`${coffee} pack`}
         width={100}

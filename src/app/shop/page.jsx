@@ -1,3 +1,9 @@
+import BigCoffee from "@/components/BigCoffee";
+
 export default function ShopPage() {
-  return <div>Shop</div>;
+  return (
+    <section>
+      <BigCoffee brand={"brazil"} />
+    </section>
+  );
 }

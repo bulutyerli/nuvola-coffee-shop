@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body class="bg-primary " className={merri.className}>
+      <body class="bg-primary  " className={merri.className}>
         <Header />
         {children}
         <Footer />

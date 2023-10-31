@@ -15,20 +15,22 @@ export default function Home() {
             width={600}
             height={600}
           ></Image>
-          <h1 className="text-primary text-3xl sm:text-5xl self-center justify-center w-full p-3">
+          <h1 className="text-primary text-3xl sm:text-5xl self-center justify-center w-full p-3 ">
             Crafted For You
           </h1>
         </div>
       </section>
       <section className="flex flex-col gap-6 px-3">
-        <h2 className="text-2xl text-green-800">Our Coffee Blends</h2>
+        <h2 className="text-2xl text-green-800 drop-shadow-md">
+          Our Coffee Blends
+        </h2>
         <h3>
           For more information and buy our unique coffee, explore our{" "}
           <Link className="underline text-blue-900" href="/shop">
             shop
           </Link>
         </h3>
-        <div className="flex justify-center flex-wrap gap-10">
+        <div className="flex justify-center flex-wrap gap-10 ">
           <SmallCoffee coffee={"brazil"} />
           <SmallCoffee coffee={"columbia"} />
           <SmallCoffee coffee={"mexico"} />

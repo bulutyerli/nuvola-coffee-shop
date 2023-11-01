@@ -2,7 +2,7 @@ import ReactCountryFlag from "react-country-flag";
 
 export default function StoreFlags({ country }) {
   return (
-    <div className="flex flex-col gap-3 items-center text-xs">
+    <div className="flex flex-col gap-3 pt-5 items-center text-xs">
       <ReactCountryFlag
         svg
         style={{
@@ -12,7 +12,7 @@ export default function StoreFlags({ country }) {
         }}
         countryCode={country}
       />
-      <h3 className="text-neutral-200">
+      <h3 className="text-neutral-400">
         {country === "TR"
           ? "Istanbul / Turkiye"
           : country === "US"

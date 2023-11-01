@@ -38,7 +38,7 @@ export default function Home() {
         </div>
       </section>
       <article className="flex flex-col gap-5 bg-secondary p-10">
-        <h2 className="text-2xl px-3 text-neutral-200">
+        <h2 className="text-xl px-3 text-neutral-300">
           We proudly serve in 4 countries. Check our stores{" "}
           <Link className="underline text-blue-300" href="stores">
             here

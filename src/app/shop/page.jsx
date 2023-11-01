@@ -1,9 +1,12 @@
 import BigCoffee from "@/components/BigCoffee";
+import coffeeData from "@/data/coffee-data.json";
 
 export default function ShopPage() {
   return (
-    <section>
-      <BigCoffee brand={"brazil"} />
+    <section className="flex flex-col gap-8">
+      {coffeeData.map((data) => {
+        return <BigCoffee key={data.id} data={data} />;
+      })}
     </section>
   );
 }

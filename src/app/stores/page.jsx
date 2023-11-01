@@ -1,3 +1,50 @@
+import Stores from "@/components/Stores";
+import Image from "next/image";
+
 export default function StoresPage() {
-  return <div>Stores</div>;
+  return (
+    <div className="p-3">
+      <h1 className="text-center font-bold text-xl pt-5 tracking-tight pb-5">
+        Four Corners, One Taste
+      </h1>
+      <article className="flex flex-col gap-1 max-w-prose">
+        <h2 className="text-left font-semibold text-md">
+          Embracing the World, One Cup at a Time
+        </h2>
+        <p className="leading-relaxed">
+          At Nuvola Coffee Shop, we invite you to embark on a global coffee
+          journey that transcends borders. While our core selection features
+          exquisite coffees from around the world, we've chosen to establish a
+          single coffee shop in four different countries as a tribute to the
+          diversity and unity of the global coffee community.
+        </p>
+        <h2 className="text-left font-semibold text-md">A Symbol of Unity</h2>
+        <p className="leading-relaxed">
+          Each of our coffee shops, whether in Istanbul, Athens, London, or New
+          York, stands as a symbol of unity. While our coffee beans may
+          originate from various corners of the globe, we believe in the shared
+          joy that a cup of coffee can bring. By having one shop in each city,
+          we aim to celebrate the universal love for coffee that knows no
+          boundaries.
+        </p>
+        <h2 className="text-left font-semibold text-md">
+          A Melting Pot of Cultures
+        </h2>
+        <p className="leading-relaxed">
+          Our coffee shops in these four unique cities represent a fusion of
+          cultures and traditions. Istanbul, where East meets West, Athens with
+          its ancient charm, the vibrant streets of London, and the
+          ever-evolving spirit of New York—each location contributes to the rich
+          tapestry of our global coffee experience.
+        </p>
+      </article>
+      <Image
+        src="/images/cafe-istanbul.jpeg"
+        alt="istanbul nuvola coffee shop"
+        width={500}
+        height={500}
+      ></Image>
+      <Stores />
+    </div>
+  );
 }

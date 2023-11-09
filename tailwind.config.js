@@ -25,6 +25,11 @@ module.exports = {
       ethiopia: "#928327",
       columbia: "#1C2B4E",
     },
+    extend: {
+      backgroundImage: {
+        bgLogo: "url('/logo.svg')",
+      },
+    },
   },
   plugins: [],
 };

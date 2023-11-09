@@ -5,15 +5,16 @@ import SmallCoffee from "@/components/SmallCoffee";
 
 export default function Home() {
   return (
-    <main className="flex flex-col text-center gap-10">
+    <main className="flex flex-col text-center gap-10 flex-grow">
       <section className="flex gap-3 items-center bg-secondary">
         <div className="w-full flex justify-center p-4 flex-wrap">
           <Image
             className="border-4 border-secondary rounded-2xl "
             src="/images/waitress.png"
             alt="waitress"
-            width={600}
-            height={600}
+            width={1440}
+            height={1440}
+            priority
           ></Image>
           <h1 className="text-primary text-3xl sm:text-5xl self-center justify-center w-full p-3 ">
             Crafted For You
@@ -31,20 +32,28 @@ export default function Home() {
           </Link>
         </h3>
         <div className="flex justify-center flex-wrap gap-10 ">
-          <SmallCoffee coffee={"brazil"} />
-          <SmallCoffee coffee={"columbia"} />
-          <SmallCoffee coffee={"mexico"} />
-          <SmallCoffee coffee={"ethiopia"} />
+          <Link href="/shop#brazil">
+            <SmallCoffee coffee={"brazil"} />
+          </Link>
+          <Link href="/shop#columbia">
+            <SmallCoffee coffee={"columbia"} />
+          </Link>
+          <Link href="/shop#mexico">
+            <SmallCoffee coffee={"mexico"} />
+          </Link>
+          <Link href="/shop#ethiopia">
+            <SmallCoffee coffee={"ethiopia"} />
+          </Link>
         </div>
       </section>
-      <article className="flex flex-col gap-5 bg-secondary p-10">
+      <article className="flex flex-col items-center gap-5 bg-secondary p-10">
         <h2 className="text-xl px-3 text-neutral-300">
           We proudly serve in 4 countries. Check our stores{" "}
           <Link className="underline text-blue-300" href="stores">
             here
           </Link>
         </h2>
-        <div className="flex gap-1 items-center justify-around">
+        <div className="flex justify-between items-center min-w-fit gap-20">
           <StoreFlags country={"TR"} />
           <StoreFlags country={"US"} />
           <StoreFlags country={"GB"} />

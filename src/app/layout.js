@@ -13,7 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body class="bg-primary  " className={merri.className}>
+      <body
+        className={`${merri.className} bg-primary flex flex-col min-h-screen`}
+      >
         <Header />
         {children}
         <Footer />

@@ -1,0 +1,47 @@
+import axios from "axios";
+import Link from "next/link";
+import CustomButton from "./CustomButton";
+import { PiSignInBold, PiSignOutBold } from "react-icons/pi";
+
+export default function Menu({ isUser, menu, linkClick }) {
+  const signOut = async () => {
+    await axios.post("/api/auth/sign-out");
+  };
+
+  return (
+    <nav className="min-h-screen bg-secondary text-neutral-300 list-none flex flex-col gap-10 text-center pt-10">
+      {isUser ? (
+        <>
+          <li>
+            <Link onClick={linkClick} href="/profile">
+              Profile
+            </Link>
+          </li>
+          <li>
+            <Link href="/orders">Orders</Link>
+          </li>
+          <li className="text-red-400">
+            <button onClick={signOut}>Sign Out</button>
+          </li>
+        </>
+      ) : (
+        <>
+          <h2 className="text-xl text-primary">
+            Welcome to Nuvola Coffee Shop
+          </h2>
+          <li className="hover:text-primary">
+            <Link onClick={linkClick} href="/sign-in">
+              Sign In
+            </Link>
+          </li>
+          <li
+            onClick={linkClick}
+            className="border-t border-neutral-600 pt-10 text-center self-center hover:text-primary"
+          >
+            <Link href="/sign-up">Sign Up</Link>
+          </li>
+        </>
+      )}
+    </nav>
+  );
+}

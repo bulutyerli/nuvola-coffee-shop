@@ -3,35 +3,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PiShoppingCartSimpleBold, PiUserBold, PiXBold } from "react-icons/pi";
-import { createClientBrowser } from "@/app/lib/client";
 import { useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
-export default function Header() {
-  const [userAuth, setUserAuth] = useState(null);
+export default function Header({ session }) {
   const [menu, setMenu] = useState(false);
-  const supabase = createClientBrowser();
   const menuRef = useRef();
+  const router = useRouter();
+
+  const signOut = async () => {
+    await axios.post("/api/auth/sign-out");
+    router.refresh();
+    router.push("/");
+  };
 
   const handleMenu = () => {
     setMenu(!menu);
     window.scrollTo(0, 0);
   };
-
-  useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (user) {
-        setUserAuth(user);
-      } else {
-        setUserAuth(null);
-      }
-    };
-    getUser();
-  }, [supabase.auth]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -105,7 +96,12 @@ export default function Header() {
           menu ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <Menu menu={menu} isUser={userAuth} linkClick={clickHandler} />
+        <Menu
+          signOutClick={signOut}
+          menu={menu}
+          isUser={session}
+          linkClick={clickHandler}
+        />
       </div>
     </header>
   );

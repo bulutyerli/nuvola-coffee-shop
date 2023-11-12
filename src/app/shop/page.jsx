@@ -1,5 +1,3 @@
-"use client";
-
 import BigCoffee from "@/components/BigCoffee";
 import coffeeData from "@/data/coffee-data.json";
 

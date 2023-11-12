@@ -4,12 +4,14 @@ import CustomButton from "@/components/CustomButton";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function SignInPage() {
   const [error, setError] = useState(false);
   const { register, handleSubmit, reset } = useForm();
+  const router = useRouter();
   const onSubmit = async (data) => {
     let formData = new FormData();
     formData.append("email", data.email);
@@ -22,8 +24,12 @@ export default function SignInPage() {
         setError(true);
         reset();
       }
+      if (res.data.success) {
+        router.refresh();
+        router.push("/");
+      }
     } catch (error) {
-      console.error("Network error:", error);
+      setError(true);
     }
   };
 

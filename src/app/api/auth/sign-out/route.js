@@ -1,19 +1,21 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { createClient } from "@/app/lib/server";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 
-export async function POST(request) {
-  const requestUrl = new URL(request.url);
+export const runtime = "edge";
+
+export async function POST(req) {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
-  const { error } = await supabase.auth.signOut();
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (error) {
-    console.log(error);
+  if (session) {
+    await supabase.auth.signOut();
   }
 
-  return NextResponse.redirect(`${requestUrl.origin}`, {
-    status: 301,
-  });
+  return NextResponse.json({ status: 301, success: true });
 }

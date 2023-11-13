@@ -7,8 +7,8 @@ export default function SmallCoffee({ coffee }) {
         className="opacity-80 transition-opacity hover:opacity-100 cursor-pointer"
         src={`/images/${coffee}-pack.png`}
         alt={`${coffee} pack`}
-        width={100}
-        height={100}
+        width={125}
+        height={125}
       />
       <h4 className={`text-${coffee} cursor-pointer font-bold pt-5`}>
         {coffee[0].toUpperCase() + coffee.slice(1)}

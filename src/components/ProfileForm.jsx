@@ -6,7 +6,7 @@ import { PiXBold } from "react-icons/pi";
 import Link from "next/link";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-export default function AddressForm({ userData, form }) {
+export default function ProfileForm({ userData, form }) {
   const supabase = createClientComponentClient();
 
   const [newData, setNewData] = useState({
@@ -22,18 +22,24 @@ export default function AddressForm({ userData, form }) {
   const [error, setError] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [emailConfirm, setEmailConfrim] = useState(false);
 
   const updateUser = async () => {
-    const { data, error } = await supabase.auth.updateUser({
-      data: {
-        address: newData.address,
-        city: newData.city,
-        state: newData.state,
-        zip: newData.zip,
-        country: newData.country,
-      },
-    });
+    try {
+      const { data, error } = await supabase.auth.updateUser({
+        data: {
+          address: newData.address,
+          city: newData.city,
+          state: newData.state,
+          zip: newData.zip,
+          country: newData.country,
+        },
+      });
+      if (error) {
+        throw new Error(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const updateEmail = async () => {
@@ -42,13 +48,15 @@ export default function AddressForm({ userData, form }) {
       const { data, error } = await supabase.auth.updateUser({
         email: newEmail,
       });
-      if (!error) {
-        setEmailConfrim(true);
+      console.log(data);
+
+      if (error) {
+        throw new Error(error);
       }
     } catch (error) {
-      setError(true);
     } finally {
       setIsLoading(false);
+      setNewEmail("");
     }
   };
 
@@ -201,11 +209,6 @@ export default function AddressForm({ userData, form }) {
       />
       <span className="text-red-400">
         {error ? "Something went wrong" : ""}
-      </span>
-      <span className="text-neutral-300 text-xs">
-        {emailConfirm
-          ? "A Confirmation email has been sent, please check your inbox"
-          : ""}
       </span>
     </form>
   ) : (

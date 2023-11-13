@@ -1,10 +1,10 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import AddressForm from "@/components/AddressForm";
 import { fullAddress } from "@/app/helpers/fullAddress";
 import { fullName } from "@/app/helpers/fullName";
 import { PiPencil } from "react-icons/pi";
 import Link from "next/link";
+import ProfileForm from "@/components/ProfileForm";
 
 export default async function ProfilePage({ searchParams }) {
   const cookieStore = cookies();
@@ -31,7 +31,7 @@ export default async function ProfilePage({ searchParams }) {
       </div>
       <div className="flex flex-col gap-2 border-t-2 border-neutral-500 pt-5">
         <h2 className="text-neutral-800">Your Order Address:</h2>
-        <span className="text-neutral-500">{address}</span>
+        <span className="text-neutral-500 break-all">{address}</span>
         <span className="text-red-700 cursor-pointer hover:underline flex items-center gap-1">
           <PiPencil size={17} />
           <Link
@@ -41,7 +41,7 @@ export default async function ProfilePage({ searchParams }) {
             Change
           </Link>
         </span>
-        {addressForm && <AddressForm form={"address"} userData={userData} />}
+        {addressForm && <ProfileForm form={"address"} userData={userData} />}
       </div>
       <div className="flex flex-col gap-2 w-full border-t-2 border-neutral-500 pt-5">
         <h2 className="text-neutral-800">Your Account Information:</h2>
@@ -58,7 +58,7 @@ export default async function ProfilePage({ searchParams }) {
                 Change
               </Link>
             </span>
-            {emailForm && <AddressForm form={"email"} userData={userData} />}
+            {emailForm && <ProfileForm form={"email"} userData={userData} />}
           </div>
           <div className="flex gap-2 flex-col">
             <h3 className="text-neutral-700">Password:</h3>
@@ -75,7 +75,7 @@ export default async function ProfilePage({ searchParams }) {
               </Link>
             </span>
             {passwordForm && (
-              <AddressForm form={"password"} userData={userData} />
+              <ProfileForm form={"password"} userData={userData} />
             )}
           </div>
         </div>

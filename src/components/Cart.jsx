@@ -1,24 +1,12 @@
 import Link from "next/link";
 
-export default function Menu({ isUser, linkClick, signOutClick }) {
+export default function Cart({ isUser, linkClick, signOutClick, cart }) {
   return (
     <nav className="min-h-screen bg-primary_light text-neutral-300 list-none flex flex-col gap-10 text-center pt-10 z-50">
       {isUser ? (
-        <>
-          <li>
-            <Link onClick={linkClick} href="/profile">
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link onClick={linkClick} href="/orders">
-              Orders
-            </Link>
-          </li>
-          <li onClick={linkClick} className="text-red-400">
-            <button onClick={signOutClick}>Sign Out</button>
-          </li>
-        </>
+        <div>
+          <h2>Your Cart</h2>
+        </div>
       ) : (
         <>
           <h2 className="text-xl text-primary">

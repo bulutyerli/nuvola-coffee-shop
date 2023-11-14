@@ -19,6 +19,7 @@ module.exports = {
       blue: colors.blue,
       yellow: colors.yellow,
       primary: "#FFE4C8",
+      primary_light: "#66492B",
       secondary: "#311C10",
       brazil: "#158641",
       mexico: "#8D1E2E",

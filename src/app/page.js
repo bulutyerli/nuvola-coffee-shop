@@ -3,6 +3,8 @@ import Link from "next/link";
 import StoreFlags from "@/components/StoreFlags";
 import SmallCoffee from "@/components/SmallCoffee";
 import ContentBox from "@/components/ContentBox";
+import { PiCat, PiHandHeart, PiCoffee, PiLeaf } from "react-icons/pi";
+import { BiSolidCoffeeBean } from "react-icons/bi";
 
 export default function Home() {
   return (
@@ -20,7 +22,7 @@ export default function Home() {
           Crafted For You
         </h1>
       </section>
-      <section className="flex flex-col gap-6 px-3 bg-primary py-10 sm:py-36 z-10">
+      <section className="flex flex-col gap-6 px-3 bg-primary py-10 sm:py-36 ">
         <h2 className="text-2xl text-green-800 drop-shadow-md">
           Our Coffee Blends
         </h2>
@@ -46,7 +48,10 @@ export default function Home() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col flex-wrap items-center gap-20 bg-primary py-20 z-50">
+      <div className="bg-primary">
+        <BiSolidCoffeeBean />
+      </div>
+      <section className="flex flex-col flex-wrap items-center gap-20 bg-primary py-20 ">
         <div className="flex flex-wrap gap-20 justify-center ">
           <ContentBox
             image="/images/barista-coffee.jpg"
@@ -55,6 +60,11 @@ export default function Home() {
           we've masterfully roasted them at Nuvola Coffee Shop. Each
           cup unfolds a unique narrative, a story that may never be told
           again!"
+            icon={
+              <div className="text-secondary text-3xl">
+                <PiCoffee />
+              </div>
+            }
           />
           <ContentBox
             image="/images/pets-in-shop.jpg"
@@ -65,6 +75,11 @@ export default function Home() {
           moments, one sip at a time, surrounded by the delightful company
           of your loyal friends."
             reverse={true}
+            icon={
+              <div className="text-yellow-700 text-3xl">
+                <PiCat />
+              </div>
+            }
           />
         </div>
         <div className="flex flex-wrap gap-20 justify-center">
@@ -79,6 +94,11 @@ export default function Home() {
           enjoyment of our coffee also supports a greener, more sustainable
           world. Every cup you savor is a step towards a cleaner, brighter
           future for our planet."
+            icon={
+              <div className="text-green-800 text-3xl">
+                <PiLeaf />
+              </div>
+            }
           />
           <ContentBox
             image="/images/unicef.png"
@@ -89,6 +109,11 @@ export default function Home() {
           around the world. Together, we are brewing positive change and
           nurturing brighter futures."
             reverse={true}
+            icon={
+              <div className="text-red-800 text-3xl">
+                <PiHandHeart />
+              </div>
+            }
           />
         </div>
       </section>

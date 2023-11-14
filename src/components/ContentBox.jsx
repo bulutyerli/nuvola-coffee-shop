@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function ContentBox({ image, title, content, reverse }) {
+export default function ContentBox({ image, title, content, reverse, icon }) {
   return (
     <article
       className={`flex flex-col ${
@@ -19,7 +19,10 @@ export default function ContentBox({ image, title, content, reverse }) {
           reverse ? "sm:self-end" : ""
         }`}
       >
-        <h3 className="text-xl text-neutral-900 font-semibold">{title}</h3>
+        <h3 className="text-xl text-neutral-900 font-semibold flex gap-2 items-center">
+          {title}
+          {icon}
+        </h3>
         <p className="text-neutral-700">{content}</p>
       </span>
     </article>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PiShoppingCartSimpleBold, PiUserBold, PiXBold } from "react-icons/pi";
 import { useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
+import Cart from "./Cart";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
@@ -12,6 +13,8 @@ export default function Header({ session }) {
   const [menu, setMenu] = useState(false);
   const menuRef = useRef();
   const router = useRouter();
+  const [cart, setCart] = useState(false);
+  const cartRef = useRef();
 
   const signOut = async () => {
     await axios.post("/api/auth/sign-out");
@@ -21,6 +24,11 @@ export default function Header({ session }) {
 
   const handleMenu = () => {
     setMenu(!menu);
+    window.scrollTo(0, 0);
+  };
+
+  const handleCart = () => {
+    setCart(!cart);
     window.scrollTo(0, 0);
   };
 
@@ -43,6 +51,26 @@ export default function Header({ session }) {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [menu]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setCart(false);
+      }
+    };
+    if (cart) {
+      document.body.classList.add("no-scroll");
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.body.classList.remove("no-scroll");
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [cart]);
 
   const clickHandler = () => {
     setMenu(false);
@@ -76,9 +104,12 @@ export default function Header({ session }) {
         </Link>
       </nav>
       <div className="flex items-center gap-6 text-2xl text-secondary col-start-2 col-span-1 justify-end ">
-        <Link href="cart">
-          <PiShoppingCartSimpleBold className="hover:fill-neutral-600" />
-        </Link>
+        <PiShoppingCartSimpleBold
+          onClick={() => {
+            handleCart();
+          }}
+          className="hover:fill-neutral-600 cursor-pointer"
+        />
         {menu ? (
           <PiXBold className="cursor-pointer" />
         ) : (
@@ -91,6 +122,14 @@ export default function Header({ session }) {
         )}
       </div>
       <div
+        ref={cartRef}
+        className={`fixed z-10 right-0 top-24 shadow-lg shadow-secondary h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out ${
+          cart ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <Cart isUser={session} />
+      </div>
+      <div
         ref={menuRef}
         className={`fixed z-10 right-0 top-24 shadow-lg shadow-secondary h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out ${
           menu ? "translate-x-0" : "translate-x-full"
@@ -98,7 +137,6 @@ export default function Header({ session }) {
       >
         <Menu
           signOutClick={signOut}
-          menu={menu}
           isUser={session}
           linkClick={clickHandler}
         />

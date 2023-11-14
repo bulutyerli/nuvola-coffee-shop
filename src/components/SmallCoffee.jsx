@@ -4,7 +4,7 @@ export default function SmallCoffee({ coffee }) {
   return (
     <div className="relative">
       <Image
-        className="opacity-80 transition-opacity hover:opacity-100 cursor-pointer"
+        className="opacity-80 transition-opacity hover:opacity-100 cursor-pointer w-20 h-auto sm:w-36"
         src={`/images/${coffee}-pack.png`}
         alt={`${coffee} pack`}
         width={125}

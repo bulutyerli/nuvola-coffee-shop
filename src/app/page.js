@@ -4,7 +4,6 @@ import StoreFlags from "@/components/StoreFlags";
 import SmallCoffee from "@/components/SmallCoffee";
 import ContentBox from "@/components/ContentBox";
 import { PiCat, PiHandHeart, PiCoffee, PiLeaf } from "react-icons/pi";
-import { BiSolidCoffeeBean } from "react-icons/bi";
 
 export default function Home() {
   return (
@@ -33,25 +32,27 @@ export default function Home() {
             online store.
           </Link>
         </h3>
-        <div className="flex justify-center flex-wrap gap-10 ">
-          <Link href="/shop#brazil">
-            <SmallCoffee coffee={"brazil"} />
-          </Link>
-          <Link href="/shop#columbia">
-            <SmallCoffee coffee={"columbia"} />
-          </Link>
-          <Link href="/shop#mexico">
-            <SmallCoffee coffee={"mexico"} />
-          </Link>
-          <Link href="/shop#ethiopia">
-            <SmallCoffee coffee={"ethiopia"} />
-          </Link>
+        <div className="flex flex-row justify-center flex-wrap gap-10 ">
+          <div className="flex flex-col sm:flex-row gap-10">
+            <Link href="/shop#brazil">
+              <SmallCoffee coffee={"brazil"} />
+            </Link>
+            <Link href="/shop#columbia">
+              <SmallCoffee coffee={"columbia"} />
+            </Link>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-10">
+            <Link href="/shop#mexico">
+              <SmallCoffee coffee={"mexico"} />
+            </Link>
+            <Link href="/shop#ethiopia">
+              <SmallCoffee coffee={"ethiopia"} />
+            </Link>
+          </div>
         </div>
       </section>
-      <div className="bg-primary">
-        <BiSolidCoffeeBean />
-      </div>
-      <section className="flex flex-col flex-wrap items-center gap-20 bg-primary py-20 ">
+
+      <section className="flex flex-col flex-wrap items-center gap-20 bg-primary py-10 ">
         <div className="flex flex-wrap gap-20 justify-center ">
           <ContentBox
             image="/images/barista-coffee.jpg"

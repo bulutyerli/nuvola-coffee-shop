@@ -77,8 +77,8 @@ export default function Header({ session }) {
   };
 
   return (
-    <header className="p-1 bg-primary grid grid-cols-2 grid-rows-none items-center justify-between sm:flex relative mx-5">
-      <div className="col-start-1 col-span-1">
+    <header className=" bg-primary grid grid-cols-2 grid-rows-none items-center justify-between sm:flex relative px-1 sm:px-3">
+      <div className="col-start-1 col-span-1 w-16 h-auto sm:w-32">
         <Link href="/">
           <Image
             src="/logo.svg"
@@ -103,7 +103,7 @@ export default function Header({ session }) {
           Stores
         </Link>
       </nav>
-      <div className="flex items-center gap-6 text-2xl text-secondary col-start-2 col-span-1 justify-end ">
+      <div className="flex items-center gap-6 text-xl sm:text-2xl text-secondary col-start-2 col-span-1 justify-end ">
         <PiShoppingCartSimpleBold
           onClick={() => {
             handleCart();
@@ -123,16 +123,16 @@ export default function Header({ session }) {
       </div>
       <div
         ref={cartRef}
-        className={`fixed z-10 right-0 top-24 shadow-lg shadow-secondary h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out ${
-          cart ? "translate-x-0" : "translate-x-full"
+        className={`fixed z-10 right-0 top-24 h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out ${
+          cart ? "translate-x-0 shadow-lg shadow-secondary" : "translate-x-full"
         }`}
       >
         <Cart isUser={session} />
       </div>
       <div
         ref={menuRef}
-        className={`fixed z-10 right-0 top-24 shadow-lg shadow-secondary h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out ${
-          menu ? "translate-x-0" : "translate-x-full"
+        className={`fixed z-10 right-0 top-24 h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out ${
+          menu ? "translate-x-0 shadow-lg shadow-secondary" : "translate-x-full"
         }`}
       >
         <Menu

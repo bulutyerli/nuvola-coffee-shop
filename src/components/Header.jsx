@@ -15,6 +15,7 @@ export default function Header({ session }) {
   const router = useRouter();
   const [cart, setCart] = useState(false);
   const cartRef = useRef();
+  const [cartCount, setCartCount] = useState(3);
 
   const signOut = async () => {
     await axios.post("/api/auth/sign-out");
@@ -77,7 +78,7 @@ export default function Header({ session }) {
   };
 
   return (
-    <header className=" bg-primary grid grid-cols-2 grid-rows-none items-center justify-between sm:flex relative px-1 sm:px-3">
+    <header className=" bg-primary grid grid-cols-2 grid-rows-none items-center justify-between sm:flex relative px-1 sm:px-3 pb-5">
       <div className="col-start-1 col-span-1 w-16 h-auto sm:w-32">
         <Link href="/">
           <Image
@@ -104,14 +105,25 @@ export default function Header({ session }) {
         </Link>
       </nav>
       <div className="flex items-center gap-6 text-xl sm:text-2xl text-secondary col-start-2 col-span-1 justify-end ">
-        <PiShoppingCartSimpleBold
-          onClick={() => {
-            handleCart();
-          }}
-          className="hover:fill-neutral-600 cursor-pointer"
-        />
+        <div className="relative">
+          <PiShoppingCartSimpleBold
+            onClick={() => {
+              handleCart();
+            }}
+            className="hover:fill-neutral-600 cursor-pointer"
+          />
+          <div className="absolute text-sm bg-green-800 text-gray-100 rounded-full -top-2 left-3 w-5 h-5 flex items-center justify-center">
+            {cartCount > 0 ? cartCount : ""}
+          </div>
+        </div>
+
         {menu ? (
-          <PiXBold className="cursor-pointer" />
+          <PiXBold
+            onClick={() => {
+              handleMenu();
+            }}
+            className="cursor-pointer"
+          />
         ) : (
           <PiUserBold
             onClick={() => {

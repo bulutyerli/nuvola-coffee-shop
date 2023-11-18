@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
 import { PiXBold } from "react-icons/pi";
 import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createBrowserClient } from "@supabase/ssr";
 
 export default function ProfileForm({ userData, form }) {
-  const supabase = createClientComponentClient();
-
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
   const [newData, setNewData] = useState({
     address: userData.address,
     city: userData.city,

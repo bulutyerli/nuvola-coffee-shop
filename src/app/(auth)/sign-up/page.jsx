@@ -23,7 +23,7 @@ export default function SignUpPage() {
         method="post"
         className="flex flex-col gap-12 justify-center max-w-xs w-full"
       >
-        <div className="sm:flex gap-20 justify-center">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-20 justify-center">
           <div className="flex flex-col gap-6 md:min-w-full">
             <div className="flex flex-col gap-2">
               <label className="text-sm text-neutral-700" htmlFor="name">
@@ -52,6 +52,7 @@ export default function SignUpPage() {
               <input
                 className="shadow-inner shadow-neutral-200 rounded-lg p-1 text-sm focus:outline-none focus:border-secondary focus:border-2"
                 type="email"
+                placeholder="example@example.com"
                 {...register("email", {
                   required: true,
                   pattern: /^\S+@\S+$/i,
@@ -65,7 +66,11 @@ export default function SignUpPage() {
               <input
                 className="shadow-inner shadow-neutral-200 rounded-lg p-1 text-sm focus:outline-none focus:border-secondary focus:border-2"
                 type="password"
-                {...register("password", { required: true, minLength: 6 })}
+                placeholder="Minumum 6 characters"
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                })}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -82,7 +87,6 @@ export default function SignUpPage() {
               />
             </div>{" "}
           </div>
-
           <div className="flex flex-col gap-6 md:min-w-full">
             <div className="flex flex-col gap-2">
               <label className="text-sm text-neutral-700" htmlFor="text">

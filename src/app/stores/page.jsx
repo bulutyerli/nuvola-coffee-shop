@@ -1,5 +1,4 @@
 import Stores from "@/components/Stores";
-import Image from "next/image";
 
 export default function StoresPage() {
   return (

@@ -2,7 +2,7 @@ import ReactCountryFlag from "react-country-flag";
 
 export default function StoreFlags({ country }) {
   return (
-    <div className="flex flex-col gap-3 pt-5 items-center text-xs">
+    <div className="flex flex-col gap-3 items-center text-xs py-5">
       <ReactCountryFlag
         svg
         style={{

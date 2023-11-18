@@ -1,4 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { fullAddress } from "@/app/helpers/fullAddress";
 import { fullName } from "@/app/helpers/fullName";
@@ -8,11 +8,22 @@ import ProfileForm from "@/components/ProfileForm";
 
 export default async function ProfilePage({ searchParams }) {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    }
+  );
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const userData = user.user_metadata;
+  const userData = user?.user_metadata;
 
   const address = fullAddress(userData);
   const name = fullName(userData);
@@ -21,7 +32,7 @@ export default async function ProfilePage({ searchParams }) {
   const passwordForm = searchParams.password;
 
   return (
-    <section className="flex-grow mt-10 flex flex-col items-start px-10 sm:px-0 gap-20 max-w-2xl self-center">
+    <section className="mt-10  flex flex-col items-start px-10  gap-20 self-center max-w-screen-2xl ">
       <h1 className="text-2xl text-neutral-900">Profile</h1>
       <div className="flex flex-col gap-2">
         <h2 className="text-neutral-800"> Hello {name},</h2>
@@ -29,7 +40,7 @@ export default async function ProfilePage({ searchParams }) {
           On this page you can check and change your account info
         </span>
       </div>
-      <div className="flex flex-col gap-2 border-t-2 border-neutral-500 pt-5">
+      <div className="flex flex-col w-full gap-2 border-t-2 border-neutral-500 pt-5">
         <h2 className="text-neutral-800">Your Order Address:</h2>
         <span className="text-neutral-500 break-all">{address}</span>
         <span className="text-red-700 cursor-pointer hover:underline flex items-center gap-1">

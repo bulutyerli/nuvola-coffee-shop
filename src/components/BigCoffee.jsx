@@ -1,8 +1,19 @@
+"use client";
+
+import axios from "axios";
 import Image from "next/image";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 
 export default function BigCoffee({ data }) {
   const isEven = data.id % 2 === 0;
+
+  const addCart = async ({ productId, quantity, price }) => {
+    const res = await axios.post("/api/cart", {
+      productId: productId,
+      quantity: quantity,
+      price: price,
+    });
+  };
 
   return (
     <div className="flex flex-col gap-5 items-center justify-between px-3 lg:grid lg:grid-cols-12 lg:gap-6 border-b-2 border-secondary pb-12">
@@ -76,7 +87,16 @@ export default function BigCoffee({ data }) {
                 <span className="text-xs font-thin">Ground Coffee</span>
                 <div className="flex justify-around w-full">
                   <span className="font-medium">${item.price}</span>
-                  <PiShoppingCartSimpleBold className="text-2xl cursor-pointer opacity-80 transition-opacity hover:opacity-100" />
+                  <PiShoppingCartSimpleBold
+                    onClick={() =>
+                      addCart({
+                        productId: data.id,
+                        quantity: 1,
+                        price: item.price,
+                      })
+                    }
+                    className="text-2xl cursor-pointer opacity-80 transition-opacity hover:opacity-100"
+                  />
                 </div>
               </li>
             );

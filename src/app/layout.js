@@ -2,7 +2,7 @@ import { Merriweather_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 const merri = Merriweather_Sans({ subsets: ["latin"] });
@@ -13,7 +13,19 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    }
+  );
 
   const {
     data: { session },

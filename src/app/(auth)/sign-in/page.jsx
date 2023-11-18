@@ -57,7 +57,7 @@ export default function SignInPage() {
             <input
               className="shadow-inner shadow-neutral-200 rounded-lg p-1 text-sm focus:outline-none focus:border-secondary focus:border-2"
               type="email"
-              {...register("email", { required: true })}
+              {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -67,7 +67,7 @@ export default function SignInPage() {
             <input
               className="shadow-inner shadow-neutral-200 rounded-lg p-1 text-sm focus:outline-none focus:border-secondary focus:border-2"
               type="password"
-              {...register("password", { required: true })}
+              {...register("password", { required: true, min: 6 })}
             />
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function SignInPage() {
       )}
       <p className="text-gray-600 text-sm">
         Don&apos;t you have an account yet?{" "}
-        <Link href="/sign-in">
+        <Link href="/sign-up">
           <span className="text-blue-800 hover:underline">Sign Up</span>
         </Link>
       </p>

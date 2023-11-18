@@ -1,8 +1,6 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-
-export const runtime = "edge";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -11,7 +9,7 @@ export async function GET(request) {
 
   if (token_hash && type) {
     const cookieStore = cookies();
-    const supabase = createRouteHandlerClient(
+    const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       {

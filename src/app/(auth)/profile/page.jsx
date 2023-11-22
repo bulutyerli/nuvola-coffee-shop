@@ -32,7 +32,7 @@ export default async function ProfilePage({ searchParams }) {
   const passwordForm = searchParams.password;
 
   return (
-    <section className="mt-10  flex flex-col items-start px-10  gap-20 self-center max-w-screen-2xl ">
+    <section className="mt-10  flex flex-col items-start px-10  gap-20 self-center max-w-screen-lg sm:w-screen ">
       <h1 className="text-2xl text-neutral-900">Profile</h1>
       <div className="flex flex-col gap-2">
         <h2 className="text-neutral-800"> Hello {name},</h2>

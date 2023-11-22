@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { ReduxProvider } from "@/store/reduxProvider";
 
 const merri = Merriweather_Sans({ subsets: ["latin"] });
 
@@ -36,8 +37,10 @@ export default async function RootLayout({ children }) {
       <body
         className={`${merri.className} bg-primary flex flex-col min-h-screen`}
       >
-        <Header session={session} />
-        {children}
+        <ReduxProvider>
+          <Header session={session} />
+          {children}
+        </ReduxProvider>
         <Footer />
       </body>
     </html>

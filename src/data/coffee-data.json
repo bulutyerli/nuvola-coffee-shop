@@ -7,11 +7,12 @@
     "title2": "Choose Your Brew",
     "content2": "Whether you prefer the intensity of a velvety espresso, the delight of a frothy cappuccino, or the refreshment of a smooth cold brew, each cup is a homage to Brazil's finest coffee traditions.",
     "prices": [
-      { "size": "250g", "price": 6 },
-      { "size": "500g", "price": 11 },
-      { "size": "1000g", "price": 20 }
+      { "sizeId": "s1", "size": "250g", "price": 6 },
+      { "sizeId": "s2", "size": "500g", "price": 11 },
+      { "sizeId": "s3", "size": "1000g", "price": 20 }
     ],
     "image": "/images/brazil-big.png",
+    "package": "/images/brazil-pack.png",
     "color": "brazil"
   },
   {
@@ -22,11 +23,12 @@
     "title2": "Craft Your Experience",
     "content2": "Whether you seek the warmth of a traditional Colombian 'tinto' the boldness of a cortado, or the exotic allure of a café de olla, each cup is a gateway to the Colombian coffee culture, celebrated for its diverse flavors and unique brewing methods.",
     "prices": [
-      { "size": "250g", "price": 6 },
-      { "size": "500g", "price": 11 },
-      { "size": "1000g", "price": 20 }
+      { "sizeId": "s1", "size": "250g", "price": 6 },
+      { "sizeId": "s2", "size": "500g", "price": 11 },
+      { "sizeId": "s3", "size": "1000g", "price": 20 }
     ],
     "image": "/images/columbia-big.png",
+    "package": "/images/columbia-pack.png",
     "color": "columbia"
   },
   {
@@ -37,11 +39,12 @@
     "title2": "Sip into Serenity",
     "content2": "Indulge in the serenity of Mexican coffee, where each sip carries the wisdom of generations. Whether you choose the velvety embrace of espresso, the harmonious notes of cappuccino, or the refreshing simplicity of cold brew, each cup is a tribute to the Chiapas tradition.",
     "prices": [
-      { "size": "250g", "price": 6 },
-      { "size": "500g", "price": 11 },
-      { "size": "1000g", "price": 20 }
+      { "sizeId": "s1", "size": "250g", "price": 6 },
+      { "sizeId": "s2", "size": "500g", "price": 11 },
+      { "sizeId": "s3", "size": "1000g", "price": 20 }
     ],
     "image": "/images/mexico-big.png",
+    "package": "/images/mexico-pack.png",
     "color": "mexico"
   },
   {
@@ -52,11 +55,12 @@
     "title2": "Experience Authenticity",
     "content2": "Whether you prefer the simplicity of a traditional Ethiopian coffee ceremony, the exotic allure of a spicy Yirgacheffe, or the boldness of a Sidamo espresso, each cup transports you to the heart of Ethiopia's coffee culture, where coffee is more than a drink; it's a way of life.",
     "prices": [
-      { "size": "250g", "price": 6 },
-      { "size": "500g", "price": 11 },
-      { "size": "1000g", "price": 20 }
+      { "sizeId": "s1", "size": "250g", "price": 6 },
+      { "sizeId": "s2", "size": "500g", "price": 11 },
+      { "sizeId": "s3", "size": "1000g", "price": 20 }
     ],
     "image": "/images/ethiopia-big.png",
+    "package": "/images/ethiopia-pack.png",
     "color": "ethiopia"
   }
 ]

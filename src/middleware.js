@@ -68,7 +68,8 @@ export async function middleware(request) {
   } else {
     if (
       request.nextUrl.pathname.startsWith("/profile") ||
-      request.nextUrl.pathname.startsWith("/orders")
+      request.nextUrl.pathname.startsWith("/orders") ||
+      request.nextUrl.pathname.startsWith("/cart")
     ) {
       return NextResponse.rewrite(new URL("/sign-in", request.url));
     }

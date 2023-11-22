@@ -5,17 +5,21 @@ import Link from "next/link";
 import { PiShoppingCartSimpleBold, PiUserBold, PiXBold } from "react-icons/pi";
 import { useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
-import Cart from "./Cart";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { fetchCart } from "@/store/cartReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Header({ session }) {
   const [menu, setMenu] = useState(false);
   const menuRef = useRef();
   const router = useRouter();
-  const [cart, setCart] = useState(false);
-  const cartRef = useRef();
-  const [cartCount, setCartCount] = useState(3);
+  const { cartCount } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
 
   const signOut = async () => {
     await axios.post("/api/auth/sign-out");
@@ -25,11 +29,6 @@ export default function Header({ session }) {
 
   const handleMenu = () => {
     setMenu(!menu);
-    window.scrollTo(0, 0);
-  };
-
-  const handleCart = () => {
-    setCart(!cart);
     window.scrollTo(0, 0);
   };
 
@@ -52,26 +51,6 @@ export default function Header({ session }) {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [menu]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (cartRef.current && !cartRef.current.contains(event.target)) {
-        setCart(false);
-      }
-    };
-    if (cart) {
-      document.body.classList.add("no-scroll");
-      document.addEventListener("click", handleClickOutside);
-    } else {
-      document.body.classList.remove("no-scroll");
-      document.removeEventListener("click", handleClickOutside);
-    }
-
-    return () => {
-      document.body.classList.remove("no-scroll");
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [cart]);
 
   const clickHandler = () => {
     setMenu(false);
@@ -106,15 +85,16 @@ export default function Header({ session }) {
       </nav>
       <div className="flex items-center gap-6 text-xl sm:text-2xl text-secondary col-start-2 col-span-1 justify-end ">
         <div className="relative">
-          <PiShoppingCartSimpleBold
-            onClick={() => {
-              handleCart();
-            }}
-            className="hover:fill-neutral-600 cursor-pointer"
-          />
-          <div className="absolute text-sm bg-green-800 text-gray-100 rounded-full -top-2 left-3 w-5 h-5 flex items-center justify-center">
-            {cartCount > 0 ? cartCount : ""}
-          </div>
+          <Link href="/cart">
+            <PiShoppingCartSimpleBold className="hover:fill-neutral-600 cursor-pointer" />
+          </Link>
+          {cartCount > 0 ? (
+            <div className="absolute text-sm bg-green-800 text-gray-100 rounded-full -top-2 left-3 w-5 h-5 flex items-center justify-center">
+              {cartCount}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
 
         {menu ? (
@@ -132,14 +112,6 @@ export default function Header({ session }) {
             className="hover:fill-neutral-600 cursor-pointer"
           />
         )}
-      </div>
-      <div
-        ref={cartRef}
-        className={`fixed z-10 right-0 top-24 h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out ${
-          cart ? "translate-x-0 shadow-lg shadow-secondary" : "translate-x-full"
-        }`}
-      >
-        <Cart isUser={session} />
       </div>
       <div
         ref={menuRef}

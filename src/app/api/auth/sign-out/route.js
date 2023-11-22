@@ -31,7 +31,6 @@ export async function POST(req) {
   } = await supabase.auth.getSession();
 
   if (session) {
-    console.log("Sign out started");
     await supabase.auth.signOut();
   }
 

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useDispatch } from "react-redux";
-import { incrementItem } from "@/store/cartReducer";
+import { incrementItem } from "@/store/cartThunk";
 
 export default function BigCoffee({ data }) {
   const isEven = data.id % 2 === 0;

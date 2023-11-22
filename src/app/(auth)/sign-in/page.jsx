@@ -7,8 +7,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 export default function SignInPage() {
+  const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const router = useRouter();
@@ -25,6 +27,7 @@ export default function SignInPage() {
         reset();
       }
       if (res.data.success) {
+        dispatch(fetchCart());
         router.refresh();
         router.push("/");
       }

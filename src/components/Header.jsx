@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { fetchCart } from "@/store/cartReducer";
+import { fetchCart } from "@/store/cartThunk";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Header({ session }) {
@@ -23,6 +23,7 @@ export default function Header({ session }) {
 
   const signOut = async () => {
     await axios.post("/api/auth/sign-out");
+    dispatch(fetchCart());
     router.refresh();
     router.push("/");
   };

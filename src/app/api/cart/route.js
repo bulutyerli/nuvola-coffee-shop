@@ -49,13 +49,9 @@ export async function GET(request) {
 
       return NextResponse.json({ success: true, data });
     } else {
-      return NextResponse.json(
-        { success: false, error: "No user session" },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, error: "No user session" });
     }
   } catch (e) {
-    // Handle unexpected errors
     console.error(e);
     return NextResponse.json(
       { success: false, error: "Internal Server Error" },
@@ -84,7 +80,7 @@ export async function POST(request) {
         .eq("sizeId", sizeId);
 
       if (error) {
-        console.log("dublicate problem", error.message);
+        console.log("dublicate item", error.message);
         throw new Error(error);
       }
 
@@ -115,6 +111,7 @@ export async function POST(request) {
       }
 
       return NextResponse.json({
+        userId,
         success: true,
         message: "Item added to the cart",
       });
@@ -132,7 +129,7 @@ export async function POST(request) {
 
 export async function DELETE(request) {
   const supabase = createClient();
-  const { id } = await request.json();
+  const { productId, sizeId } = await request.json();
 
   const {
     data: { session },
@@ -143,7 +140,8 @@ export async function DELETE(request) {
       const { error } = await supabase
         .from("shopping_cart")
         .delete()
-        .eq("id", id);
+        .eq("product_id", productId)
+        .eq("sizeId", sizeId);
       if (error) {
         throw new Error(error.message);
       }
@@ -151,6 +149,56 @@ export async function DELETE(request) {
     } catch (error) {
       console.log(error.message);
       return NextResponse.json({ success: false, error: error.message });
+    }
+  } else {
+    return NextResponse.json({ success: false, error: "No user session" });
+  }
+}
+
+export async function PUT(request) {
+  const supabase = createClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (session) {
+    const userId = session?.user?.id;
+
+    try {
+      const { productId, sizeId, quantity } = await request.json();
+
+      const { data, error } = await supabase
+        .from("shopping_cart")
+        .select("*")
+        .eq("user_id", userId)
+        .eq("product_id", productId)
+        .eq("sizeId", sizeId);
+
+      if (error) {
+        console.log("cant get data from cart", error.message);
+        throw new Error(error);
+      }
+
+      await supabase
+        .from("shopping_cart")
+        .update({
+          quantity,
+        })
+        .eq("user_id", userId)
+        .eq("product_id", productId)
+        .eq("sizeId", sizeId);
+
+      return NextResponse.json({
+        userId,
+        success: true,
+        message: "Item quantity updated",
+      });
+    } catch (error) {
+      console.error("Error updating item:", error);
+      return NextResponse.json({
+        success: false,
+        error: "Error updating item",
+      });
     }
   } else {
     return NextResponse.json({ success: false, error: "No user session" });

@@ -3,7 +3,7 @@
 import coffeeData from "@/data/coffee-data.json";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { deleteItem } from "@/store/cartReducer";
+import { deleteItem, updateItem } from "@/store/cartThunk";
 
 export default function CartCard({ data }) {
   const dispatch = useDispatch();
@@ -21,14 +21,11 @@ export default function CartCard({ data }) {
 
   const image = coffeeData[data.product_id - 1]?.package;
 
+  const altText = `Nuvola Coffee ${title} Package`;
+
   return (
     <div className="flex flex-col items-center md:flex-row md:items-start gap-10 md:gap-20 md:px-10 w-full">
-      <Image
-        src={image}
-        alt={`Nuvola Coffee ${title}`}
-        width={100}
-        height={100}
-      ></Image>
+      <Image src={image} alt={altText} width={100} height={100}></Image>
       <div className="flex flex-col gap-2">
         <h2 className="text-neutral-300 text-xl">Nuvola Coffee {title}</h2>
         <dl className="text-neutral-300">
@@ -41,8 +38,14 @@ export default function CartCard({ data }) {
               name="quantity"
               value={data.quantity}
               onChange={(event) => {
-                setQuantity(event.target.value);
-                changeQuantity(data.id, event.target.value);
+                dispatch(
+                  updateItem({
+                    productId: data.product_id,
+                    quantity: parseInt(event.target.value),
+                    price: data.price,
+                    sizeId: data.sizeId,
+                  })
+                );
               }}
             >
               <option value="1">1</option>
@@ -58,7 +61,12 @@ export default function CartCard({ data }) {
             <div className="text-neutral-400">${data.price}</div>
             <div
               onClick={() => {
-                deleteHandler(data.id);
+                dispatch(
+                  deleteItem({
+                    productId: data.product_id,
+                    sizeId: data.sizeId,
+                  })
+                );
               }}
               className="text-xs text-red-400 cursor-pointer"
             >

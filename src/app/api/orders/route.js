@@ -34,7 +34,7 @@ export async function POST(request) {
     const userId = session?.user?.id;
 
     try {
-      const { productId, sizeId, quantity, price, orderNumber, total } =
+      const { productId, sizeId, quantity, price, orderNumber, total, size } =
         await request.json();
 
       const { error: orderError } = await supabase.from("orders").insert([
@@ -46,6 +46,7 @@ export async function POST(request) {
           price: price,
           sizeId: sizeId,
           total: total,
+          size: size,
         },
       ]);
 

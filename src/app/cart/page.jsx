@@ -33,6 +33,7 @@ export default function CartPage() {
             quantity: item.quantity,
             price: item.price,
             total: total,
+            size: item.size,
           });
           if (res.data.error) {
             throw new Error(error);
@@ -40,6 +41,7 @@ export default function CartPage() {
           setSuccess(true);
           dispatch(resetCart());
           setTimeout(() => {
+            router.refresh();
             router.push("/orders");
           }, 3000);
         } catch (error) {
@@ -49,8 +51,6 @@ export default function CartPage() {
         }
       })
     );
-
-    console.log("All items processed");
   };
   return (
     <div className="flex flex-col items-start p-10 pb-20 gap-5 bg-primary_light w-10/12 self-center">

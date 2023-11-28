@@ -42,7 +42,8 @@ const cartSlice = createSlice({
     });
 
     builder.addCase(cartThunks.incrementItem.fulfilled, (state, action) => {
-      const { productId, sizeId, quantity, price, userId } = action.payload;
+      const { productId, sizeId, quantity, price, userId, size } =
+        action.payload;
       const updatedCart = state.cart.map((item) => {
         if (item.product_id === productId && item.sizeId === sizeId) {
           return { ...item, quantity: item.quantity + parseInt(quantity) };
@@ -61,6 +62,7 @@ const cartSlice = createSlice({
           quantity,
           price,
           user_id: userId,
+          size,
         });
       }
       return {

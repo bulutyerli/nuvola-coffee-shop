@@ -69,7 +69,7 @@ export async function POST(request) {
     const userId = session?.user?.id;
 
     try {
-      const { productId, sizeId, quantity, price } = await request.json();
+      const { productId, sizeId, quantity, price, size } = await request.json();
 
       const { data: existingCartData, error } = await supabase
         .from("shopping_cart")
@@ -100,6 +100,7 @@ export async function POST(request) {
             quantity: quantity,
             price: price,
             sizeId: sizeId,
+            size: size,
           },
         ]);
 

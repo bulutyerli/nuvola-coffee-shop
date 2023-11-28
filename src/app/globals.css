@@ -9,6 +9,11 @@ body {
   margin: 0 auto;
 }
 
+body,
+html {
+  overflow-x: hidden;
+}
+
 .no-scroll {
   overflow: hidden;
 }

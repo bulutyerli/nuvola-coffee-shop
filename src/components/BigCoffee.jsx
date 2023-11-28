@@ -89,6 +89,7 @@ export default function BigCoffee({ data }) {
                           quantity: 1,
                           price: item.price,
                           sizeId: item.sizeId,
+                          size: item.size,
                         })
                       )
                     }

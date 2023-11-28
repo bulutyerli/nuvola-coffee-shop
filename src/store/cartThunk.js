@@ -17,17 +17,18 @@ export const fetchCart = createAsyncThunk("cart/getCart", async (thunkApi) => {
 
 export const incrementItem = createAsyncThunk(
   "cart/incrementItem",
-  async ({ productId, sizeId, quantity, price }, thunkApi) => {
+  async ({ productId, sizeId, quantity, price, size }, thunkApi) => {
     try {
       const res = await axios.post("/api/cart", {
         productId,
         sizeId,
         quantity,
         price,
+        size,
       });
       const userId = res.data.userId;
 
-      return { productId, sizeId, quantity, price, userId };
+      return { productId, sizeId, quantity, price, userId, size };
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +52,7 @@ export const deleteItem = createAsyncThunk(
 
 export const updateItem = createAsyncThunk(
   "cart/updateItem",
-  async ({ productId, sizeId, quantity, price }, thunkApi) => {
+  async ({ productId, sizeId, quantity }, thunkApi) => {
     try {
       const res = await axios.put("/api/cart", {
         productId,

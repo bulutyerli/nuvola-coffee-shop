@@ -29,7 +29,6 @@ export default async function ProfilePage({ searchParams }) {
   const name = fullName(userData);
   const addressForm = searchParams.form;
   const emailForm = searchParams.email;
-  const passwordForm = searchParams.password;
 
   return (
     <section className="mt-10  flex flex-col items-start px-10  gap-20 self-center max-w-screen-lg sm:w-screen ">
@@ -78,16 +77,10 @@ export default async function ProfilePage({ searchParams }) {
             </span>
             <span className="text-red-700 cursor-pointer hover:underline flex items-center gap-1 mb-5">
               <PiPencil size={17} />
-              <Link
-                href={`${passwordForm ? "/profile" : "?password=true"}`}
-                className="text-xs underline"
-              >
+              <Link href="/update-password" className="text-xs underline">
                 Change
               </Link>
             </span>
-            {passwordForm && (
-              <ProfileForm form={"password"} userData={userData} />
-            )}
           </div>
         </div>
       </div>

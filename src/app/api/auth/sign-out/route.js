@@ -31,7 +31,11 @@ export async function POST(req) {
   } = await supabase.auth.getSession();
 
   if (session) {
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      return NextResponse.json({ status: 402, success: false });
+    }
   }
 
   return NextResponse.json({ status: 301, success: true });

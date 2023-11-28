@@ -1,5 +1,5 @@
 // slices/userSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import * as cartThunks from "./cartThunk";
 
 const initialState = {
@@ -7,6 +7,8 @@ const initialState = {
   cartCount: 0,
   loading: false,
 };
+
+export const resetCart = createAction("cart/resetCart");
 
 const cartSlice = createSlice({
   name: "cart",
@@ -20,6 +22,14 @@ const cartSlice = createSlice({
         (total, item) => total + item.quantity,
         0
       );
+    });
+
+    builder.addCase(resetCart, (state) => {
+      return {
+        ...state,
+        cart: [],
+        cartCount: 0,
+      };
     });
 
     builder.addCase(cartThunks.fetchCart.pending, (state, action) => {
@@ -55,12 +65,18 @@ const cartSlice = createSlice({
       }
       return {
         ...state,
+        loading: false,
         cart: updatedCart,
         cartCount: state.cartCount + parseInt(quantity),
       };
     });
 
+    builder.addCase(cartThunks.incrementItem.pending, (state, action) => {
+      state.loading = true;
+    });
+
     builder.addCase(cartThunks.deleteItem.fulfilled, (state, action) => {
+      state.loading = false;
       const { productId, sizeId } = action.payload;
       const deletedItem = state.cart.find(
         (item) => item.product_id === productId && item.sizeId === sizeId
@@ -76,6 +92,10 @@ const cartSlice = createSlice({
         };
       }
       return state;
+    });
+
+    builder.addCase(cartThunks.updateItem.pending, (state, action) => {
+      state.loading = true;
     });
 
     builder.addCase(cartThunks.updateItem.fulfilled, (state, action) => {
@@ -95,6 +115,7 @@ const cartSlice = createSlice({
 
       return {
         ...state,
+        loading: false,
         cart: updatedCart,
         cartCount: newCartCount,
       };

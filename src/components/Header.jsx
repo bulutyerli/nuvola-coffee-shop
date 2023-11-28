@@ -9,23 +9,36 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { fetchCart } from "@/store/cartThunk";
 import { useDispatch, useSelector } from "react-redux";
+import { signInAction, signOutAction, signOutFailure } from "@/store/userSlice";
+import { Spinner } from "./LoadingSpinner";
+import logo from "../../public/logo.svg";
 
 export default function Header({ session }) {
   const [menu, setMenu] = useState(false);
   const menuRef = useRef();
   const router = useRouter();
-  const { cartCount } = useSelector((state) => state.cart);
+  const { cartCount, loading } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch]);
+    if (session) {
+      dispatch(signInAction());
+      dispatch(fetchCart());
+    } else {
+      dispatch(signOutAction());
+    }
+  }, [session, dispatch]);
 
   const signOut = async () => {
-    await axios.post("/api/auth/sign-out");
-    dispatch(fetchCart());
-    router.refresh();
-    router.push("/");
+    const res = await axios.post("/api/auth/sign-out");
+    if (res.data.success) {
+      dispatch(fetchCart());
+      dispatch(signOutAction());
+      router.refresh();
+      router.push("/");
+    } else {
+      dispatch(signOutFailure());
+    }
   };
 
   const handleMenu = () => {
@@ -59,15 +72,9 @@ export default function Header({ session }) {
 
   return (
     <header className=" bg-primary grid grid-cols-2 grid-rows-none items-center justify-between sm:flex relative px-1 sm:px-3 pb-5">
-      <div className="col-start-1 col-span-1 w-16 h-auto sm:w-32">
+      <div className="col-start-1 col-span-1 w-24 h-auto md:w-32">
         <Link href="/">
-          <Image
-            src="/logo.svg"
-            alt="nuvola coffee shop logo"
-            width={100}
-            height={100}
-            priority
-          ></Image>
+          <Image src={logo} alt="nuvola coffee shop logo" priority></Image>
         </Link>
       </div>
       <nav className="flex gap-10 text-secondary col-start-1 col-span-3 row-start-2 justify-center">
@@ -90,8 +97,8 @@ export default function Header({ session }) {
             <PiShoppingCartSimpleBold className="hover:fill-neutral-600 cursor-pointer" />
           </Link>
           {cartCount > 0 ? (
-            <div className="absolute text-sm bg-green-800 text-gray-100 rounded-full -top-2 left-3 w-5 h-5 flex items-center justify-center">
-              {cartCount}
+            <div className="absolute text-xs bg-green-800 text-gray-100 rounded-full -top-2 left-3 w-5 h-5 flex items-center justify-center">
+              {loading ? <Spinner /> : cartCount}
             </div>
           ) : (
             ""
@@ -120,11 +127,7 @@ export default function Header({ session }) {
           menu ? "translate-x-0 shadow-lg shadow-secondary" : "translate-x-full"
         }`}
       >
-        <Menu
-          signOutClick={signOut}
-          isUser={session}
-          linkClick={clickHandler}
-        />
+        <Menu signOutClick={signOut} linkClick={clickHandler} />
       </div>
     </header>
   );

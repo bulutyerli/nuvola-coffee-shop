@@ -2,9 +2,8 @@ import { Merriweather_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
 import { ReduxProvider } from "@/store/reduxProvider";
+import { getServerSession } from "@/lib/serverAuth";
 
 const merri = Merriweather_Sans({ subsets: ["latin"] });
 
@@ -14,23 +13,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const cookieStore = cookies();
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    {
-      cookies: {
-        get(name) {
-          return cookieStore.get(name)?.value;
-        },
-      },
-    }
-  );
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { session } = await getServerSession();
 
   return (
     <html lang="en">

@@ -19,15 +19,15 @@ export default function ProfileForm({ userData, form }) {
     country: userData.country,
   });
   const [newEmail, setNewEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [reEnterPass, setReEnterPass] = useState("");
   const [error, setError] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const updateUser = async () => {
     try {
-      const { data, error } = await supabase.auth.updateUser({
+      setError(false);
+      setIsLoading(true);
+      const { error } = await supabase.auth.updateUser({
         data: {
           address: newData.address,
           city: newData.city,
@@ -37,10 +37,12 @@ export default function ProfileForm({ userData, form }) {
         },
       });
       if (error) {
-        throw new Error(error);
+        setError(true);
       }
     } catch (error) {
-      console.log(error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,42 +65,12 @@ export default function ProfileForm({ userData, form }) {
   };
 
   useEffect(() => {
-    if (
-      password.length > 0 &&
-      reEnterPass.length > 0 &&
-      password === reEnterPass
-    ) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  }, [password, reEnterPass]);
-
-  useEffect(() => {
     if (newEmail.length > 0) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
   }, [newEmail]);
-
-  const updatePassword = async () => {
-    try {
-      setIsLoading(true);
-      if (password === reEnterPass) {
-        const { data, error } = await supabase.auth.updateUser({
-          password: password,
-        });
-        if (error) {
-          throw new Error(error);
-        }
-      }
-    } catch (error) {
-      setError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return form === "address" ? (
     <form
@@ -187,7 +159,7 @@ export default function ProfileForm({ userData, form }) {
         {error ? "Something went wrong" : ""}
       </span>
     </form>
-  ) : form === "email" ? (
+  ) : (
     <form
       className="flex flex-col gap-5 p-5 max-w-xs bg-secondary mt-5 border-2 border-secondary"
       action=""
@@ -206,42 +178,6 @@ export default function ProfileForm({ userData, form }) {
         isLoading={isLoading}
         isDisabled={isDisabled}
         onClick={updateEmail}
-        style={"green"}
-        text={"Save"}
-      />
-      <span className="text-red-400">
-        {error ? "Something went wrong" : ""}
-      </span>
-    </form>
-  ) : (
-    <form
-      className="flex flex-col gap-5 p-5 bg-secondary mt-5 border-2 border-secondary"
-      action=""
-    >
-      <label className="text-sm text-neutral-300" htmlFor="password">
-        New Password:
-      </label>
-      <input
-        className="shadow-inner shadow-neutral-200 rounded-lg p-1 text-sm focus:outline-none focus:border-secondary focus:border-2"
-        type="password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      />
-      <label className="text-sm text-neutral-300" htmlFor="password">
-        Re-Enter:
-      </label>
-      <input
-        className="shadow-inner shadow-neutral-200 rounded-lg p-1 text-sm focus:outline-none focus:border-secondary focus:border-2"
-        type="password"
-        onChange={(e) => {
-          setReEnterPass(e.target.value);
-        }}
-      />
-      <CustomButton
-        isLoading={isLoading}
-        isDisabled={isDisabled}
-        onClick={updatePassword}
         style={"green"}
         text={"Save"}
       />

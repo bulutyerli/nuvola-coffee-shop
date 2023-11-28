@@ -69,7 +69,8 @@ export async function middleware(request) {
     if (
       request.nextUrl.pathname.startsWith("/profile") ||
       request.nextUrl.pathname.startsWith("/orders") ||
-      request.nextUrl.pathname.startsWith("/cart")
+      request.nextUrl.pathname.startsWith("/cart") ||
+      request.nextUrl.pathname.startsWith("/update-password")
     ) {
       return NextResponse.rewrite(new URL("/sign-in", request.url));
     }

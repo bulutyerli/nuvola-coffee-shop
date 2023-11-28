@@ -4,17 +4,21 @@ import StoreFlags from "@/components/StoreFlags";
 import SmallCoffee from "@/components/SmallCoffee";
 import ContentBox from "@/components/ContentBox";
 import { PiCat, PiHandHeart, PiCoffee, PiLeaf } from "react-icons/pi";
+import waitress from "../../public/images/waitress.png";
+import barista from "../../public/images/barista-coffee.jpg";
+import pets from "../../public/images/pets-in-shop.jpg";
+import eco from "../../public/images/eco-friendly.jpg";
+import unicef from "../../public/images/unicef.png";
 
 export default function Home() {
   return (
     <main className="flex flex-col text-center  flex-grow">
       <section className="flex gap-3 items-center bg-secondary w-full justify-center p-4 flex-wrap sticky top-0 -z-10">
         <Image
-          className="border-4 border-secondary rounded-2xl "
-          src="/images/waitress.png"
+          className="rounded-2x w-screen 2xl:w-4/6 h-auto"
+          src={waitress}
           alt="waitress"
-          width={1440}
-          height={1440}
+          placeholder="blur"
           priority
         ></Image>
         <h1 className="text-primary text-2xl sm:text-5xl self-center justify-center w-full p-3 ">
@@ -55,7 +59,7 @@ export default function Home() {
       <section className="flex flex-col flex-wrap items-center gap-20 bg-primary py-10 ">
         <div className="flex flex-wrap gap-20 justify-center ">
           <ContentBox
-            image="/images/barista-coffee.jpg"
+            image={barista}
             title="Your exceptional experience awaits!"
             content="Carefully sourcing rare coffee beans from exotic locales,
           we've masterfully roasted them at Nuvola Coffee Shop. Each
@@ -68,7 +72,7 @@ export default function Home() {
             }
           />
           <ContentBox
-            image="/images/pets-in-shop.jpg"
+            image={pets}
             title="We Love Pets!"
             content="We not only brew great coffee but also embrace your furry friends.
           We're a pet-friendly spot, inviting you to enjoy a cup of
@@ -85,7 +89,7 @@ export default function Home() {
         </div>
         <div className="flex flex-wrap gap-20 justify-center">
           <ContentBox
-            image="/images/eco-friendly.jpg"
+            image={eco}
             title="Sustainable Flavor"
             content="At Nuvola Coffee Shop, we believe in sustainability from bean to
           cup. Our commitment to the environment extends beyond our rich
@@ -102,7 +106,7 @@ export default function Home() {
             }
           />
           <ContentBox
-            image="/images/unicef.png"
+            image={unicef}
             title="Brewing Hope for Children with UNICEF"
             content="With each coffee you purchase, a portion of the proceeds goes
           directly to UNICEF, supporting their vital work in providing

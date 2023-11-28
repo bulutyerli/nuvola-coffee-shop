@@ -6,9 +6,8 @@ export const runtime = "edge";
 
 export async function POST(request) {
   const requestUrl = new URL(request.url);
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const { email, password, name, surname, country, address, city, state, zip } =
+    await request.json();
   const cookieStore = cookies();
 
   const supabase = createServerClient(
@@ -28,8 +27,6 @@ export async function POST(request) {
       },
     }
   );
-  const { name, surname, country, address, city, state, zip } =
-    Object.fromEntries(formData);
 
   const { error } = await supabase.auth.signUp({
     email,
@@ -50,14 +47,10 @@ export async function POST(request) {
 
   if (error) {
     console.log(error);
-    return new NextResponse("Could not sign up, please try again.", {
-      status: 400,
-    });
+    return NextResponse.json({ error: true });
   }
 
   // Check if the 'user' object is defined before accessing 'id'
 
-  return NextResponse.redirect(`${requestUrl.origin}/email-sent`, {
-    status: 301,
-  });
+  return NextResponse.json({ success: true });
 }

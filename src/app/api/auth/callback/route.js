@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
+  const code = new URL(request.url).searchParams.get("code");
+  const next = new URL(request.url).searchParams.get("next") ?? "/";
 
   if (code) {
     const cookieStore = cookies();
@@ -25,9 +25,9 @@ export async function GET(request) {
         },
       }
     );
-    await supabase.auth.exchangeCodeForSession(code);
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error) {
+      return NextResponse.redirect(new URL(next, request.url).toString());
+    }
   }
-
-  // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin);
 }

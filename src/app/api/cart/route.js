@@ -40,7 +40,6 @@ export async function GET(request) {
         .eq("user_id", userId);
 
       if (error) {
-        // Handle the error more explicitly
         return NextResponse.json(
           { success: false, error: error.message },
           { status: 500 }
@@ -80,7 +79,7 @@ export async function POST(request) {
         .eq("sizeId", sizeId);
 
       if (error) {
-        console.log("dublicate item", error.message);
+        console.log(error.message);
         throw new Error(error);
       }
 

@@ -9,10 +9,9 @@ export default function ContentBox({ image, title, content, reverse, icon }) {
     >
       <Image
         className="w-52 h-auto sm:w-72"
-        width={300}
-        height={300}
         alt="nuvola coffee shop"
         src={image}
+        placeholder="blur"
       ></Image>
       <span
         className={`flex flex-col text-start gap-2 self-start ${

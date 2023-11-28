@@ -5,7 +5,6 @@ import { createServerClient } from "@supabase/ssr";
 export const runtime = "edge";
 
 export async function POST(request) {
-  const requestUrl = new URL(request.url);
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
@@ -27,13 +26,14 @@ export async function POST(request) {
       },
     }
   );
+
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
-    return NextResponse.json({ error: true });
+    return NextResponse.json({ success: false });
   }
 
   return NextResponse.json({ success: true, status: 301 });

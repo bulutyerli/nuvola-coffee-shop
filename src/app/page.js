@@ -12,8 +12,8 @@ import unicef from "../../public/images/unicef.png";
 
 export default function Home() {
   return (
-    <main className="flex flex-col text-center  flex-grow">
-      <section className="flex gap-3 items-center bg-secondary w-full justify-center p-4 flex-wrap sticky top-0 -z-10">
+    <main className="flex flex-col text-center flex-grow">
+      <section className="flex gap-3 items-center bg-secondary justify-center p-4 flex-wrap sticky top-0 -z-10">
         <Image
           className="rounded-2x w-screen 2xl:w-4/6 h-auto"
           src={waitress}
@@ -25,7 +25,7 @@ export default function Home() {
           Crafted For You
         </h1>
       </section>
-      <section className="flex flex-col gap-6 px-3 bg-primary py-10 sm:py-36 ">
+      <section className="flex flex-col gap-6 px-3 bg-primary py-10 sm:py-36">
         <h2 className="text-2xl text-green-800 drop-shadow-md">
           Our Coffee Blends
         </h2>

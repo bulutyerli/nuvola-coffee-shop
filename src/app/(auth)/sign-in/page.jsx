@@ -30,6 +30,7 @@ export default function SignInPage() {
       if (res.data.success) {
         dispatch(signInAction());
         dispatch(fetchCart());
+        router.refresh();
         router.push("/");
       } else {
         setError(true);

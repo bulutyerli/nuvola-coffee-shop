@@ -4,7 +4,6 @@ import StoreFlags from "@/components/StoreFlags";
 import SmallCoffee from "@/components/SmallCoffee";
 import ContentBox from "@/components/ContentBox";
 import { PiCat, PiHandHeart, PiCoffee, PiLeaf } from "react-icons/pi";
-import waitress from "../../public/images/waitress.png";
 import barista from "../../public/images/barista-coffee.jpg";
 import pets from "../../public/images/pets-in-shop.jpg";
 import eco from "../../public/images/eco-friendly.jpg";
@@ -16,9 +15,10 @@ export default function Home() {
       <section className="flex gap-3 items-center bg-secondary justify-center p-4 flex-wrap sticky top-0 -z-10">
         <Image
           className="rounded-2x w-screen 2xl:w-4/6 h-auto"
-          src={waitress}
+          src="/images/waitress.png"
           alt="waitress"
-          placeholder="blur"
+          width={1500}
+          height={1500}
         ></Image>
         <h1 className="text-primary text-2xl sm:text-5xl self-center justify-center w-full p-3 ">
           Crafted For You

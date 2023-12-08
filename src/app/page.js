@@ -19,7 +19,6 @@ export default function Home() {
           src={waitress}
           alt="waitress"
           placeholder="blur"
-          priority
         ></Image>
         <h1 className="text-primary text-2xl sm:text-5xl self-center justify-center w-full p-3 ">
           Crafted For You

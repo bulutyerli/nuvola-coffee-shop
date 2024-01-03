@@ -17,8 +17,8 @@ export default function Home() {
           className="rounded-2x w-screen 2xl:w-4/6 h-auto"
           src="/images/waitress.png"
           alt="waitress"
-          width={1500}
-          height={1500}
+          width={800}
+          height={600}
         ></Image>
         <h1 className="text-primary text-2xl sm:text-5xl self-center justify-center w-full p-3 ">
           Crafted For You
@@ -28,13 +28,13 @@ export default function Home() {
         <h2 className="text-2xl text-green-800 drop-shadow-md">
           Our Coffee Blends
         </h2>
-        <h3>
+        <p>
           Discover the exceptional taste of our exclusive coffee collection by
           exploring our{" "}
           <Link className="underline text-blue-900" href="/shop">
             online store.
           </Link>
-        </h3>
+        </p>
         <div className="flex flex-row justify-center flex-wrap gap-10 ">
           <div className="flex flex-col sm:flex-row gap-10">
             <Link href="/shop#brazil">

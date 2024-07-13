@@ -1,0 +1,32 @@
+@import '../variables.scss';
+
+.main {
+  width: 100%;
+  background-color: #fff;
+  .policy {
+    max-width: 70%;
+    margin: 2rem 0 2rem 0;
+
+    ul {
+      list-style-position: inside;
+    }
+
+    p,
+    ul,
+    li {
+      padding-bottom: 0.5rem;
+      text-indent: 1rem;
+      color: $black-medium;
+    }
+
+    h2,
+    h3 {
+      padding-bottom: 1rem;
+      color: $black;
+    }
+
+    @media (width < $medium) {
+      max-width: 100%;
+    }
+  }
+}

@@ -1,0 +1,86 @@
+@import '../../variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 200;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  padding-right: 1rem;
+  max-width: 1440px;
+
+  .logo {
+    width: 7rem;
+    height: auto;
+
+    @media (width < $medium) {
+      width: 5rem;
+    }
+  }
+
+  .navLinks {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+
+    @media (width < $small) {
+      display: none;
+    }
+
+    li a {
+      text-decoration: none;
+    }
+  }
+
+  .userLinks {
+    @extend .navLinks;
+    @media screen {
+      display: flex;
+    }
+
+    .hamburger {
+      @media (width > $small) {
+        display: none;
+      }
+    }
+  }
+
+  .icons {
+    font-size: 1.3rem;
+  }
+
+  .hamburgerMenu {
+    list-style: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 70%;
+    right: 0;
+    text-align: right;
+    background-color: $base-text;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 300;
+
+    li * {
+      color: $secondary-text;
+      text-decoration: none;
+    }
+  }
+
+  .open {
+    transform: translateX(0);
+  }
+}
+
+.homepage {
+  position: absolute;
+}

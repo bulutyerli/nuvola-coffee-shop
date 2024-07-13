@@ -52,7 +52,7 @@ export default function AboutUsPage() {
             </div>
             <Image
               className={styles.waitress}
-              src="/images/waitress.png"
+              src="/images/waitress.webp"
               alt="barista"
               width={600}
               height={600}

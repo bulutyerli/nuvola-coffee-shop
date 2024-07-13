@@ -1,0 +1,31 @@
+@import '../variables.scss';
+
+.container {
+  width: 100%;
+  background-color: white;
+  padding: 2rem 0 2rem 0;
+
+  .section_one {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+
+    @media (width < $xlarge) {
+      flex-direction: column-reverse;
+    }
+
+    h2 {
+      color: $black-medium;
+      padding-bottom: 1rem;
+    }
+
+    p {
+      color: $black-medium;
+      padding-bottom: 1rem;
+    }
+    .waitress {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

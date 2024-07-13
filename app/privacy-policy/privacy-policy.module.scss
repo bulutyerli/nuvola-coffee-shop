@@ -1,8 +1,9 @@
 @import '../variables.scss';
 
-.main {
+.section {
   width: 100%;
   background-color: #fff;
+  padding: 2rem 0 2rem 0;
   .policy {
     max-width: 70%;
     margin: 2rem 0 2rem 0;
@@ -23,6 +24,11 @@
     h3 {
       padding-bottom: 1rem;
       color: $black;
+    }
+
+    h2 {
+      text-align: center;
+      padding-top: 1rem;
     }
 
     @media (width < $medium) {

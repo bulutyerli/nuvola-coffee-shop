@@ -4,14 +4,12 @@ import styles from './privacy-policy.module.scss';
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
-      <Container>
-        <TitleContainer
-          title="Privacy Policy"
-          content="Our Privacy Policy outlines how we collect, use, and protect your personal information. We respect your privacy and are committed to transparency and security in handling your data. We collect information to enhance your experience and provide personalized services while ensuring your data is safeguarded against unauthorized access or disclosure."
-        />
-      </Container>
-      <main className={styles.main}>
+    <main>
+      <TitleContainer
+        title="Privacy Policy"
+        content="Our Privacy Policy outlines how we collect, use, and protect your personal information. We respect your privacy and are committed to transparency and security in handling your data. We collect information to enhance your experience and provide personalized services while ensuring your data is safeguarded against unauthorized access or disclosure."
+      />
+      <div className={styles.section}>
         <Container>
           <section className={styles.policy}>
             <p>
@@ -58,7 +56,7 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
         </Container>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }

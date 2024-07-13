@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Kalam, Roboto } from 'next/font/google';
 import './globals.scss';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({ subsets: ['latin'], weight: '400' });
+const kalam = Kalam({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-kalam',
+}); // Specify weight here
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${roboto.className} ${kalam.variable}`}>
         <div className="main_container">
           <Header />
           {children}

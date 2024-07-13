@@ -12,9 +12,9 @@ export default function Header() {
   const [menu, setMenu] = useState(false);
   const menuRef = useRef(null);
   const navLinks = [
-    { title: 'Home', href: '/' },
-    { title: 'Our Coffee', href: '/coffee' },
     { title: 'Shop', href: '/shop' },
+    { title: 'Our Coffee', href: '/coffee' },
+    { title: 'Locations', href: '/locations' },
   ];
 
   const pathName = usePathname();

@@ -1,10 +1,61 @@
 import styles from './page.module.scss';
 import Hero from './components/Hero/Hero';
+import Container from './components/Container/Container';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
+  const countries = [
+    {
+      title: 'Istanbul / Türkiye',
+      href: '/turkish-shop',
+      img: '/images/turkey.png',
+    },
+    {
+      title: 'Athens / Greece',
+      href: '/greek-shop',
+      img: '/images/greece.png',
+    },
+    {
+      title: 'New York / USA',
+      href: '/usa-shop',
+      img: '/images/usa.png',
+    },
+    {
+      title: 'London / UK',
+      href: '/uk-shop',
+      img: '/images/uk.png',
+    },
+  ];
   return (
     <main className={styles.main}>
       <Hero />
+      <Container>
+        <section className={styles.section}>
+          <h2>
+            We serve in 4 countries! You can either purchase online or visit one
+            of our cafes to taste our specialty coffees crafted with care!
+          </h2>
+          <ul>
+            {countries.map((country) => {
+              return (
+                <li key={country.title}>
+                  <Link href={country.href}>
+                    <Image
+                      className={styles.flag}
+                      src={country.img}
+                      width={40}
+                      height={40}
+                      alt={`${country.title} flag`}
+                    />
+                    {country.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      </Container>
     </main>
   );
 }

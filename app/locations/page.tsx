@@ -15,6 +15,7 @@ export default function LocationsPage() {
       phone: '+90 212 555 1234',
       lat: 41.0367,
       lng: 28.985,
+      id: '1',
     },
     {
       title: 'Athens / Greece',
@@ -24,6 +25,7 @@ export default function LocationsPage() {
       phone: '+30 210 555 6789',
       lat: 37.9756,
       lng: 23.7368,
+      id: '2',
     },
     {
       title: 'New York / USA',
@@ -33,6 +35,7 @@ export default function LocationsPage() {
       phone: '+1 212 555 4321',
       lat: 40.7128,
       lng: -74.006,
+      id: '3',
     },
     {
       title: 'London / UK',
@@ -42,6 +45,7 @@ export default function LocationsPage() {
       phone: '+44 20 5555 9876',
       lat: 51.5099,
       lng: -0.1181,
+      id: '4',
     },
   ];
 
@@ -55,6 +59,7 @@ export default function LocationsPage() {
         {locations.map((location, index) => (
           <Container key={index}>
             <div
+              id={location.id}
               className={`${
                 index % 2 === 0 ? styles.card : styles.reverseCard
               }`}

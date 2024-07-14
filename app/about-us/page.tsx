@@ -58,6 +58,64 @@ export default function AboutUsPage() {
               height={600}
             ></Image>
           </section>
+          <section className={styles.section_two}>
+            <div className={styles.content}>
+              <Image
+                className={styles.images}
+                src="/images/coffeeblend.webp"
+                width={300}
+                height={300}
+                alt="blending coffee"
+              />
+              <div>
+                <h2>Discover the World of Coffee</h2>
+                <p>
+                  Embark on a journey through the rich tapestry of coffee
+                  flavors from around the world. Experience the unique profiles
+                  of beans from different regions, each offering its own story.
+                  Whether it&apos;s the robust, earthy tones of South American
+                  coffee or the bright, citrusy notes of East African blends,
+                  every sip is an adventure waiting to be explored. Coffee is
+                  not just a drink; it&apos;s an experience that brings people
+                  together. Whether you’re savoring a quiet moment alone or
+                  enjoying lively conversations with friends, coffee creates
+                  moments of connection and joy. At our coffee house, we are
+                  dedicated to providing an unparalleled coffee experience. We
+                  meticulously source the highest quality beans, maintain strict
+                  standards, and focus on sustainability throughout our entire
+                  process. Each cup we serve is a reflection of our commitment
+                  to excellence and our passion for this exceptional beverage.
+                </p>
+              </div>
+            </div>
+            <div className={styles.content}>
+              <Image
+                className={styles.images}
+                src="/images/beans.webp"
+                width={300}
+                height={300}
+                alt="coffee beans"
+              />
+              <div>
+                <h2>An Odyssey in Brewing Mastery</h2>
+                <p>
+                  Dive into the world of perfect brewing as we take you through
+                  various methods that bring out the best in each coffee bean.
+                  From the delicate balance of a pour-over to the bold intensity
+                  of an espresso, we offer the expertise and tools to create
+                  your ideal cup. Delight in a range of flavors from our diverse
+                  selection. Whether it’s the smooth, chocolatey richness of a
+                  dark roast or the bright, fruity notes of a single-origin
+                  coffee, we have something to satisfy every palate. Every sip
+                  is an exploration, revealing the intricate layers that make
+                  each coffee unique. Our diverse offerings are perfect for any
+                  occasion, elevating your coffee experience to new heights.
+                  Embrace the rituals that turn a simple cup of coffee into a
+                  moment of pure indulgence and bliss.
+                </p>
+              </div>
+            </div>
+          </section>
         </Container>
       </div>
     </main>

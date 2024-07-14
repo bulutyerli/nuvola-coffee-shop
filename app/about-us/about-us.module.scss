@@ -3,7 +3,11 @@
 .container {
   width: 100%;
   background-color: white;
-  padding: 2rem 0 2rem 0;
+  padding: 5rem 0 1rem 0;
+
+  @media (width < $large) {
+    padding: 1rem 0 1rem 0;
+  }
 
   .section_one {
     display: flex;
@@ -22,12 +26,55 @@
     p {
       color: $black-medium;
       padding-bottom: 1rem;
+      line-height: 1.5rem;
     }
     .waitress {
       width: 100%;
       height: auto;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4),
         0 6px 20px 0 rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  .section_two {
+    @extend .section_one;
+    padding: 5rem 0 5rem 0;
+    flex-direction: column;
+
+    @media (width < $large) {
+      padding: 1rem 0 1rem 0;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-around;
+      align-items: center;
+      &:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      h2,
+      p {
+        max-width: 600px;
+        line-height: 1.5rem;
+
+        @media (width < $xlarge) {
+          max-width: 100%;
+        }
+      }
+
+      .images {
+        height: 300px;
+        width: auto;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4),
+          0 6px 20px 0 rgba(0, 0, 0, 0.6);
+
+        @media (width < $large) {
+          height: 100%;
+        }
+      }
     }
   }
 }

@@ -8,22 +8,22 @@ export default function Home() {
   const countries = [
     {
       title: 'Istanbul / Türkiye',
-      href: '/turkish-shop',
+      href: '/locations#1',
       img: '/images/turkey.png',
     },
     {
       title: 'Athens / Greece',
-      href: '/greek-shop',
+      href: '/locations#2',
       img: '/images/greece.png',
     },
     {
       title: 'New York / USA',
-      href: '/usa-shop',
+      href: '/locations#3',
       img: '/images/usa.png',
     },
     {
       title: 'London / UK',
-      href: '/uk-shop',
+      href: '/locations#4',
       img: '/images/uk.png',
     },
   ];

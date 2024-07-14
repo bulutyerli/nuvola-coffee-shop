@@ -2,6 +2,9 @@ import ContactForm from '../components/ContactForm/ContactForm';
 import Container from '../components/Container/Container';
 import TitleContainer from '../components/TitleContainer/TitleContainer';
 import styles from './contact.module.scss';
+import { IoLocationSharp } from 'react-icons/io5';
+import { MdEmail } from 'react-icons/md';
+import { FaPhoneAlt } from 'react-icons/fa';
 
 export default function ContactPage() {
   return (
@@ -16,15 +19,24 @@ export default function ContactPage() {
             <div className={styles.info}>
               <div>
                 <h3>Phone:</h3>
-                <span>+90 0666-223-21-21</span>
+                <div className={styles.iconContainer}>
+                  <FaPhoneAlt className={styles.icon} />
+                  <span>+90 0666-223-21-21</span>
+                </div>
               </div>
               <div>
                 <h3>E-Mail:</h3>
-                <span>info@nuvolacoffeeshop.com</span>
+                <div className={styles.iconContainer}>
+                  <MdEmail className={styles.icon} />
+                  <span>info@nuvolacoffeeshop.com</span>
+                </div>
               </div>
               <div>
                 <h3>Address:</h3>
-                <span>23 St. Beyoglu, Istanbul / Turkiye</span>
+                <div className={styles.iconContainer}>
+                  <IoLocationSharp className={styles.icon} />
+                  <span>23 St. Beyoglu, Istanbul / Turkiye</span>
+                </div>
               </div>
             </div>
             <ContactForm />

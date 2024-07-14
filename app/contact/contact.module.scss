@@ -3,7 +3,11 @@
 .container {
   width: 100%;
   background-color: white;
-  padding: 2rem 0 2rem 0;
+  padding: 5rem 0 5rem 0;
+
+  @media (width < $large) {
+    padding: 2rem 0 2rem 0;
+  }
 
   .section {
     display: flex;
@@ -22,6 +26,18 @@
 
       span {
         color: $black-medium;
+      }
+
+      .iconContainer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-top: 0.5rem;
+
+        .icon {
+          font-size: 1.5rem;
+          fill: $primary-color;
+        }
       }
     }
   }

@@ -29,10 +29,18 @@
 
     h1 {
       font-size: 1rem;
+
+      @media (width < $xlarge) {
+        font-size: 0.8rem;
+      }
     }
 
     h2 {
       font-size: 3rem;
+
+      @media (width < $xlarge) {
+        font-size: 2rem;
+      }
     }
 
     p {
@@ -51,6 +59,10 @@
 
     .fadeOut {
       opacity: 0;
+    }
+
+    @media (width < $xlarge) {
+      margin-top: 2rem;
     }
   }
 

@@ -22,43 +22,41 @@ export default function ForgotPasswordPage() {
 
   return (
     <main className={styles.container}>
-      <Container>
-        <section className={styles.section}>
-          <div className={styles.formContainer}>
-            <h2>Password Reset</h2>
-            <p className={styles.reset}>
-              An Email will be sent to you for reset your password
-            </p>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className={styles.inputGroup}>
-                <div className={styles.input}>
-                  <input
-                    type="email"
-                    {...register('email', {
-                      required: 'Email is required',
-                      pattern: {
-                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Invalid email address',
-                      },
-                    })}
-                    placeholder="Email"
-                  />
-                  {errors.email && (
-                    <p className={styles.error}>{errors.email.message}</p>
-                  )}
-                </div>
+      <Container color="white" className={styles.section}>
+        <div className={styles.formContainer}>
+          <h2>Password Reset</h2>
+          <p className={styles.reset}>
+            An Email will be sent to you for reset your password
+          </p>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.inputGroup}>
+              <div className={styles.input}>
+                <input
+                  type="email"
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Invalid email address',
+                    },
+                  })}
+                  placeholder="Email"
+                />
+                {errors.email && (
+                  <p className={styles.error}>{errors.email.message}</p>
+                )}
               </div>
-              <button type="submit">Send</button>
-            </form>
-            <Image
-              className={styles.coffeeBeansThree}
-              src="/images/coffee-beans-3.webp"
-              width={300}
-              height={300}
-              alt="3 coffee beans"
-            />
-          </div>
-        </section>
+            </div>
+            <button type="submit">Send</button>
+          </form>
+          <Image
+            className={styles.coffeeBeansThree}
+            src="/images/coffee-beans-3.webp"
+            width={300}
+            height={300}
+            alt="3 coffee beans"
+          />
+        </div>
       </Container>
     </main>
   );

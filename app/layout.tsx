@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter, Kalam, Roboto } from 'next/font/google';
+import { Kalam, Roboto } from 'next/font/google';
 import './globals.scss';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import ConfigureAmplifyClientSide from '@/app/amplify-cognito-config';
+import { Providers } from './redux/provider';
 
 const roboto = Roboto({ subsets: ['latin'], weight: '400' });
 const kalam = Kalam({
@@ -22,14 +24,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${roboto.className} ${kalam.variable}`}>
-        <div className="main_container">
-          <Header />
-          {children}
-          <Footer />
-        </div>
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={`${roboto.className} ${kalam.variable}`}>
+          <div className="main_container">
+            <Header />
+            <ConfigureAmplifyClientSide />
+            {children}
+            <Footer />
+          </div>
+        </body>
+      </html>
+    </Providers>
   );
 }

@@ -57,7 +57,7 @@ export default function LocationsPage() {
       />
       <div className={styles.container}>
         {locations.map((location, index) => (
-          <Container key={index}>
+          <Container color="white" key={index}>
             <div
               id={location.id}
               className={`${

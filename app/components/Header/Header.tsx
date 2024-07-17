@@ -3,10 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './header.module.scss';
-import { FaUser, FaShoppingCart, FaAlignRight, FaTimes } from 'react-icons/fa';
+import { FaUser, FaAlignRight, FaTimes } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import Container from '../Container/Container';
 import { usePathname } from 'next/navigation';
+import Cart from '../Cart/Cart';
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
@@ -42,10 +43,8 @@ export default function Header() {
     };
   }, []);
 
-  console.log(pathName);
-
   return (
-    <Container>
+    <Container color="primary">
       <header
         className={`${styles.header} ${pathName === '/' && styles.homepage}`}
       >
@@ -70,13 +69,9 @@ export default function Header() {
           </ul>
         </nav>
         <ul className={styles.userLinks}>
+          <Cart />
           <li>
-            <Link href={'/cart'}>
-              <FaShoppingCart className={styles.icons} />
-            </Link>
-          </li>
-          <li>
-            <Link href={'/profile'}>
+            <Link href={'/account'}>
               <FaUser className={styles.icons} />
             </Link>
           </li>

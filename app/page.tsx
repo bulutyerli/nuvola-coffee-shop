@@ -3,6 +3,7 @@ import Hero from './components/Hero/Hero';
 import Container from './components/Container/Container';
 import Link from 'next/link';
 import Image from 'next/image';
+import ProductCard from './components/ProductCard/ProductCard';
 
 export default function Home() {
   const countries = [
@@ -30,7 +31,20 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Hero />
-      <Container>
+      <Container color="primary">
+        <section className={styles.shopSection}>
+          <h2 className={styles.shopTitle}>Our Signature Coffees</h2>
+          <ProductCard
+            options={[
+              { id: '1', option: '250g', price: 50 },
+              { id: '2', option: '500g', price: 90 },
+            ]}
+            name="Coffee 1"
+            image="/images/columbia-pack.png"
+            category="Coffee"
+            brand="Nuvola Coffee Shop"
+          />
+        </section>
         <section className={styles.section}>
           <h2>
             We serve in 4 countries! You can either purchase online or visit one

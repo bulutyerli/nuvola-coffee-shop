@@ -1,46 +1,68 @@
 'use client';
 
 import Link from 'next/link';
-import Container from '../components/Container/Container';
 import styles from './sign-up.module.scss';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Image from 'next/image';
+import Container from '@/app/components/Container/Container';
+import { signUpSchema } from '@/app/schemas/auth';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { handleSignUp } from '@/app/lib/cognitoActions';
+import { useState } from 'react';
+import CustomButton from '@/app/components/CustomButton/CustomButton';
+import { useRouter } from 'next/navigation';
 
-type FormInputs = {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  rePassword: string;
-};
+type SignUpFormData = z.infer<typeof signUpSchema>;
+
+interface SignUpResponse {
+  error?: string;
+  message?: string;
+  exists: boolean;
+  success?: boolean;
+}
 
 export default function SignUpPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormInputs>();
+    reset,
+    formState: { errors, isLoading, isSubmitting },
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
+  });
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
+    try {
+      const response = (await handleSignUp(data)) as SignUpResponse;
+
+      if (response.exists) {
+        setError('User already exists');
+        reset();
+      }
+
+      if (response.success) {
+        router.push('/auth/confirm-signup');
+      }
+    } catch (error) {
+      reset();
+      setError('Something went wrong, try again later.');
+    }
   };
 
   return (
     <main className={styles.container}>
-      <Container>
+      <Container color="white">
         <section className={styles.section}>
           <div className={styles.formContainer}>
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className={styles.inputGroup}>
                 <div className={styles.input}>
-                  <input
-                    type="name"
-                    {...register('name', {
-                      required: 'Name is required',
-                    })}
-                    placeholder="Name"
-                  />
+                  <input type="name" {...register('name')} placeholder="Name" />
                   {errors.name && (
                     <p className={styles.error}>{errors.name.message}</p>
                   )}
@@ -48,9 +70,7 @@ export default function SignUpPage() {
                 <div className={styles.input}>
                   <input
                     type="surname"
-                    {...register('surname', {
-                      required: 'Surname is required',
-                    })}
+                    {...register('surname')}
                     placeholder="Surname"
                   />
                   {errors.surname && (
@@ -62,13 +82,7 @@ export default function SignUpPage() {
                 <div className={styles.input}>
                   <input
                     type="email"
-                    {...register('email', {
-                      required: 'Email is required',
-                      pattern: {
-                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Invalid email address',
-                      },
-                    })}
+                    {...register('email')}
                     placeholder="Email"
                   />
                   {errors.email && (
@@ -78,9 +92,7 @@ export default function SignUpPage() {
                 <div className={styles.input}>
                   <input
                     type="password"
-                    {...register('password', {
-                      required: 'Password is required',
-                    })}
+                    {...register('password')}
                     placeholder="Password"
                   />
                   {errors.password && (
@@ -90,9 +102,7 @@ export default function SignUpPage() {
                 <div className={styles.input}>
                   <input
                     type="password"
-                    {...register('rePassword', {
-                      required: 'Password is required',
-                    })}
+                    {...register('rePassword')}
                     placeholder="Re-Enter Password"
                   />
                   {errors.rePassword && (
@@ -100,10 +110,13 @@ export default function SignUpPage() {
                   )}
                 </div>
               </div>
-              <button type="submit">Sign Up</button>
+              <CustomButton
+                text="Sign Up"
+                isLoading={isLoading || isSubmitting}
+              />
               <div className={styles.register}>
                 <span>Already registered?</span>
-                <Link href="/sign-in">Sign In</Link>
+                <Link href="/auth/sign-in">Sign In</Link>
               </div>
             </form>
             <Image
@@ -114,6 +127,7 @@ export default function SignUpPage() {
               alt="3 coffee beans"
             />
           </div>
+          {error.length > 1 && <span className={styles.error}>{error}</span>}
         </section>
       </Container>
     </main>

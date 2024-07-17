@@ -1,30 +1,55 @@
 'use client';
 
 import Link from 'next/link';
-import Container from '../components/Container/Container';
 import styles from './sign-in.module.scss';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Image from 'next/image';
+import Container from '@/app/components/Container/Container';
+import { useState } from 'react';
+import { handleSignIn } from '@/app/lib/cognitoActions';
+import { useRouter } from 'next/navigation';
+import CustomButton from '@/app/components/CustomButton/CustomButton';
+import { z } from 'zod';
+import { signInSchema } from '@/app/schemas/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-type FormInputs = {
-  email: string;
-  password: string;
+type SignInFormData = z.infer<typeof signInSchema>;
+
+type Response = {
+  verify?: boolean;
+  success?: boolean;
 };
 
 export default function SignInPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormInputs>();
+    formState: { errors, isLoading, isSubmitting },
+  } = useForm<SignInFormData>({ resolver: zodResolver(signInSchema) });
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
+    try {
+      const response = (await handleSignIn(data)) as Response;
+
+      if (response.verify) {
+        router.push('/auth/confirm-signup');
+      }
+
+      if (response.success) {
+        router.push('/');
+      }
+    } catch (error) {
+      console.log(error);
+      setError('Something went wrong, please try again');
+    }
   };
 
   return (
     <main className={styles.container}>
-      <Container>
+      <Container color="white">
         <section className={styles.section}>
           <div className={styles.formContainer}>
             <h2>Sign In</h2>
@@ -33,13 +58,7 @@ export default function SignInPage() {
                 <div className={styles.input}>
                   <input
                     type="email"
-                    {...register('email', {
-                      required: 'Email is required',
-                      pattern: {
-                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Invalid email address',
-                      },
-                    })}
+                    {...register('email')}
                     placeholder="Email"
                   />
                   {errors.email && (
@@ -49,23 +68,27 @@ export default function SignInPage() {
                 <div className={styles.input}>
                   <input
                     type="password"
-                    {...register('password', {
-                      required: 'Password is required',
-                    })}
                     placeholder="Password"
+                    {...register('password')}
                   />
                   {errors.password && (
                     <p className={styles.error}>{errors.password.message}</p>
                   )}
                 </div>
               </div>
-              <button type="submit">Sign In</button>
-              <Link href="/forgot-password" className={styles.forgotPassword}>
+              <CustomButton
+                isLoading={isLoading || isSubmitting}
+                text="Sign In"
+              />
+              <Link
+                href="/auth/forgot-password"
+                className={styles.forgotPassword}
+              >
                 Forgot Password?
               </Link>
               <div className={styles.register}>
                 <span>Don&apos;t you have an account yet?</span>
-                <Link href="/sign-up">Sign Up!</Link>
+                <Link href="/auth/sign-up">Sign Up!</Link>
               </div>
             </form>
 
@@ -77,6 +100,7 @@ export default function SignInPage() {
               alt="3 coffee beans"
             />
           </div>
+          {error.length > 1 && <span className={styles.error}>{error}</span>}
         </section>
       </Container>
     </main>

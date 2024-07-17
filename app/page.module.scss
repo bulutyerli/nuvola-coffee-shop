@@ -3,6 +3,16 @@
 .main {
   background-color: $background-color;
 
+  .shopSection {
+    margin: 2rem 0;
+
+    .shopTitle {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: var(--font-kalam);
+    }
+  }
+
   .section {
     position: relative;
     display: flex;

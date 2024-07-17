@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import '../../variables.scss';
 
 .container {
   width: 100%;
@@ -15,6 +15,13 @@
     flex-wrap: wrap;
     gap: 2rem;
     align-items: center;
+    flex-direction: column;
+
+    .error {
+      color: #ef4444;
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
 
     .formContainer {
       position: relative;
@@ -71,12 +78,6 @@
           }
         }
 
-        .error {
-          color: #ef4444;
-          font-size: 0.8rem;
-          margin-top: 0.2rem;
-        }
-
         .forgotPassword {
           color: #ef4444;
         }
@@ -107,6 +108,13 @@
         }
       }
 
+      .resend {
+        color: $primary-strong;
+        cursor: pointer;
+        margin-top: 2rem;
+        border: none;
+        background: none;
+      }
       .coffeeBeansThree {
         position: absolute;
         top: -2rem;

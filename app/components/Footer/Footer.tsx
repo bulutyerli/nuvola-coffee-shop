@@ -63,7 +63,7 @@ export default function Footer() {
     },
   ];
   return (
-    <Container className={styles.container}>
+    <Container className={styles.container} color="primary">
       <footer className={styles.footer}>
         <div className={`${styles.logoContainer} ${styles.grid_1}`}>
           <Image

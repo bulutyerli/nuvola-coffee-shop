@@ -1,9 +1,24 @@
 @import '../../variables.scss';
 
 .container {
-  max-width: 1440px;
-  align-self: center;
   width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem 0 1rem;
+  align-self: center;
+
+  .innerContainer {
+    max-width: 1440px;
+    padding: 0 1rem 0 1rem;
+    margin: 0 auto;
+  }
+}
+
+.white {
+  background-color: white;
+}
+
+.primary {
+  background-color: $background-color;
+}
+
+.brown {
+  background-color: $primary-strong;
 }

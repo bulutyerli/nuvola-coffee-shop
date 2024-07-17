@@ -9,12 +9,10 @@ export default function TitleContainer({
   content: string;
 }) {
   return (
-    <Container>
-      <section className={styles.container}>
-        <div className={styles.content}>
-          <h1>{title}</h1>
-          <p>{content}</p>
-        </div>
+    <Container color="primary">
+      <section className={styles.content}>
+        <h1>{title}</h1>
+        <p>{content}</p>
       </section>
     </Container>
   );

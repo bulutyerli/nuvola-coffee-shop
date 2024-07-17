@@ -1,0 +1,78 @@
+@import '../../variables.scss';
+
+.cartContainer {
+  position: relative;
+
+  .cartCount {
+    position: absolute;
+    top: -10px; // Adjust this value as needed
+    right: -10px; // Adjust this value as needed
+    background-color: $primary-strong;
+    color: white;
+    border-radius: 50%;
+    width: 20px; // Set equal width
+    height: 20px; // Set equal height
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; // Adjust this value as needed
+    line-height: 1;
+    padding: 0; // Remove padding
+  }
+
+  .icons {
+    font-size: 1.7rem;
+    cursor: pointer;
+  }
+}
+
+.cartMenu {
+  list-style: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  text-align: right;
+  background-color: $primary-color;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  width: 30%;
+
+  @media (width < $medium) {
+    width: 100%;
+  }
+
+  h2 {
+    color: $black-medium;
+  }
+
+  .closeIcon * {
+    color: $background-color;
+    cursor: pointer;
+  }
+
+  .cartText {
+    color: $black;
+    align-self: center;
+  }
+}
+
+.cartOpen {
+  transform: translateX(0);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  pointer-events: auto;
+}

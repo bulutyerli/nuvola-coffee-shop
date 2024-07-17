@@ -50,7 +50,8 @@
   }
 
   .icons {
-    font-size: 1.3rem;
+    font-size: 1.7rem;
+    cursor: pointer;
   }
 
   .hamburgerMenu {
@@ -58,7 +59,7 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 40%;
+    width: 100%;
     right: 0;
     text-align: right;
     background-color: $primary-color;

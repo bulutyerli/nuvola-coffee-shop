@@ -1,1 +1,80 @@
 @import '../../variables.scss';
+
+.container {
+  display: flex;
+  gap: 3rem;
+  background-color: $primary-strong;
+  max-width: fit-content;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+
+  .image {
+    width: 100px;
+    height: auto;
+  }
+
+  .innerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+
+    .options {
+      background-color: transparent;
+      border-color: $base-text;
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      outline: $base-text;
+
+      &:focus {
+        outline: $base-text;
+      }
+    }
+
+    .productInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      justify-content: space-between;
+
+      .brand {
+        font-size: 0.9rem;
+      }
+
+      .category {
+        font-size: 0.8rem;
+      }
+
+      .name {
+        color: $secondary-strong;
+      }
+    }
+
+    .cartGroup {
+      display: flex;
+      gap: 1rem;
+
+      .addToCartButton {
+        color: $base-text;
+        background: none;
+        border: none;
+        border-bottom: 1px solid $base-text;
+        padding-bottom: 0.25rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+
+        &:hover {
+          border-color: $secondary-strong;
+        }
+      }
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

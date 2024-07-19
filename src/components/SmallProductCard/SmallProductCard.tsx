@@ -11,7 +11,6 @@ export default function SmallProductCard({ data }: { data: CartItem }) {
 
   const handleDelete = () => {
     dispatch(deleteItem({ id: data.id }));
-    console.log(data.id);
   };
 
   const handleAdd = () => {

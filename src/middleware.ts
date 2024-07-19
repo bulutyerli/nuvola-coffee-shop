@@ -4,14 +4,11 @@ import { authenticatedUser } from './utils/amplify-server-utils';
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const user = await authenticatedUser({ request, response });
-  console.log(user);
 
   const isOnAccount = request.nextUrl.pathname.startsWith('/account');
 
-  if (isOnAccount) {
-    if (!user)
-      return NextResponse.redirect(new URL('/auth/sign-in', request.nextUrl));
-    return response;
+  if (isOnAccount && !user) {
+    return NextResponse.redirect(new URL('/auth/sign-in', request.nextUrl));
   }
 
   if (

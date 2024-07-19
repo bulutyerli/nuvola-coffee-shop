@@ -3,19 +3,24 @@
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import Container from '../../components/Container/Container';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
-import { handleSignOut } from '../lib/cognitoActions';
 import styles from './account.module.scss';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { handleSignOut } from '@/src/lib/cognitoActions';
+import { getAddresses } from '@/src/services/getAddresses';
+import AddressCard from '@/src/components/AddressCard/AddressCard';
+import { Address } from '@/src/database-types';
 
 interface UserAttributes {
   name?: string;
   family_name?: string;
   email?: string;
+  sub?: string;
 }
 
 export default function Account() {
   const [userDetails, setUserDetails] = useState<UserAttributes>({});
+  const [userAddresses, setUserAddresses] = useState<Address[] | null>();
   const router = useRouter();
 
   const signOut = async () => {
@@ -26,14 +31,23 @@ export default function Account() {
 
   useEffect(() => {
     const getDetails = async () => {
-      const details = await fetchUserAttributes();
-      setUserDetails(details);
+      try {
+        const details = await fetchUserAttributes();
+        setUserDetails(details);
+
+        if (details.sub) {
+          const addresses = await getAddresses(details.sub);
+          setUserAddresses(addresses);
+        }
+      } catch (error) {
+        console.error('Error fetching user details or addresses:', error);
+      }
     };
 
     getDetails();
   }, []);
 
-  console.log(userDetails.name);
+  console.log(userAddresses);
 
   return (
     <main>
@@ -43,26 +57,34 @@ export default function Account() {
       />
       <Container color="white">
         <div className={styles.container}>
-          <section
-            className={styles.innerContainer}
-            aria-labelledby="profile-heading"
-          >
-            <h2 id="profile-heading">Profile</h2>
+          <section className={styles.innerContainer}>
+            <h2>Profile</h2>
             <div className={styles.user}>
-              <p>
+              <p className={styles.name}>
                 {userDetails.name} {userDetails.family_name}
               </p>
-              <p>{userDetails.email}</p>
+              <p className={styles.email}>{userDetails.email}</p>
             </div>
-            <button type="button">Change Address</button>
-            <button onClick={signOut} type="button">
-              Logout
-            </button>
+            <div className={styles.buttonContainer}>
+              <button className={styles.addressButton} type="button">
+                Add New Address
+              </button>
+              <button
+                className={styles.signOutButton}
+                onClick={signOut}
+                type="button"
+              >
+                Logout
+              </button>
+            </div>
+            <div className={styles.addressContainer}>
+              <h2>Your Addresses</h2>
+              {userAddresses?.map((address) => {
+                return <AddressCard key={address.id} address={address} />;
+              })}
+            </div>
           </section>
-          <section
-            className={styles.innerContainer}
-            aria-labelledby="orders-heading"
-          >
+          <section className={styles.innerContainer}>
             <h2 id="orders-heading">Your Orders</h2>
             <ul>
               <li>Order list</li>

@@ -13,13 +13,14 @@ import {
   confirmResetPassword,
 } from 'aws-amplify/auth';
 import { getErrorMessage } from '@/src/utils/get-error-message';
+
+import { z } from 'zod';
 import {
   reSendCodeSchema,
   signInSchema,
   signUpSchema,
   verificationSchema,
 } from '../schemas/auth';
-import { z } from 'zod';
 
 type SignUpFormData = z.infer<typeof signUpSchema>;
 type VerificationFormData = z.infer<typeof verificationSchema>;
@@ -113,7 +114,6 @@ export async function handleConfirmSignUp(formData: VerificationFormData) {
 
 export async function handleSignIn(formData: SignInData) {
   const validatedData = signInSchema.safeParse(formData);
-  console.log('STARTıng');
 
   if (!validatedData.success) {
     throw new Error('Validation failed');
@@ -250,7 +250,6 @@ export async function handleResetPassword(
   } catch (error) {
     return getErrorMessage(error);
   }
-  redirect('/auth/reset-password/confirm');
 }
 
 export async function handleConfirmResetPassword(
@@ -266,5 +265,4 @@ export async function handleConfirmResetPassword(
   } catch (error) {
     return getErrorMessage(error);
   }
-  redirect('/auth/sign-in');
 }

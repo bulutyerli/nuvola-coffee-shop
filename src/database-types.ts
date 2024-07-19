@@ -1,7 +1,7 @@
 import { Generated, Insertable, Selectable, Updateable } from 'kysely';
 
 export interface Database {
-  address: AddressTable;
+  addresses: AddressTable;
   order: OrderTable;
   order_item: OrderItemsTable;
   products: ProductsTable;
@@ -11,6 +11,9 @@ export interface Database {
 
 export interface AddressTable {
   id: Generated<number>;
+  address_name: string;
+  name: string;
+  surname: string;
   user_sub: string;
   address_line1: string;
   address_line2: string | null;

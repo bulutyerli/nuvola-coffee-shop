@@ -16,9 +16,61 @@
     flex-direction: column;
     gap: 1rem;
 
-    .user,
-    p {
-      color: $background-color;
+    .addressContainer {
+      margin-top: 2rem;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      color: $black;
+      margin-bottom: 0.5rem;
+    }
+
+    .email {
+      font-size: 1rem;
+      color: $black-light;
+    }
+    .buttonContainer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 16px;
+
+      .addressButton,
+      .signOutButton {
+        cursor: pointer;
+        padding: 0.5rem 0.5rem;
+        width: 150px;
+        text-align: center;
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      }
+
+      .addressButton {
+        background-color: $base-text;
+        color: $black;
+        border: 1px solid $text-strong;
+
+        &:hover {
+          background-color: darken($base-text, 10%);
+          color: lighten($black, 20%);
+          border-color: lighten($text-strong, 20%);
+        }
+      }
+
+      .signOutButton {
+        background-color: #dc2626;
+        color: #fff;
+        border: 1px solid darken(#dc2626, 10%);
+
+        &:hover {
+          background-color: lighten(#dc2626, 10%);
+          color: #fff;
+          border-color: darken(#dc2626, 20%);
+        }
+      }
     }
   }
 }

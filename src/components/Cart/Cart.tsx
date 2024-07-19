@@ -7,6 +7,7 @@ import { RootState, useDispatch, useSelector } from '@/src/redux/store';
 import { clearCart, closeCart, toggleCart } from '@/src/redux/slices/cartSlice';
 import SmallProductCard from '../SmallProductCard/SmallProductCard';
 import Link from 'next/link';
+import useCartInitialization from '@/src/lib/useCartInitialization';
 
 export default function Cart() {
   const { items, totalPrice, totalItems, isOpen } = useSelector(
@@ -18,6 +19,8 @@ export default function Cart() {
   const handleCartMenu = () => {
     dispatch(toggleCart());
   };
+
+  useCartInitialization();
 
   const handleClickOut = (event: MouseEvent) => {
     const target = event.target;
@@ -46,7 +49,7 @@ export default function Cart() {
     <div className={styles.cartContainer}>
       <li onClick={handleCartMenu}>
         <FaShoppingCart className={styles.icons} />
-        <div className={styles.cartCount}>{items.length}</div>
+        <div className={styles.cartCount}>{totalItems}</div>
       </li>
       {isOpen && (
         <div
@@ -65,7 +68,7 @@ export default function Cart() {
         </div>
         <div className={styles.innerContainer}>
           <div className={styles.cartItems}>
-            {items.map((item) => {
+            {items?.map((item) => {
               return <SmallProductCard key={item.id} data={item} />;
             })}
           </div>
@@ -81,7 +84,11 @@ export default function Cart() {
             <div onClick={handleCartEmpty} className={styles.empty}>
               Empty Cart
             </div>
-            <Link href="/checkout" className={styles.checkout}>
+            <Link
+              onClick={handleCartMenu}
+              href="/checkout"
+              className={styles.checkout}
+            >
               Checkout
             </Link>
           </div>

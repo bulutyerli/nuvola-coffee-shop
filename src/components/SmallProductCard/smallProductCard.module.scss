@@ -1,0 +1,47 @@
+@import '../../app/variables.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px 0;
+  background-color: $base-text;
+  gap: 2rem;
+  width: 100%;
+  position: relative;
+
+  .image {
+    width: 75px;
+    height: auto;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: start;
+    .name {
+      font-weight: bolder;
+      color: $black-medium;
+      font-size: 1.1rem;
+    }
+
+    .option,
+    .quantity,
+    .price {
+      color: $black-lighter;
+    }
+  }
+  .delete {
+    position: absolute;
+    font-size: 1.5rem;
+    top: 5px;
+    right: 5px;
+
+    * {
+      color: #dc2626;
+    }
+  }
+}

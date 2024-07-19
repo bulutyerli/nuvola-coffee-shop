@@ -29,7 +29,6 @@
     }
 
     .option,
-    .quantity,
     .price {
       color: $black-lighter;
     }
@@ -39,9 +38,27 @@
     font-size: 1.5rem;
     top: 5px;
     right: 5px;
+    cursor: pointer;
 
     * {
       color: #dc2626;
+    }
+  }
+
+  .quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: 1px solid $primary-strong;
+    justify-content: space-between;
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+    .buttons {
+      cursor: pointer;
+    }
+    * {
+      color: $primary-strong;
+      user-select: none;
     }
   }
 }

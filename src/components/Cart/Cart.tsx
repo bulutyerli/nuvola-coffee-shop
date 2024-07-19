@@ -3,13 +3,15 @@
 import { useEffect, useRef } from 'react';
 import { FaShoppingCart, FaTimes } from 'react-icons/fa';
 import styles from './cart.module.scss';
-import { useDispatch, useSelector } from '@/src/redux/store';
-import { closeCart, toggleCart } from '@/src/redux/slices/cartSlice';
+import { RootState, useDispatch, useSelector } from '@/src/redux/store';
+import { clearCart, closeCart, toggleCart } from '@/src/redux/slices/cartSlice';
 import SmallProductCard from '../SmallProductCard/SmallProductCard';
+import Link from 'next/link';
 
 export default function Cart() {
-  const cartItems = useSelector((state) => state.cart.items);
-  const cartState = useSelector((state) => state.cart.isOpen);
+  const { items, totalPrice, totalItems, isOpen } = useSelector(
+    (state: RootState) => state.cart
+  );
   const cartRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -36,13 +38,17 @@ export default function Cart() {
     };
   });
 
+  const handleCartEmpty = () => {
+    dispatch(clearCart());
+  };
+
   return (
     <div className={styles.cartContainer}>
       <li onClick={handleCartMenu}>
         <FaShoppingCart className={styles.icons} />
-        <div className={styles.cartCount}>{cartItems.length}</div>
+        <div className={styles.cartCount}>{items.length}</div>
       </li>
-      {cartState && (
+      {isOpen && (
         <div
           className={styles.overlay}
           onClick={() => dispatch(closeCart())}
@@ -51,16 +57,34 @@ export default function Cart() {
 
       <div
         ref={cartRef}
-        className={`${styles.cartMenu} ${cartState ? styles.cartOpen : ''}`}
+        className={`${styles.cartMenu} ${isOpen ? styles.cartOpen : ''}`}
       >
         <div className={styles.titleContainer}>
           <h2>Your Cart</h2>
           <FaTimes onClick={handleCartMenu} className={styles.closeIcon} />
         </div>
-        <div className={styles.cartItems}>
-          {cartItems.map((item) => {
-            return <SmallProductCard key={item.id} data={item} />;
-          })}
+        <div className={styles.innerContainer}>
+          <div className={styles.cartItems}>
+            {items.map((item) => {
+              return <SmallProductCard key={item.id} data={item} />;
+            })}
+          </div>
+          <div className={styles.cartOptions}>
+            <div className={styles.total}>
+              <span>Total Item</span>
+              <span className={styles.detail}>{totalItems}</span>
+            </div>
+            <div className={styles.total}>
+              <span>Subtotal</span>
+              <span className={styles.detail}>{totalPrice} USD</span>
+            </div>
+            <div onClick={handleCartEmpty} className={styles.empty}>
+              Empty Cart
+            </div>
+            <Link href="/checkout" className={styles.checkout}>
+              Checkout
+            </Link>
+          </div>
         </div>
       </div>
     </div>

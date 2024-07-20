@@ -1,7 +1,38 @@
 import { Address } from '@/src/database-types';
 import styles from './addressCard.module.scss';
+import { MdEdit, MdDelete } from 'react-icons/md';
+import { useState } from 'react';
+import AddressModal from '../AddressModal/AddressModal';
+import Modal from '../Modal/Modal';
 
-export default function AddressCard({ address }: { address: Address }) {
+export default function AddressCard({
+  address,
+  updateAddress,
+  deleteAddress,
+}: {
+  address: Address;
+  updateAddress: (data: Address) => void;
+  deleteAddress: (id: number) => void;
+}) {
+  const [modal, setModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const modalHandler = () => {
+    setModal(true);
+  };
+  const deleteModalHandler = () => {
+    setDeleteModal(true);
+  };
+
+  const deleteHandler = () => {
+    deleteAddress(address.id);
+  };
+
+  const updateHandler = (data: Address) => {
+    updateAddress(data);
+    setModal(false);
+  };
+
   return (
     <div className={styles.addressCard}>
       <div className={styles.addressHeader}>
@@ -18,6 +49,26 @@ export default function AddressCard({ address }: { address: Address }) {
         </p>
         <p>{address.country}</p>
       </div>
+      <div className={styles.icons}>
+        <MdEdit className={styles.edit} onClick={modalHandler} />
+        <MdDelete className={styles.delete} onClick={deleteModalHandler} />
+      </div>
+      {modal && (
+        <AddressModal
+          onSubmitAddress={updateHandler}
+          address={address}
+          onClose={() => setModal(false)}
+        />
+      )}
+      {deleteModal && (
+        <Modal
+          text={`Are you sure you want to delete the address "${address.address_name}"?`}
+          rejectBtnTxt="Cancel"
+          approveBtnTxt="Delete"
+          onSubmit={deleteHandler}
+          onClose={() => setDeleteModal(false)}
+        />
+      )}
     </div>
   );
 }

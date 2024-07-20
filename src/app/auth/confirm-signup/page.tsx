@@ -97,6 +97,8 @@ export default function ConfirmSignUpPage() {
                 </div>
               </div>
               <CustomButton
+                type="submit"
+                color="primary"
                 isLoading={isLoading || isSubmitting}
                 text="Confirm"
               ></CustomButton>

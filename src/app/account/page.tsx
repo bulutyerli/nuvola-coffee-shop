@@ -7,9 +7,10 @@ import styles from './account.module.scss';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { handleSignOut } from '@/src/lib/cognitoActions';
-import { getAddresses } from '@/src/services/getAddresses';
 import AddressCard from '@/src/components/AddressCard/AddressCard';
 import { Address } from '@/src/database-types';
+import CustomButton from '@/src/components/CustomButton/CustomButton';
+import AddressModal from '@/src/components/AddressModal/AddressModal';
 
 interface UserAttributes {
   name?: string;
@@ -21,6 +22,8 @@ interface UserAttributes {
 export default function Account() {
   const [userDetails, setUserDetails] = useState<UserAttributes>({});
   const [userAddresses, setUserAddresses] = useState<Address[] | null>();
+  const [newAddress, setNewAddress] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const signOut = async () => {
@@ -36,18 +39,101 @@ export default function Account() {
         setUserDetails(details);
 
         if (details.sub) {
-          const addresses = await getAddresses(details.sub);
+          const res = await fetch(`/api/addresses?user_sub=${details.sub}`);
+          if (!res.ok) {
+            throw new Error('User info could not fetched');
+          }
+
+          const { addresses } = await res.json();
           setUserAddresses(addresses);
         }
       } catch (error) {
-        console.error('Error fetching user details or addresses:', error);
+        throw new Error('Something went wrong');
       }
     };
 
     getDetails();
   }, []);
 
-  console.log(userAddresses);
+  const handleNewAddress = async (data: Address) => {
+    const { sub } = userDetails;
+    try {
+      setIsLoading(true);
+      const res = await fetch('/api/addresses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data, sub }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        const errorMessage =
+          errorData.error || 'Addresses could not be fetched';
+        throw new Error(errorMessage);
+      }
+
+      const result = await res.json();
+      setUserAddresses((prev) => [...(prev || []), result.address[0]]);
+      setNewAddress(false);
+    } catch (error: any) {
+      if (error.message === 'Missing required fields') {
+        alert('Please fill in all required fields.');
+      } else {
+        alert('Something went wrong. Please try again later.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateHandler = async (data: Address) => {
+    try {
+      const res = await fetch('/api/addresses', {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        const errorMessage =
+          errorData.error || 'Addresses could not be fetched';
+        throw new Error(errorMessage);
+      }
+
+      const result = await res.json();
+      const updatedAddress = result.newAddress;
+
+      setUserAddresses((prev) =>
+        prev?.map((address) =>
+          address.id === updatedAddress.id ? updatedAddress : address
+        )
+      );
+    } catch (error: any) {
+      alert(error.message || 'Something went wrong. Please try again later.');
+    }
+  };
+
+  const deleteHandler = async (id: number) => {
+    try {
+      const res = await fetch(`/api/addresses?address_id=${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        const errorMessage = errorData.error || 'Address could not be deleted';
+        throw new Error(errorMessage);
+      }
+
+      setUserAddresses((prev) =>
+        prev ? prev.filter((address) => address.id !== id) : prev
+      );
+    } catch (error: any) {
+      alert(error.message || 'Something went wrong. Please try again later.');
+    }
+  };
 
   return (
     <main>
@@ -66,21 +152,30 @@ export default function Account() {
               <p className={styles.email}>{userDetails.email}</p>
             </div>
             <div className={styles.buttonContainer}>
-              <button className={styles.addressButton} type="button">
-                Add New Address
-              </button>
-              <button
-                className={styles.signOutButton}
-                onClick={signOut}
+              <CustomButton
                 type="button"
-              >
-                Logout
-              </button>
+                onClick={() => setNewAddress(true)}
+                color="primary"
+                text="Add New Address"
+              />
+              <CustomButton
+                type="button"
+                text="Sign Out"
+                color="red"
+                onClick={signOut}
+              />
             </div>
             <div className={styles.addressContainer}>
               <h2>Your Addresses</h2>
               {userAddresses?.map((address) => {
-                return <AddressCard key={address.id} address={address} />;
+                return (
+                  <AddressCard
+                    updateAddress={updateHandler}
+                    deleteAddress={deleteHandler}
+                    key={address.id}
+                    address={address}
+                  />
+                );
               })}
             </div>
           </section>
@@ -92,6 +187,13 @@ export default function Account() {
           </section>
         </div>
       </Container>
+      {newAddress && (
+        <AddressModal
+          isLoading={isLoading}
+          onSubmitAddress={handleNewAddress}
+          onClose={() => setNewAddress(false)}
+        />
+      )}
     </main>
   );
 }

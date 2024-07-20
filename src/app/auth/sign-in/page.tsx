@@ -78,6 +78,8 @@ export default function SignInPage() {
                 </div>
               </div>
               <CustomButton
+                type="submit"
+                color="primary"
                 isLoading={isLoading || isSubmitting}
                 text="Sign In"
               />

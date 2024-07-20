@@ -111,6 +111,8 @@ export default function SignUpPage() {
                 </div>
               </div>
               <CustomButton
+                type="submit"
+                color="primary"
                 text="Sign Up"
                 isLoading={isLoading || isSubmitting}
               />

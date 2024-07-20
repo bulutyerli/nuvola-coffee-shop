@@ -1,0 +1,34 @@
+@import '../../app/variables.scss';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+
+  .modal {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+
+    .text {
+      color: $black-light;
+      margin-bottom: 3rem;
+      font-size: 1.5rem;
+    }
+
+    .buttonContainer {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}

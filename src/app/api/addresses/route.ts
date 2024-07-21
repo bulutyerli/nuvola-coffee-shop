@@ -1,19 +1,20 @@
 import { db } from '@/src/database';
 import { Address } from '@/src/database-types';
-import { revalidatePath } from 'next/cache';
+import { authenticatedUser } from '@/src/utils/amplify-server-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const user_sub = req.nextUrl.searchParams.get('user_sub');
+    const response = NextResponse.next();
+    const user = await authenticatedUser({ request, response });
 
-    if (!user_sub) {
-      return Response.json({ error: 'user_sub is required' }, { status: 400 });
+    if (!user) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     const addresses = await db
       .selectFrom('addresses')
-      .where('addresses.user_sub', '=', user_sub)
+      .where('addresses.user_sub', '=', user.userId)
       .selectAll()
       .execute();
 
@@ -24,13 +25,18 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const { data, sub }: { data: Address; sub: string } = await req.json();
-    console.log(data, sub);
+    const response = NextResponse.next();
+    const user = await authenticatedUser({ request, response });
+
+    if (!user) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    const data: Address = await request.json();
 
     if (
-      !sub ||
       !data.name ||
       !data.surname ||
       !data.address_name ||
@@ -49,7 +55,7 @@ export async function POST(req: NextRequest) {
     const address = await db
       .insertInto('addresses')
       .values({
-        user_sub: sub,
+        user_sub: user.userId,
         name: data.name,
         surname: data.surname,
         address_name: data.address_name,

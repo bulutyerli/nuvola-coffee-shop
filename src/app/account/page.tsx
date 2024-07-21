@@ -39,7 +39,7 @@ export default function Account() {
         setUserDetails(details);
 
         if (details.sub) {
-          const res = await fetch(`/api/addresses?user_sub=${details.sub}`);
+          const res = await fetch('/api/addresses');
           if (!res.ok) {
             throw new Error('User info could not fetched');
           }
@@ -56,7 +56,6 @@ export default function Account() {
   }, []);
 
   const handleNewAddress = async (data: Address) => {
-    const { sub } = userDetails;
     try {
       setIsLoading(true);
       const res = await fetch('/api/addresses', {
@@ -64,7 +63,7 @@ export default function Account() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ data, sub }),
+        body: JSON.stringify(data),
       });
 
       if (!res.ok) {

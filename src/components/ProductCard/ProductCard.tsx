@@ -21,7 +21,7 @@ export default function ProductCard({ data }: { data: GroupedProduct }) {
     if (data.options && data.options.length > 0) {
       setSelectedOption(data.options[0]);
     }
-  }, [data.options]);
+  }, [data?.options]);
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = data.options.find(

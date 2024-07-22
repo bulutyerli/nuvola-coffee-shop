@@ -1,1 +1,84 @@
 @import '../../app/variables.scss';
+
+.main {
+  h1 {
+    color: $black-medium;
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2rem;
+
+    .paymentContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 400px;
+
+      .addressSection {
+        h2 {
+          color: $black-medium;
+          margin-bottom: 1rem;
+        }
+
+        select {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 16px;
+          color: $black;
+          margin-bottom: 20px;
+          cursor: pointer;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+          &::placeholder {
+            color: #aaa;
+          }
+
+          option {
+            padding: 10px;
+            background-color: #fff;
+            color: #333;
+
+            &:hover {
+              background-color: #f1f1f1;
+            }
+          }
+        }
+      }
+    }
+
+    .checkoutForm {
+      width: 100%;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+  }
+
+  .cartSection {
+    width: 400px;
+    h2 {
+      color: $black-light;
+      margin-bottom: 1rem;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      .total,
+      .price {
+        color: $black;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

@@ -33,7 +33,7 @@
   bottom: 0;
   right: 0;
   text-align: right;
-  background-color: $base-text;
+  background-color: #fff;
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
@@ -76,15 +76,17 @@
     align-self: center;
   }
 
-  .cartItems {
-    margin-top: 2rem;
-  }
-
   .innerContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+
+    .cartItems {
+      margin: 2rem 0;
+      overflow-y: auto;
+      margin-bottom: 10rem;
+    }
 
     .cartOptions {
       position: absolute;
@@ -94,6 +96,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
+      background-color: #fff;
 
       .total {
         display: flex;

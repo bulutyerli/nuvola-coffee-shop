@@ -53,7 +53,7 @@ export default function ProductCard({ data }: { data: GroupedProduct }) {
       <figure className={styles.imageWrapper}>
         <Image
           className={styles.image}
-          src={data.imageUrl}
+          src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DOMAIN}${data.imageUrl}`}
           width={150}
           height={150}
           alt={`${data.name} image`}

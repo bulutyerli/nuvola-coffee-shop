@@ -2,8 +2,8 @@ import { Generated, Insertable, Selectable, Updateable } from 'kysely';
 
 export interface Database {
   addresses: AddressTable;
-  order: OrderTable;
-  order_item: OrderItemsTable;
+  orders: OrderTable;
+  order_items: OrderItemsTable;
   products: ProductsTable;
   product_variants: ProductVariantsTable;
   users: UsersTable;
@@ -32,6 +32,7 @@ export interface OrderTable {
   user_sub: string;
   order_date: Date;
   total_price: number;
+  address_id: number;
 }
 
 export type Order = Selectable<OrderTable>;

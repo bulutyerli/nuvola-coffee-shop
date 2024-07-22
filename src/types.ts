@@ -1,3 +1,5 @@
+import { Address } from './database-types';
+
 export interface GroupedProduct {
   id: number;
   name: string;
@@ -21,4 +23,9 @@ export interface CartState {
   isOpen: boolean;
   totalPrice: number;
   totalItems: number;
+}
+
+export interface AddressState {
+  addresses: Address[];
+  selectedAddress: Address | null;
 }

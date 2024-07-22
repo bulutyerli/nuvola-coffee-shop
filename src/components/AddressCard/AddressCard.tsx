@@ -9,10 +9,12 @@ export default function AddressCard({
   address,
   updateAddress,
   deleteAddress,
+  editable,
 }: {
   address: Address;
-  updateAddress: (data: Address) => void;
-  deleteAddress: (id: number) => void;
+  updateAddress?: (data: Address) => void;
+  deleteAddress?: (id: number) => void;
+  editable?: boolean;
 }) {
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -25,11 +27,11 @@ export default function AddressCard({
   };
 
   const deleteHandler = () => {
-    deleteAddress(address.id);
+    deleteAddress && deleteAddress(address.id);
   };
 
   const updateHandler = (data: Address) => {
-    updateAddress(data);
+    updateAddress && updateAddress(data);
     setModal(false);
   };
 
@@ -49,10 +51,12 @@ export default function AddressCard({
         </p>
         <p>{address.country}</p>
       </div>
-      <div className={styles.icons}>
-        <MdEdit className={styles.edit} onClick={modalHandler} />
-        <MdDelete className={styles.delete} onClick={deleteModalHandler} />
-      </div>
+      {editable && (
+        <div className={styles.icons}>
+          <MdEdit className={styles.edit} onClick={modalHandler} />
+          <MdDelete className={styles.delete} onClick={deleteModalHandler} />
+        </div>
+      )}
       {modal && (
         <AddressModal
           onSubmitAddress={updateHandler}

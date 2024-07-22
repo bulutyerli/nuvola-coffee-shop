@@ -39,11 +39,21 @@ export default function Cart() {
     return () => {
       document.removeEventListener('mousedown', handleClickOut);
     };
-  });
+  }, []);
 
   const handleCartEmpty = () => {
     dispatch(clearCart());
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <div className={styles.cartContainer}>

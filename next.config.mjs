@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'nuvola-coffee-shop-products.s3.eu-central-1.amazonaws.com',
+        hostname: 'd2c56d7dxy8e9u.cloudfront.net',
         port: '',
       },
     ],

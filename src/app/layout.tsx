@@ -27,12 +27,10 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <body className={`${roboto.className} ${kalam.variable}`}>
-          <div className="main_container">
-            <Header />
-            <ConfigureAmplifyClientSide />
-            {children}
-            <Footer />
-          </div>
+          <Header />
+          <ConfigureAmplifyClientSide />
+          {children}
+          <Footer />
         </body>
       </html>
     </Providers>

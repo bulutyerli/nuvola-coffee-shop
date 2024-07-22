@@ -1,0 +1,50 @@
+/* checkoutForm.module.scss */
+.payment-form {
+  /* Styles for the form */
+}
+
+.submitButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background-color: #0070f3;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+  width: 100%;
+
+  &:hover {
+    background-color: #005bb5;
+  }
+
+  &:disabled {
+    background-color: #b0bec5;
+    cursor: not-allowed;
+  }
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #0070f3;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.paymentMessage {
+  color: #d32f2f;
+  margin-top: 1rem;
+}

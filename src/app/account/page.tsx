@@ -173,6 +173,7 @@ export default function Account() {
                     deleteAddress={deleteHandler}
                     key={address.id}
                     address={address}
+                    editable={true}
                   />
                 );
               })}

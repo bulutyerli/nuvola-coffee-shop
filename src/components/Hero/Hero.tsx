@@ -2,15 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import styles from './hero.module.scss';
-import createSignedUrl from '@/src/lib/s3PreSignURL';
-import getHeroVideo from '@/src/lib/getHeroVideo';
 
 type AnimationType = 'fadeIn' | 'fadeOut';
 
 export default function Hero() {
   const [titleIndex, setTitleIndex] = useState(0);
   const [animation, setAnimation] = useState<AnimationType>('fadeIn');
-  const [videoLink, setVideoLink] = useState<string | undefined>(undefined);
 
   const heroTitles = [
     {
@@ -39,26 +36,17 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [heroTitles.length]);
 
-  useEffect(() => {
-    const getVideoLink = async () => {
-      const link = await getHeroVideo();
-      setVideoLink(link);
-    };
-    getVideoLink();
-  }, []);
-
   return (
     <section className={styles.container}>
-      {videoLink && (
-        <video
-          className={styles.video}
-          src={videoLink}
-          autoPlay
-          loop
-          playsInline
-          muted
-        ></video>
-      )}
+      <video
+        className={styles.video}
+        src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DOMAIN}products/hero-video.mp4`}
+        autoPlay
+        loop
+        playsInline
+        muted
+      ></video>
+
       <div className={styles.heroTitles}>
         <h1>NUVOLA COFFEE SHOP</h1>
         <h2

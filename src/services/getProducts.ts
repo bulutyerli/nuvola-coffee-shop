@@ -1,5 +1,4 @@
 import { db } from '@/src/database';
-import createSignedUrl from '../lib/s3PreSignURL';
 import { GroupedProduct } from '../types';
 
 export async function getProducts() {
@@ -14,33 +13,27 @@ export async function getProducts() {
       .selectAll()
       .execute();
 
-    const productsWithUrls = await Promise.all(
-      products.map(async (product) => {
-        const url = await createSignedUrl(product.s3_link);
-        return { ...product, imageUrl: url };
-      })
+    const groupedProducts = products.reduce<Record<number, GroupedProduct>>(
+      (acc, product) => {
+        if (!acc[product.product_id]) {
+          acc[product.product_id] = {
+            id: product.product_id,
+            name: product.name,
+            category: product.category,
+            brand: product.brand,
+            options: [],
+            imageUrl: product.s3_link,
+          };
+        }
+        acc[product.product_id].options.push({
+          id: product.id,
+          option: product.option,
+          price: product.price,
+        });
+        return acc;
+      },
+      {}
     );
-
-    const groupedProducts = productsWithUrls.reduce<
-      Record<number, GroupedProduct>
-    >((acc, product) => {
-      if (!acc[product.product_id]) {
-        acc[product.product_id] = {
-          id: product.product_id,
-          name: product.name,
-          category: product.category,
-          brand: product.brand,
-          options: [],
-          imageUrl: product.imageUrl,
-        };
-      }
-      acc[product.product_id].options.push({
-        id: product.id,
-        option: product.option,
-        price: product.price,
-      });
-      return acc;
-    }, {});
 
     return Object.values(groupedProducts);
   } catch (error) {

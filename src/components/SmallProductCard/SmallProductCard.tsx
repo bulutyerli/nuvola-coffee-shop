@@ -25,7 +25,7 @@ export default function SmallProductCard({ data }: { data: CartItem }) {
     <article className={styles.container}>
       <figure className={styles.imageWrapper}>
         <Image
-          src={data.imageUrl}
+          src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DOMAIN}${data.imageUrl}`}
           width={100}
           height={100}
           alt={data.name}

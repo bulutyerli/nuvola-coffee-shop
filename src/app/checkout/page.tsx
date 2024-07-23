@@ -29,7 +29,6 @@ export default function CheckoutPage() {
     }
   };
 
-  console.log(totalPrice);
   return (
     <Container className={styles.main} color="white">
       <h1>Checkout</h1>

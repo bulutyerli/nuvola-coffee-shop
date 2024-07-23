@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from '@/src/redux/store';
 import { selectAddress, setAddresses } from '@/src/redux/slices/addressSlice';
 import { useRouter } from 'next/navigation';
 
-export default function checkoutLayout({
+export default function CheckoutLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -44,9 +44,12 @@ export default function checkoutLayout({
         body: JSON.stringify({ items, address_id: selectedAddress?.id }),
       })
         .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret))
-        .catch(() => {
-          router.push('/');
+        .then((data) => {
+          if (data.clientSecret) {
+            setClientSecret(data.clientSecret);
+          } else {
+            router.push('/');
+          }
         });
     }
   }, [selectedAddress]);

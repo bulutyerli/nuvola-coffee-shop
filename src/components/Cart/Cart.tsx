@@ -8,6 +8,7 @@ import { clearCart, closeCart, toggleCart } from '@/src/redux/slices/cartSlice';
 import SmallProductCard from '../SmallProductCard/SmallProductCard';
 import Link from 'next/link';
 import useCartInitialization from '@/src/lib/useCartInitialization';
+import { clearOrder, setOrder } from '@/src/redux/slices/orderSlice';
 
 export default function Cart() {
   const { items, totalPrice, totalItems, isOpen } = useSelector(
@@ -15,12 +16,11 @@ export default function Cart() {
   );
   const cartRef = useRef(null);
   const dispatch = useDispatch();
+  useCartInitialization();
 
   const handleCartMenu = () => {
     dispatch(toggleCart());
   };
-
-  useCartInitialization();
 
   const handleClickOut = (event: MouseEvent) => {
     const target = event.target;
@@ -54,6 +54,12 @@ export default function Cart() {
       document.documentElement.style.overflow = '';
     };
   }, [isOpen]);
+
+  const handleCheckout = () => {
+    dispatch(clearOrder());
+    dispatch(setOrder({ items, totalPrice }));
+    handleCartMenu();
+  };
 
   return (
     <div className={styles.cartContainer}>
@@ -95,7 +101,7 @@ export default function Cart() {
               Empty Cart
             </div>
             <Link
-              onClick={handleCartMenu}
+              onClick={handleCheckout}
               href="/checkout"
               className={styles.checkout}
             >

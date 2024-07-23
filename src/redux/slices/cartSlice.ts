@@ -12,7 +12,7 @@ const calculateTotals = (items: CartItem[]) => {
     totalItems += item.quantity;
   });
 
-  return { totalPrice, totalItems };
+  return { totalPrice: parseFloat(totalPrice.toFixed(2)), totalItems };
 };
 
 const setCartListFunc = (
@@ -21,7 +21,7 @@ const setCartListFunc = (
   totalItems: number
 ) => {
   localStorage.setItem('cartList', JSON.stringify(items));
-  localStorage.setItem('cartTotal', JSON.stringify(totalPrice));
+  localStorage.setItem('cartTotal', JSON.stringify(totalPrice.toFixed(2)));
   localStorage.setItem('cartQuantity', JSON.stringify(totalItems));
 };
 

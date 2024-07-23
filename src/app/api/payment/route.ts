@@ -24,7 +24,7 @@ const calculateOrderAmount = async (items: CartItem[]) => {
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 
-  return totalPrice * 100;
+  return Math.round(totalPrice * 100);
 };
 
 export async function POST(request: NextRequest) {

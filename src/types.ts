@@ -29,3 +29,8 @@ export interface AddressState {
   addresses: Address[];
   selectedAddress: Address | null;
 }
+
+export interface OrderState {
+  items: CartItem[];
+  totalPrice: number;
+}

@@ -2,23 +2,20 @@
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
-import CheckoutForm from '@/src/components/CheckoutForm/CheckoutForm';
-import styles from './checkout.module.scss';
 import { useDispatch, useSelector } from '@/src/redux/store';
-import { Address } from '@/src/database-types';
-import Container from '@/src/components/Container/Container';
-import AddressCard from '@/src/components/AddressCard/AddressCard';
-import SmallProductCard from '@/src/components/SmallProductCard/SmallProductCard';
 import { selectAddress, setAddresses } from '@/src/redux/slices/addressSlice';
-export default function DashboardLayout({
-  children, // will be a page or nested layout
+import { useRouter } from 'next/navigation';
+
+export default function checkoutLayout({
+  children,
 }: {
   children: React.ReactNode;
 }) {
   const [clientSecret, setClientSecret] = useState('');
-  const { items } = useSelector((state) => state.cart);
+  const { items } = useSelector((state) => state.order);
   const { selectedAddress } = useSelector((state) => state.address);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [stripePromise, setStripePromise] = useState(() =>
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
@@ -47,13 +44,17 @@ export default function DashboardLayout({
         body: JSON.stringify({ items, address_id: selectedAddress?.id }),
       })
         .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret));
+        .then((data) => setClientSecret(data.clientSecret))
+        .catch(() => {
+          router.push('/');
+        });
     }
   }, [selectedAddress]);
 
   const options = {
     clientSecret,
   };
+
   return (
     <main>
       {clientSecret && (

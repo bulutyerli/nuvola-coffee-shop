@@ -43,6 +43,16 @@ export default function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    if (menu) {
+      document.documentElement.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [menu]);
+
   return (
     <Container color="primary">
       <header

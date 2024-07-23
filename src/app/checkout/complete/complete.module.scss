@@ -2,4 +2,34 @@
 
 .container {
   color: $black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+
+  h1 {
+    color: $secondary-strong;
+  }
+
+  @media (width < $large) {
+    h1 {
+      font-size: 1.2rem;
+    }
+  }
+
+  .orderLinkContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    h2 {
+      color: $black-lighter;
+    }
+
+    a {
+      color: $black-medium;
+    }
+  }
 }

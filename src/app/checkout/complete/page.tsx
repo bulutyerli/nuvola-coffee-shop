@@ -3,14 +3,24 @@
 import { useState, useEffect } from 'react';
 import { useStripe } from '@stripe/react-stripe-js';
 import styles from './complete.module.scss';
+import { useDispatch } from '@/src/redux/store';
+import { clearCart } from '@/src/redux/slices/cartSlice';
+import Container from '@/src/components/Container/Container';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { clearOrder } from '@/src/redux/slices/orderSlice';
 
 export default function CompletePage() {
-  const [message, setMessage] = useState('');
-
+  const [message, setMessage] = useState({ message: '', success: false });
   const stripe = useStripe();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  console.log('no str');
 
   useEffect(() => {
     if (!stripe) {
+      console.log('no str');
+
       return;
     }
 
@@ -19,37 +29,59 @@ export default function CompletePage() {
     );
 
     if (!clientSecret) {
+      console.log('no client');
+      router.push('/');
       return;
     }
 
-    stripe
-      .retrievePaymentIntent(clientSecret)
-      .then(({ paymentIntent }) => {
-        if (paymentIntent) {
-          switch (paymentIntent.status) {
-            case 'succeeded':
-              setMessage('Payment succeeded!');
-
-              break;
-            case 'processing':
-              console.log('processssss');
-              setMessage('Your payment is processing.');
-              break;
-            case 'requires_payment_method':
-              setMessage('Your payment was not successful, please try again.');
-              break;
-            default:
-              setMessage('Something went wrong.');
-              break;
-          }
-        } else {
-          setMessage('Payment intent could not be retrieved.');
+    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+      if (paymentIntent) {
+        switch (paymentIntent.status) {
+          case 'succeeded':
+            dispatch(clearOrder());
+            dispatch(clearCart());
+            setMessage({
+              message:
+                'Thank you for your purchase! Your payment was successful',
+              success: true,
+            });
+            break;
+          case 'processing':
+            setMessage({
+              message: 'Your payment is currently being processed',
+              success: false,
+            });
+            break;
+          case 'requires_payment_method':
+            setMessage({
+              message: 'Unfortunately, your payment could not be completed',
+              success: false,
+            });
+            router.push('/checkout');
+            break;
+          default:
+            setMessage({
+              message:
+                'An unexpected error occurred. Please contact our support team for assistance.',
+              success: false,
+            });
+            break;
         }
-      })
-      .catch(() => {
-        setMessage('An error occurred while retrieving the payment intent.');
-      });
+      }
+    });
   }, [stripe]);
 
-  return <main className={styles.container}>{message}</main>;
+  return (
+    <Container color="white">
+      <div className={styles.container}>
+        <h1>{message.message}</h1>
+        {message.success && (
+          <div className={styles.orderLinkContainer}>
+            <h2>You can check your order and shipping status from here:</h2>
+            <Link href="/account">Go to My Account</Link>
+          </div>
+        )}
+      </div>
+    </Container>
+  );
 }

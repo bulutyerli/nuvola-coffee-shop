@@ -5,9 +5,11 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const user = await authenticatedUser({ request, response });
 
-  const isOnAccount = request.nextUrl.pathname.startsWith('/account');
-
-  if (isOnAccount && !user) {
+  if (
+    !user &&
+    (request.nextUrl.pathname.startsWith('/account') ||
+      request.nextUrl.pathname.startsWith('/checkout'))
+  ) {
     return NextResponse.redirect(new URL('/auth/sign-in', request.nextUrl));
   }
 

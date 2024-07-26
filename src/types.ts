@@ -34,3 +34,10 @@ export interface OrderState {
   items: CartItem[];
   totalPrice: number;
 }
+
+export interface OrderItem {
+  id: number;
+  order_date: Date;
+  total_price: number;
+  status: number;
+}

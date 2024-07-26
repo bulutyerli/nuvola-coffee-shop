@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from '@/src/redux/store';
 import { selectAddress, setAddresses } from '@/src/redux/slices/addressSlice';
 import { useRouter } from 'next/navigation';
 
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
 export default function CheckoutLayout({
   children,
 }: {
@@ -16,10 +20,6 @@ export default function CheckoutLayout({
   const { selectedAddress } = useSelector((state) => state.address);
   const dispatch = useDispatch();
   const router = useRouter();
-
-  const [stripePromise, setStripePromise] = useState(() =>
-    loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
-  );
 
   useEffect(() => {
     const getAddresses = async () => {

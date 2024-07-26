@@ -8,10 +8,6 @@ import AddressCard from '@/src/components/AddressCard/AddressCard';
 import { selectAddress } from '@/src/redux/slices/addressSlice';
 import OrderProductCard from '@/src/components/OrderProduct/OrderProductCard';
 
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
-
 export default function CheckoutPage() {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector((state) => state.order);

@@ -33,6 +33,7 @@ export interface OrderTable {
   order_date: Date;
   total_price: number;
   address_id: number;
+  status: 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'returned';
 }
 
 export type Order = Selectable<OrderTable>;

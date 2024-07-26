@@ -46,7 +46,6 @@ export async function POST(request: NextRequest) {
 
     const total = await calculateOrderAmount(items);
 
-    // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
       amount: total,
       currency: 'usd',

@@ -18,18 +18,12 @@ export async function POST(request: NextRequest) {
     event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
   } catch (err: any) {
     console.error(`Webhook Error: ${err.message}`);
-    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
+    return Response.json(`Webhook Error: ${err.message}`, { status: 400 });
   }
 
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
-
-      console.log(
-        paymentIntent.metadata.userId,
-        paymentIntent.metadata.items,
-        paymentIntent.metadata.address_id
-      );
 
       if (
         !paymentIntent.metadata ||
@@ -38,7 +32,7 @@ export async function POST(request: NextRequest) {
         !paymentIntent.metadata.address_id
       ) {
         console.error('Missing metadata or userId/items/address_id');
-        return new Response('Bad Request: Missing metadata', { status: 400 });
+        return Response.json('Bad Request: Missing metadata', { status: 400 });
       }
 
       const userId = paymentIntent.metadata.userId;
@@ -78,7 +72,7 @@ export async function POST(request: NextRequest) {
         console.log('Order and order items successfully inserted.');
       } catch (error: any) {
         console.error(`Database Error: ${error.message}`);
-        return new Response(`Database Error: ${error.message}`, {
+        return Response.json(`Database Error: ${error.message}`, {
           status: 500,
         });
       }
@@ -88,5 +82,5 @@ export async function POST(request: NextRequest) {
       console.log(`Unhandled event type ${event.type}`);
   }
 
-  return new Response('Event received', { status: 200 });
+  return Response.json('Event received', { status: 200 });
 }

@@ -10,17 +10,14 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { clearOrder } from '@/src/redux/slices/orderSlice';
 
-export default function CompletePage() {
+export default function PaymentStatusPage() {
   const [message, setMessage] = useState({ message: '', success: false });
   const stripe = useStripe();
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log('no str');
 
   useEffect(() => {
     if (!stripe) {
-      console.log('no str');
-
       return;
     }
 
@@ -29,7 +26,6 @@ export default function CompletePage() {
     );
 
     if (!clientSecret) {
-      console.log('no client');
       router.push('/');
       return;
     }

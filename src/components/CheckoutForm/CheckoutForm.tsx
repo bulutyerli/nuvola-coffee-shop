@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './checkoutForm.module.scss';
 import {
   PaymentElement,
@@ -27,7 +27,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:3000/checkout/complete',
+        return_url: 'http://localhost:3000/checkout/payment-status',
       },
     });
 

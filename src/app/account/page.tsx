@@ -11,6 +11,12 @@ import AddressCard from '@/src/components/AddressCard/AddressCard';
 import { Address } from '@/src/database-types';
 import CustomButton from '@/src/components/CustomButton/CustomButton';
 import AddressModal from '@/src/components/AddressModal/AddressModal';
+import {
+  addNewAddress,
+  deleteAddress,
+  getAddresses,
+  updateAddress,
+} from '@/src/services/addressService';
 
 interface UserAttributes {
   name?: string;
@@ -39,12 +45,7 @@ export default function Account() {
         setUserDetails(details);
 
         if (details.sub) {
-          const res = await fetch('/api/addresses');
-          if (!res.ok) {
-            throw new Error('User info could not fetched');
-          }
-
-          const { addresses } = await res.json();
+          const addresses = await getAddresses();
           setUserAddresses(addresses);
         }
       } catch (error) {
@@ -58,23 +59,8 @@ export default function Account() {
   const handleNewAddress = async (data: Address) => {
     try {
       setIsLoading(true);
-      const res = await fetch('/api/addresses', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        const errorMessage =
-          errorData.error || 'Addresses could not be fetched';
-        throw new Error(errorMessage);
-      }
-
-      const result = await res.json();
-      setUserAddresses((prev) => [...(prev || []), result.address[0]]);
+      const newAddress = await addNewAddress(data);
+      setUserAddresses((prev) => [...(prev || []), newAddress]);
       setNewAddress(false);
     } catch (error: any) {
       if (error.message === 'Missing required fields') {
@@ -89,20 +75,7 @@ export default function Account() {
 
   const updateHandler = async (data: Address) => {
     try {
-      const res = await fetch('/api/addresses', {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        const errorMessage =
-          errorData.error || 'Addresses could not be fetched';
-        throw new Error(errorMessage);
-      }
-
-      const result = await res.json();
-      const updatedAddress = result.newAddress;
+      const updatedAddress = await updateAddress(data);
 
       setUserAddresses((prev) =>
         prev?.map((address) =>
@@ -116,15 +89,7 @@ export default function Account() {
 
   const deleteHandler = async (id: number) => {
     try {
-      const res = await fetch(`/api/addresses?address_id=${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        const errorMessage = errorData.error || 'Address could not be deleted';
-        throw new Error(errorMessage);
-      }
+      await deleteAddress(id);
 
       setUserAddresses((prev) =>
         prev ? prev.filter((address) => address.id !== id) : prev

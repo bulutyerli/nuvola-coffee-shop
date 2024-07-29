@@ -17,6 +17,7 @@ import {
   getAddresses,
   updateAddress,
 } from '@/src/services/addressService';
+import { FaPlus } from 'react-icons/fa';
 
 interface UserAttributes {
   name?: string;
@@ -107,49 +108,41 @@ export default function Account() {
       />
       <Container color="white">
         <div className={styles.container}>
-          <section className={styles.innerContainer}>
-            <h2>Profile</h2>
-            <div className={styles.user}>
-              <p className={styles.name}>
-                {userDetails.name} {userDetails.family_name}
-              </p>
-              <p className={styles.email}>{userDetails.email}</p>
+          <div className={styles.user}>
+            <p className={styles.name}>
+              {userDetails.name} {userDetails.family_name}
+            </p>
+            <p className={styles.email}>{userDetails.email}</p>
+          </div>
+          <div className={styles.buttonContainer}>
+            <CustomButton
+              type="button"
+              text="Sign Out"
+              color="red"
+              onClick={signOut}
+            />
+          </div>
+          <h2>My Addresses</h2>
+          <div className={styles.addressContainer}>
+            <div
+              onClick={() => setNewAddress(true)}
+              className={styles.newAddress}
+            >
+              <FaPlus />
+              <span>ADD NEW ADDRESS</span>
             </div>
-            <div className={styles.buttonContainer}>
-              <CustomButton
-                type="button"
-                onClick={() => setNewAddress(true)}
-                color="primary"
-                text="Add New Address"
-              />
-              <CustomButton
-                type="button"
-                text="Sign Out"
-                color="red"
-                onClick={signOut}
-              />
-            </div>
-            <div className={styles.addressContainer}>
-              <h2>Your Addresses</h2>
-              {userAddresses?.map((address) => {
-                return (
-                  <AddressCard
-                    updateAddress={updateHandler}
-                    deleteAddress={deleteHandler}
-                    key={address.id}
-                    address={address}
-                    editable={true}
-                  />
-                );
-              })}
-            </div>
-          </section>
-          <section className={styles.innerContainer}>
-            <h2 id="orders-heading">Your Orders</h2>
-            <ul>
-              <li>Order list</li>
-            </ul>
-          </section>
+            {userAddresses?.map((address) => {
+              return (
+                <AddressCard
+                  updateAddress={updateHandler}
+                  deleteAddress={deleteHandler}
+                  key={address.id}
+                  address={address}
+                  editable={true}
+                />
+              );
+            })}
+          </div>
         </div>
       </Container>
       {newAddress && (

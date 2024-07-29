@@ -6,6 +6,7 @@ import styles from './productCard.module.scss';
 import { useDispatch } from '@/src/redux/store';
 import { addItem, openCart } from '@/src/redux/slices/cartSlice';
 import { GroupedProduct } from '@/src/types';
+import { getImageUrl } from '@/src/utils/getImageUrl';
 
 interface optionType {
   id: number;
@@ -53,7 +54,7 @@ export default function ProductCard({ data }: { data: GroupedProduct }) {
       <figure className={styles.imageWrapper}>
         <Image
           className={styles.image}
-          src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DOMAIN}${data.imageUrl}`}
+          src={getImageUrl(data.imageUrl)}
           width={150}
           height={150}
           alt={`${data.name} image`}

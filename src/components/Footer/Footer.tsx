@@ -3,6 +3,7 @@ import styles from './footer.module.scss';
 import Link from 'next/link';
 import { FaInstagram, FaSquareXTwitter, FaFacebook } from 'react-icons/fa6';
 import Container from '../Container/Container';
+import { getImageUrl } from '@/src/utils/getImageUrl';
 
 export default function Footer() {
   const copyright = new Date().getFullYear();
@@ -13,12 +14,8 @@ export default function Footer() {
       href: '/coffee',
     },
     {
-      title: 'Products',
-      href: '/products',
-    },
-    {
-      title: 'Cart',
-      href: '/cart',
+      title: 'Locations',
+      href: '/locations',
     },
   ];
 
@@ -34,14 +31,6 @@ export default function Footer() {
     {
       title: 'Privacy Policy',
       href: '/privacy-policy',
-    },
-    {
-      title: 'Shipping & Delivery',
-      href: '/shipping',
-    },
-    {
-      title: 'Terms & Conditions',
-      href: '/terms',
     },
   ];
 
@@ -119,7 +108,7 @@ export default function Footer() {
         <div className={styles.imageWrapper}>
           <Image
             className={styles.image}
-            src="/images/footer-beans.png"
+            src={getImageUrl('/products/footer-beans.webp')}
             width={200}
             height={200}
             alt="footer coffee beans"

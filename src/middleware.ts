@@ -1,9 +1,25 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { authenticatedUser } from './utils/amplify-server-utils';
+import { NextRequest, NextResponse } from 'next/server';
+import { runWithAmplifyServerContext } from './utils/amplify-server-utils';
+import { fetchAuthSession } from 'aws-amplify/auth/server';
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  const user = await authenticatedUser({ request, response });
+
+  const user = await runWithAmplifyServerContext({
+    nextServerContext: { request, response },
+    operation: async (contextSpec) => {
+      try {
+        const session = await fetchAuthSession(contextSpec);
+        return (
+          session.tokens?.accessToken !== undefined &&
+          session.tokens?.idToken !== undefined
+        );
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+  });
 
   if (
     !user &&

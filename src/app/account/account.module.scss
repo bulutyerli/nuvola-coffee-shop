@@ -3,23 +3,53 @@
 .container {
   padding-top: 2rem;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
 
   h2 {
     font-size: 2rem;
     color: $black-light;
+    margin-top: 2rem;
+    align-self: center;
   }
 
-  .innerContainer {
+  .addressContainer {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+
+    @media (width < $large) {
+      justify-content: center;
+    }
+  }
+
+  .newAddress {
+    width: 300px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid $text-soft;
+    border-style: dashed;
+    cursor: pointer;
 
-    .addressContainer {
-      margin-top: 2rem;
+    * {
+      color: $text-gray;
     }
+  }
 
+  .user {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
     .name {
       font-size: 1.5rem;
       color: $black;
@@ -30,46 +60,47 @@
       font-size: 1rem;
       color: $black-light;
     }
-    .buttonContainer {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-top: 16px;
+  }
 
-      .addressButton,
-      .signOutButton {
-        cursor: pointer;
-        padding: 0.5rem 0.5rem;
-        width: 150px;
-        text-align: center;
-        border-radius: 4px;
-        font-size: 1rem;
-        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 16px;
+
+    .addressButton,
+    .signOutButton {
+      cursor: pointer;
+      padding: 0.5rem 0.5rem;
+      width: 150px;
+      text-align: center;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .addressButton {
+      background-color: $base-text;
+      color: $black;
+      border: 1px solid $text-strong;
+
+      &:hover {
+        background-color: darken($base-text, 10%);
+        color: lighten($black, 20%);
+        border-color: lighten($text-strong, 20%);
       }
+    }
 
-      .addressButton {
-        background-color: $base-text;
-        color: $black;
-        border: 1px solid $text-strong;
+    .signOutButton {
+      background-color: #dc2626;
+      color: #fff;
+      border: 1px solid darken(#dc2626, 10%);
 
-        &:hover {
-          background-color: darken($base-text, 10%);
-          color: lighten($black, 20%);
-          border-color: lighten($text-strong, 20%);
-        }
-      }
-
-      .signOutButton {
-        background-color: #dc2626;
+      &:hover {
+        background-color: lighten(#dc2626, 10%);
         color: #fff;
-        border: 1px solid darken(#dc2626, 10%);
-
-        &:hover {
-          background-color: lighten(#dc2626, 10%);
-          color: #fff;
-          border-color: darken(#dc2626, 20%);
-        }
+        border-color: darken(#dc2626, 20%);
       }
     }
   }

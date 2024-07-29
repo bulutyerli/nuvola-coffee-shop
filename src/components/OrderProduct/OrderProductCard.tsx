@@ -1,6 +1,7 @@
 import { CartItem } from '@/src/types';
 import styles from './orderProductCard.module.scss';
 import Image from 'next/image';
+import { getImageUrl } from '@/src/utils/getImageUrl';
 
 export default function OrderProductCard({ item }: { item: CartItem }) {
   return (
@@ -9,7 +10,7 @@ export default function OrderProductCard({ item }: { item: CartItem }) {
         <div className={styles.imageContainer}>
           <Image
             className={styles.image}
-            src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DOMAIN}${item.imageUrl}`}
+            src={getImageUrl(item.imageUrl)}
             width={50}
             height={50}
             alt={item.name}

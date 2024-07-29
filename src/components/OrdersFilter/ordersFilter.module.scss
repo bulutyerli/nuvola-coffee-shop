@@ -1,0 +1,60 @@
+@import '../../app/variables.scss';
+
+.container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: start;
+
+  .filter {
+    color: $black;
+  }
+
+  .selected {
+    display: flex;
+    background-color: $base-text;
+    width: 170px;
+    padding: 0.25rem 1rem;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    .dropdown {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 0;
+      right: 0;
+      color: $black-lighter;
+      background-color: $base-text;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      border-radius: 10px;
+
+      .dropdownItem {
+        padding: 0.5rem;
+      }
+
+      .dropdownItem:hover {
+        background-color: $black-lightest;
+      }
+    }
+
+    .active {
+      display: flex;
+    }
+  }
+
+  .selected * {
+    color: $black;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+  }
+}

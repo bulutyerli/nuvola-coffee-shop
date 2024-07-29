@@ -24,7 +24,8 @@ export async function middleware(request: NextRequest) {
   if (
     !user &&
     (request.nextUrl.pathname.startsWith('/account') ||
-      request.nextUrl.pathname.startsWith('/checkout'))
+      request.nextUrl.pathname.startsWith('/checkout') ||
+      request.nextUrl.pathname.startsWith('/orders'))
   ) {
     return NextResponse.redirect(new URL('/auth/sign-in', request.nextUrl));
   }

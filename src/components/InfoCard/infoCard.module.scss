@@ -1,0 +1,55 @@
+@import '../../app/variables.scss';
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  @media (width < $large) {
+    flex-direction: column;
+  }
+
+  .imageContainer {
+    position: relative;
+    width: 300px;
+    height: auto;
+    display: inline-flex;
+
+    .image {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      min-width: 100%;
+      min-height: 100%;
+      border-radius: 20px;
+      background-color: $secondary-strong;
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      opacity: 50%;
+    }
+  }
+
+  .texts {
+    width: 600px;
+
+    h3 {
+      color: $secondary-strong;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    p {
+      color: $base-text;
+    }
+  }
+}
+
+.reversed {
+  flex-direction: row-reverse;
+}

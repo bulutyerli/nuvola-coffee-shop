@@ -1,7 +1,7 @@
 import { db } from '@/src/database';
 import { CartItem } from '@/src/types';
-import { authenticatedUser } from '@/src/utils/amplify-server-utils';
-import { NextRequest, NextResponse } from 'next/server';
+import { AuthGetCurrentUserServer } from '@/src/utils/amplify-server-utils';
+import { NextRequest } from 'next/server';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -33,8 +33,7 @@ export async function POST(request: NextRequest) {
       items,
       address_id,
     }: { items: CartItem[] | null; address_id: number } = await request.json();
-    const response = NextResponse.next();
-    const user = await authenticatedUser({ request, response });
+    const user = await AuthGetCurrentUserServer();
 
     if (!user) {
       return Response.json({ error: 'Forbidden' }, { status: 403 });

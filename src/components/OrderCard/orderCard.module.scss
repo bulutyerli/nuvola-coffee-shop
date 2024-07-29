@@ -1,0 +1,72 @@
+@import '../.././app/variables.scss';
+
+.container {
+  width: 100%;
+  border: 1px solid $black-lightest;
+  border-radius: 10px;
+
+  dt {
+    color: $black-lighter;
+  }
+
+  dd {
+    color: $black-light;
+  }
+
+  .topTitles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $black-lightest;
+    padding: 1rem;
+    background-color: $base-text;
+    border-radius: 10px 10px 0 0;
+
+    .titles_group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      .topSummaries {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .content {
+    padding: 1rem;
+
+    h2 {
+      color: $black;
+    }
+
+    .orderCardContainer {
+      margin-top: 1rem;
+      display: flex;
+      gap: 2rem;
+
+      .image {
+        width: 75px;
+        height: auto;
+      }
+
+      .items {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .item {
+          color: $secondary-strong;
+        }
+        .category {
+          color: $black-lighter;
+        }
+
+        .brand,
+        .quantity {
+          color: $black;
+        }
+      }
+    }
+  }
+}

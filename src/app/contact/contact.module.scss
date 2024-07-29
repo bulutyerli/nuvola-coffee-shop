@@ -1,42 +1,42 @@
 @import '../variables.scss';
 
-.container {
+.section {
   width: 100%;
-  padding: 5rem 0 5rem 0;
+  min-height: 100%;
+  max-width: 1440px;
+  align-self: center;
+  margin-top: auto;
 
   @media (width < $large) {
     padding: 2rem 0 2rem 0;
   }
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
 
-  .section {
+  .info {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 2rem;
-    align-items: center;
+    h3 {
+      color: $black-lighter;
+    }
 
-    .info {
+    span {
+      color: $black-medium;
+    }
+
+    .iconContainer {
       display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      h3 {
-        color: $black-lighter;
-      }
+      align-items: center;
+      gap: 0.5rem;
+      padding-top: 0.5rem;
 
-      span {
-        color: $black-medium;
-      }
-
-      .iconContainer {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding-top: 0.5rem;
-
-        .icon {
-          font-size: 1.5rem;
-          fill: $primary-color;
-        }
+      .icon {
+        font-size: 1.5rem;
+        fill: $primary-color;
       }
     }
   }

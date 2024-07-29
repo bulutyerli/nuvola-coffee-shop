@@ -2,13 +2,24 @@
 
 .main {
   background-color: $background-color;
+  padding-bottom: 3rem;
 
   .sectionContainer {
     display: flex;
     flex-direction: column;
     gap: 5rem;
-    margin-bottom: 5rem;
+
+    h2 {
+      max-width: 300px;
+      font-family: var(--font-kalam);
+      align-self: center;
+      font-size: 1.7rem;
+    }
+
     .shopSection {
+      display: flex;
+      flex-direction: column;
+
       .shopTitle {
         text-align: center;
         margin-bottom: 2rem;
@@ -53,11 +64,6 @@
 
       @media (max-width: $medium) {
         gap: 3rem;
-      }
-
-      h2 {
-        max-width: 300px;
-        font-family: var(--font-kalam);
       }
 
       ul {
@@ -105,7 +111,7 @@
     .infoSection {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 3rem;
     }
   }
 }

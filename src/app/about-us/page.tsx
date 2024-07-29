@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Container from '../../components/Container/Container';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
 import styles from './about-us.module.scss';
+import { getImageUrl } from '@/src/utils/getImageUrl';
 
 export default function AboutUsPage() {
   return (
@@ -11,7 +12,7 @@ export default function AboutUsPage() {
         content="At our coffee shop, we are dedicated to delivering an extraordinary coffee journey. We meticulously select the highest quality beans, maintain stringent quality control measures, and emphasize eco-friendly practices at every stage of our process."
       />
       <div className={styles.container}>
-        <Container>
+        <Container color="white">
           <section className={styles.section_one}>
             <div>
               <div>
@@ -52,7 +53,7 @@ export default function AboutUsPage() {
             </div>
             <Image
               className={styles.waitress}
-              src="/images/waitress.webp"
+              src={getImageUrl('/products/waitress.webp')}
               alt="barista"
               width={600}
               height={600}
@@ -62,7 +63,7 @@ export default function AboutUsPage() {
             <div className={styles.content}>
               <Image
                 className={styles.images}
-                src="/images/coffeeblend.webp"
+                src={getImageUrl('/products/coffeeblend.webp')}
                 width={300}
                 height={300}
                 alt="blending coffee"
@@ -91,7 +92,7 @@ export default function AboutUsPage() {
             <div className={styles.content}>
               <Image
                 className={styles.images}
-                src="/images/beans.webp"
+                src={getImageUrl('/products/beans.webp')}
                 width={300}
                 height={300}
                 alt="coffee beans"

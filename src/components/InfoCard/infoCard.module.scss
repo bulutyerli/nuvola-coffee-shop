@@ -4,16 +4,21 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 3rem;
 
   @media (width < $large) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .imageContainer {
     position: relative;
-    width: 300px;
+    max-width: 300px;
     height: auto;
     display: inline-flex;
+
+    @media (width < $large) {
+      width: 150px;
+    }
 
     .image {
       width: 100%;
@@ -29,19 +34,19 @@
       border-radius: 20px;
       background-color: $secondary-strong;
       position: absolute;
-      top: 2rem;
-      left: 2rem;
+      bottom: 1rem;
+      left: 1rem;
       opacity: 50%;
     }
   }
 
   .texts {
-    width: 600px;
+    max-width: 600px;
 
     h3 {
       color: $secondary-strong;
       margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
 
     p {
@@ -52,4 +57,8 @@
 
 .reversed {
   flex-direction: row-reverse;
+
+  @media (width < $large) {
+    flex-direction: column-reverse;
+  }
 }

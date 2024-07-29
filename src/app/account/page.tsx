@@ -18,6 +18,7 @@ import {
   updateAddress,
 } from '@/src/services/addressService';
 import { FaPlus } from 'react-icons/fa';
+import LoadingSpinner from '@/src/components/LoadingSpinner/LoadingSpinner';
 
 interface UserAttributes {
   name?: string;
@@ -60,8 +61,10 @@ export default function Account() {
   const handleNewAddress = async (data: Address) => {
     try {
       setIsLoading(true);
-      const newAddress = await addNewAddress(data);
-      setUserAddresses((prev) => [...(prev || []), newAddress]);
+      await addNewAddress(data);
+      const tempId = userAddresses ? userAddresses?.length + 1 : 1;
+      const addressWithTempId = { ...data, id: tempId };
+      setUserAddresses((prev) => [...(prev || []), addressWithTempId]);
       setNewAddress(false);
     } catch (error: any) {
       if (error.message === 'Missing required fields') {
@@ -131,8 +134,8 @@ export default function Account() {
               <FaPlus />
               <span>ADD NEW ADDRESS</span>
             </div>
-            {userAddresses?.map((address) => {
-              return (
+            {userAddresses?.length ? (
+              userAddresses.map((address) => (
                 <AddressCard
                   updateAddress={updateHandler}
                   deleteAddress={deleteHandler}
@@ -140,8 +143,10 @@ export default function Account() {
                   address={address}
                   editable={true}
                 />
-              );
-            })}
+              ))
+            ) : (
+              <LoadingSpinner />
+            )}
           </div>
         </div>
       </Container>

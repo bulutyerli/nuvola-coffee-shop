@@ -52,8 +52,8 @@ export default function Footer() {
     },
   ];
   return (
-    <Container className={styles.container} color="primary">
-      <footer className={styles.footer}>
+    <footer className={styles.footer}>
+      <div className={styles.innerContainer}>
         <div className={`${styles.logoContainer} ${styles.grid_1}`}>
           <Image
             className={styles.logo}
@@ -114,7 +114,7 @@ export default function Footer() {
             alt="footer coffee beans"
           ></Image>
         </div>
-      </footer>
-    </Container>
+      </div>
+    </footer>
   );
 }

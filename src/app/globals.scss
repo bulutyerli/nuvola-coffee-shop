@@ -7,16 +7,14 @@
   color: $base-text;
 }
 
-body {
-  min-height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

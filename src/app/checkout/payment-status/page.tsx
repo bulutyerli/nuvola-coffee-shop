@@ -65,6 +65,7 @@ export default function PaymentStatusPage() {
         }
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stripe]);
 
   return (
@@ -74,7 +75,7 @@ export default function PaymentStatusPage() {
         {message.success && (
           <div className={styles.orderLinkContainer}>
             <h2>You can check your order and shipping status from here:</h2>
-            <Link href="/account">Go to My Account</Link>
+            <Link href="/orders">Go to My Orders</Link>
           </div>
         )}
       </div>

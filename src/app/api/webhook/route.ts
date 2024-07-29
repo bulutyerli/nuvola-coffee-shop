@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
                 : 0,
               order_date: new Date(),
               address_id: addressId,
+              status: 'processing',
             })
             .returning('id')
             .executeTakeFirstOrThrow();

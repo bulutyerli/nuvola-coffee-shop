@@ -55,7 +55,7 @@ const Information: InfoType[] = [
     id: 4,
     title: 'Brewing Hope for Children with UNICEF',
     desc: 'With each coffee you purchase, a portion of the proceeds goes directly to UNICEF, supporting their vital work in providing health care, clean water, education, and protection to children around the world. Together, we are brewing positive change and nurturing brighter futures.',
-    img: '/products/unicef.png',
+    img: '/products/unicef.webp',
   },
 ];
 
@@ -73,6 +73,13 @@ export default async function Home() {
               return <ProductCard key={product.id} data={product} />;
             })}
           </div>
+        </section>
+        <section className={styles.infoSection}>
+          <h2>Caring Beyond Coffee</h2>
+          {Information.map((info, index) => {
+            const reversed = index % 2 === 0;
+            return <InfoCard key={info.id} data={info} reversed={reversed} />;
+          })}
         </section>
         <section className={styles.locationSection}>
           <h2>
@@ -97,12 +104,6 @@ export default async function Home() {
               );
             })}
           </ul>
-        </section>
-        <section className={styles.infoSection}>
-          {Information.map((info, index) => {
-            const reversed = index % 2 === 0;
-            return <InfoCard key={info.id} data={info} reversed={reversed} />;
-          })}
         </section>
       </Container>
     </main>

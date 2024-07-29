@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from './hero.module.scss';
+import { getImageUrl } from '@/src/utils/getImageUrl';
 
 type AnimationType = 'fadeIn' | 'fadeOut';
 
@@ -40,7 +41,7 @@ export default function Hero() {
     <section className={styles.container}>
       <video
         className={styles.video}
-        src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DOMAIN}products/hero-video.mp4`}
+        src={getImageUrl('products/hero-video.mp4')}
         autoPlay
         loop
         playsInline

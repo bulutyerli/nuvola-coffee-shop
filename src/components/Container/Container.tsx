@@ -10,8 +10,8 @@ export default function Container({
   color: 'white' | 'primary' | 'brown';
 }) {
   return (
-    <div className={`${styles.container} ${className} ${styles[color]}`}>
-      <div className={styles.innerContainer}>{children}</div>
+    <div className={`${styles.container} ${styles[color]}`}>
+      <div className={`${styles.innerContainer}  ${className}`}>{children}</div>
     </div>
   );
 }

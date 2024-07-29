@@ -16,6 +16,7 @@ export default function Header() {
     { title: 'Shop', href: '/shop' },
     { title: 'Our Coffee', href: '/coffee' },
     { title: 'Locations', href: '/locations' },
+    { title: 'About Us', href: '/about-us' },
   ];
 
   const pathName = usePathname();

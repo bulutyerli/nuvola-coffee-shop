@@ -1,6 +1,7 @@
-import { NextServer, createServerRunner } from '@aws-amplify/adapter-nextjs';
-import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth/server';
+import { createServerRunner } from '@aws-amplify/adapter-nextjs';
 import { authConfig } from './authConfig';
+import { getCurrentUser } from 'aws-amplify/auth/server';
+import { cookies } from 'next/headers';
 
 export const { runWithAmplifyServerContext } = createServerRunner({
   config: {
@@ -8,25 +9,11 @@ export const { runWithAmplifyServerContext } = createServerRunner({
   },
 });
 
-export async function authenticatedUser(context: NextServer.Context) {
-  return await runWithAmplifyServerContext({
-    nextServerContext: context,
-    operation: async (contextSpec) => {
-      try {
-        const session = await fetchAuthSession(contextSpec);
-
-        if (
-          session.tokens?.accessToken !== undefined &&
-          session.tokens?.idToken !== undefined
-        ) {
-          const user = await getCurrentUser(contextSpec);
-
-          return user;
-        }
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
-    },
+export async function AuthGetCurrentUserServer() {
+  const user = await runWithAmplifyServerContext({
+    nextServerContext: { cookies },
+    operation: (contextSpec) => getCurrentUser(contextSpec),
   });
+
+  return user;
 }

@@ -1,12 +1,13 @@
 import { db } from '@/src/database';
 import { Address } from '@/src/database-types';
-import { authenticatedUser } from '@/src/utils/amplify-server-utils';
+import { AuthGetCurrentUserServer } from '@/src/utils/amplify-server-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const response = NextResponse.next();
-    const user = await authenticatedUser({ request, response });
+    const user = await AuthGetCurrentUserServer();
+
+    console.log(user);
 
     if (!user) {
       return Response.json({ error: 'Forbidden' }, { status: 403 });
@@ -27,8 +28,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const response = NextResponse.next();
-    const user = await authenticatedUser({ request, response });
+    const user = await AuthGetCurrentUserServer();
 
     if (!user) {
       return Response.json({ error: 'Forbidden' }, { status: 403 });

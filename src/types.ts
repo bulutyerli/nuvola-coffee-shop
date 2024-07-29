@@ -1,5 +1,17 @@
 import { Address } from './database-types';
 
+export interface OrderAddress {
+  address_line1: string;
+  address_line2: string | null;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+  address_name: string;
+  name: string;
+  surname: string;
+}
+
 export interface GroupedProduct {
   id: number;
   name: string;
@@ -36,8 +48,26 @@ export interface OrderState {
 }
 
 export interface OrderItem {
-  id: number;
+  product_name: string;
+  category: string;
+  brand: string;
+  product_image: string;
+  price: number;
+  quantity: number;
+}
+
+export interface GroupedOrder {
+  order_id: number;
   order_date: Date;
   total_price: number;
-  status: number;
+  status: string;
+  address: OrderAddress;
+  items: OrderItem[];
+}
+
+export interface InfoType {
+  id: number;
+  title: string;
+  desc: string;
+  img: string;
 }

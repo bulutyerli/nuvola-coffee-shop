@@ -75,6 +75,9 @@ export default async function Home() {
               );
             })}
           </div>
+          <Link href="/coffee" className={styles.findMore}>
+            Find more about our coffee
+          </Link>
         </section>
         <section className={styles.infoSection}>
           <h2>Caring Beyond Coffee</h2>

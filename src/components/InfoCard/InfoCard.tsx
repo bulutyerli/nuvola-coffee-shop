@@ -1,7 +1,10 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './infoCard.module.scss';
 import { getImageUrl } from '@/src/utils/getImageUrl';
 import { InfoType } from '@/src/types';
+import { useEffect, useRef } from 'react';
 
 export default function InfoCard({
   data,
@@ -10,8 +13,39 @@ export default function InfoCard({
   data: InfoType;
   reversed?: boolean;
 }) {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const currentCard = cardRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.4,
+      }
+    );
+
+    if (currentCard) {
+      observer.observe(currentCard);
+    }
+
+    return () => {
+      if (currentCard) {
+        observer.unobserve(currentCard);
+      }
+    };
+  }, []);
+
   return (
     <article
+      ref={cardRef}
       className={`${styles.container} ${reversed ? styles.reversed : ''}`}
     >
       <div className={styles.texts}>

@@ -14,6 +14,10 @@
       font-family: var(--font-kalam);
       align-self: center;
       font-size: 1.7rem;
+
+      @media (width < $large) {
+        font-size: 1.4rem;
+      }
     }
 
     .shopSection {
@@ -80,6 +84,10 @@
           display: flex;
           gap: 1rem;
           font-family: var(--font-kalam);
+
+          @media (width < $large) {
+            font-size: 1.2rem;
+          }
 
           &:hover {
             text-decoration: underline;

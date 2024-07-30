@@ -13,7 +13,6 @@ export default function Header() {
   const [menu, setMenu] = useState(false);
   const menuRef = useRef(null);
   const navLinks = [
-    { title: 'Shop', href: '/shop' },
     { title: 'Our Coffee', href: '/coffee' },
     { title: 'Locations', href: '/locations' },
     { title: 'About Us', href: '/about-us' },

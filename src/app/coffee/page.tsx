@@ -3,6 +3,8 @@ import styles from './coffee.module.scss';
 import { BigCoffeeType } from '@/src/types';
 import Container from '@/src/components/Container/Container';
 import TitleContainer from '@/src/components/TitleContainer/TitleContainer';
+import { getProducts } from '@/src/services/getProducts';
+import ProductCard from '@/src/components/ProductCard/ProductCard';
 
 const coffeeData: BigCoffeeType[] = [
   {
@@ -51,7 +53,9 @@ const coffeeData: BigCoffeeType[] = [
   },
 ];
 
-export default function CoffeePage() {
+export default async function CoffeePage() {
+  const products = await getProducts();
+
   return (
     <>
       <TitleContainer
@@ -69,6 +73,21 @@ export default function CoffeePage() {
               )}
             </div>
           ))}
+
+          <section className={styles.shopSection}>
+            <h2 className={styles.shopTitle}>Buy Now!</h2>
+            <div className={styles.products}>
+              {products.map((product) => {
+                return (
+                  <ProductCard
+                    color="secondary"
+                    key={product.id}
+                    data={product}
+                  />
+                );
+              })}
+            </div>
+          </section>
         </main>
       </Container>
     </>

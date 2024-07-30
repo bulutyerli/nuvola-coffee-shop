@@ -9,11 +9,33 @@
   .divider {
     width: 100%;
     height: 1px;
-    background-color: rgba($secondary-strong, 0.5);
+    background-color: rgba($secondary-strong, 0.3);
     margin: 5rem 0;
 
     @media (width < $large) {
       margin: 3rem 0;
+    }
+  }
+
+  .shopSection {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+
+    .shopTitle {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: var(--font-kalam);
+      font-size: 2rem;
+      color: $secondary-strong;
+    }
+
+    .products {
+      display: flex;
+      gap: 2rem;
+      max-width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
     }
   }
 }

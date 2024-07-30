@@ -107,7 +107,7 @@ export default function Account() {
     <main>
       <TitleContainer
         title="Account Details"
-        content="Manage your orders and profile information on this page. You can also update or add delivery addresses for your orders."
+        content="Check your name and e-mail address, Manage your addresses for your orders."
       />
       <Container color="white">
         <div className={styles.container}>

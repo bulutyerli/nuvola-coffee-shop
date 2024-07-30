@@ -4,6 +4,7 @@ import OrderCard from '@/src/components/OrderCard/OrderCard';
 import { getOrders } from '@/src/services/orderService';
 import { GroupedOrder } from '@/src/types';
 import OrdersFilter from '@/src/components/OrdersFilter/OrdersFilter';
+import TitleContainer from '@/src/components/TitleContainer/TitleContainer';
 
 export default async function OrdersPage({
   searchParams,
@@ -15,20 +16,26 @@ export default async function OrdersPage({
   const orders: GroupedOrder[] = await getOrders({ year: filter });
 
   return (
-    <Container color="white">
-      <main className={styles.container}>
-        <div className={styles.innerContainer}>
-          <h1>My Orders</h1>
-          <div className={styles.filters}>
-            <OrdersFilter filter={filter} />
+    <>
+      <TitleContainer
+        title="Orders"
+        content="You can check your orders and see shipment status on this page."
+      />
+      <Container color="white">
+        <main className={styles.container}>
+          <div className={styles.innerContainer}>
+            <h1>My Orders</h1>
+            <div className={styles.filters}>
+              <OrdersFilter filter={filter} />
+            </div>
+            <div className={styles.orders}>
+              {orders.map((order) => {
+                return <OrderCard key={order.order_id} order={order} />;
+              })}
+            </div>
           </div>
-          <div className={styles.orders}>
-            {orders.map((order) => {
-              return <OrderCard key={order.order_id} order={order} />;
-            })}
-          </div>
-        </div>
-      </main>
-    </Container>
+        </main>
+      </Container>
+    </>
   );
 }

@@ -71,3 +71,13 @@ export interface InfoType {
   desc: string;
   img: string;
 }
+
+export interface BigCoffeeType {
+  id: number;
+  name: string;
+  title_1: string;
+  content_1: string;
+  title_2: string;
+  content_2: string;
+  imageUrl: string;
+}

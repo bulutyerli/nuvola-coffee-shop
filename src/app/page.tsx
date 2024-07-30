@@ -70,7 +70,9 @@ export default async function Home() {
           <h2 className={styles.shopTitle}>Our Signature Coffees</h2>
           <div className={styles.products}>
             {products.map((product) => {
-              return <ProductCard key={product.id} data={product} />;
+              return (
+                <ProductCard color="primary" key={product.id} data={product} />
+              );
             })}
           </div>
         </section>

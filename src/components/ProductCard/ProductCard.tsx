@@ -14,7 +14,13 @@ interface optionType {
   price: number;
 }
 
-export default function ProductCard({ data }: { data: GroupedProduct }) {
+export default function ProductCard({
+  data,
+  color,
+}: {
+  data: GroupedProduct;
+  color: 'primary' | 'secondary';
+}) {
   const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState<optionType | null>(null);
 
@@ -50,7 +56,7 @@ export default function ProductCard({ data }: { data: GroupedProduct }) {
   };
 
   return (
-    <article className={styles.container}>
+    <article className={`${styles.container} ${styles[color]}`}>
       <figure className={styles.imageWrapper}>
         <Image
           className={styles.image}

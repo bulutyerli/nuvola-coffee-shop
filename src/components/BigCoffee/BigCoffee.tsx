@@ -1,12 +1,44 @@
+'use client';
+
 import { BigCoffeeType } from '@/src/types';
 import styles from './bigCoffee.module.scss';
 import Image from 'next/image';
 import { getImageUrl } from '@/src/utils/getImageUrl';
-import Container from '../Container/Container';
+import { useEffect, useRef, useState } from 'react';
 
 export default function BigCoffee({ data }: { data: BigCoffeeType }) {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const currentCard = cardRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.4,
+      }
+    );
+
+    if (currentCard) {
+      observer.observe(currentCard);
+    }
+
+    return () => {
+      if (currentCard) {
+        observer.unobserve(currentCard);
+      }
+    };
+  }, []);
+
   return (
-    <article className={styles.container}>
+    <article ref={cardRef} className={styles.container}>
       <h2>{data.name}</h2>
       <div className={styles.contentContainer}>
         <Image

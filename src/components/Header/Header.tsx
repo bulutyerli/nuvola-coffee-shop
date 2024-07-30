@@ -10,8 +10,9 @@ import { usePathname } from 'next/navigation';
 import Cart from '../Cart/Cart';
 
 export default function Header() {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState<boolean>(false);
   const menuRef = useRef(null);
+  const [accountMenu, setAccountMenu] = useState<boolean>(false);
   const navLinks = [
     { title: 'Our Coffee', href: '/coffee' },
     { title: 'Locations', href: '/locations' },
@@ -80,10 +81,16 @@ export default function Header() {
         </nav>
         <ul className={styles.userLinks}>
           <Cart />
-          <li>
-            <Link href={'/account'}>
-              <FaUser className={styles.icons} />
-            </Link>
+          <li className={styles.userIcon}>
+            <FaUser className={styles.icons} />
+            <div
+              className={`${styles.userMenu} ${
+                accountMenu ? styles.accountOpen : ''
+              }`}
+            >
+              <Link href="/account">My Account</Link>
+              <Link href="/orders">My Orders</Link>
+            </div>
           </li>
           <li onClick={handleMenu} className={styles.hamburger}>
             <FaAlignRight className={styles.icons} />

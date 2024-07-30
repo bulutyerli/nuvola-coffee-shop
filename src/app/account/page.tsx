@@ -1,6 +1,5 @@
 'use client';
 
-import { fetchUserAttributes } from 'aws-amplify/auth';
 import Container from '../../components/Container/Container';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
 import styles from './account.module.scss';
@@ -19,6 +18,8 @@ import {
 } from '@/src/services/addressService';
 import { FaPlus } from 'react-icons/fa';
 import LoadingSpinner from '@/src/components/LoadingSpinner/LoadingSpinner';
+import { RootState, useDispatch, useSelector } from '@/src/redux/store';
+import { signOutUser } from '@/src/redux/slices/authSlice';
 
 interface UserAttributes {
   name?: string;
@@ -28,25 +29,22 @@ interface UserAttributes {
 }
 
 export default function Account() {
-  const [userDetails, setUserDetails] = useState<UserAttributes>({});
   const [userAddresses, setUserAddresses] = useState<Address[] | null>();
   const [newAddress, setNewAddress] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const { user, isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const dispatch = useDispatch();
 
   const signOut = async () => {
-    await handleSignOut();
-    router.push('/');
-    router.refresh();
+    await dispatch(signOutUser());
   };
 
   useEffect(() => {
     const getDetails = async () => {
       try {
-        const details = await fetchUserAttributes();
-        setUserDetails(details);
-
-        if (details.sub) {
+        if (user?.sub) {
           const addresses = await getAddresses();
           setUserAddresses(addresses);
         }
@@ -56,7 +54,7 @@ export default function Account() {
     };
 
     getDetails();
-  }, []);
+  }, [user]);
 
   const handleNewAddress = async (data: Address) => {
     try {
@@ -113,9 +111,9 @@ export default function Account() {
         <div className={styles.container}>
           <div className={styles.user}>
             <p className={styles.name}>
-              {userDetails.name} {userDetails.family_name}
+              {user?.name} {user?.family_name}
             </p>
-            <p className={styles.email}>{userDetails.email}</p>
+            <p className={styles.email}>{user?.email}</p>
           </div>
           <div className={styles.buttonContainer}>
             <CustomButton

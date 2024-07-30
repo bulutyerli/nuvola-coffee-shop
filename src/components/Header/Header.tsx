@@ -6,20 +6,59 @@ import styles from './header.module.scss';
 import { FaUser, FaAlignRight, FaTimes } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import Container from '../Container/Container';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Cart from '../Cart/Cart';
+import { RootState, dispatch, useSelector } from '@/src/redux/store';
+import { fetchUser, signOutUser } from '@/src/redux/slices/authSlice';
+import { Hub } from 'aws-amplify/utils';
 
 export default function Header() {
   const [menu, setMenu] = useState<boolean>(false);
-  const menuRef = useRef(null);
   const [accountMenu, setAccountMenu] = useState<boolean>(false);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const menuRef = useRef(null);
+  const accountMenuRef = useRef(null);
+  const pathName = usePathname();
+  const router = useRouter();
   const navLinks = [
     { title: 'Our Coffee', href: '/coffee' },
     { title: 'Locations', href: '/locations' },
     { title: 'About Us', href: '/about-us' },
   ];
 
-  const pathName = usePathname();
+  useEffect(() => {
+    const unsubscribe = Hub.listen('auth', async ({ payload }) => {
+      switch (payload.event) {
+        case 'signedIn':
+          await getUser();
+          break;
+        case 'signedOut':
+          router.push('/auth/sign-in');
+          break;
+      }
+    });
+    getUser();
+
+    return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth]);
+
+  const getUser = async () => {
+    await dispatch(fetchUser());
+  };
+
+  const signOut = async () => {
+    await dispatch(signOutUser());
+    setAccountMenu(false);
+  };
+
+  const handleAccountMenu = () => {
+    if (isAuth) {
+      setAccountMenu(!accountMenu);
+    } else {
+      router.push('/auth/sign-in');
+    }
+  };
 
   const handleMenu = () => {
     setMenu(!menu);
@@ -28,11 +67,21 @@ export default function Header() {
   const handleClickOut = (event: MouseEvent) => {
     const target = event.target;
     if (
+      menu &&
       menuRef.current &&
       !(menuRef.current as HTMLElement).contains(target as Node) &&
       target !== menuRef.current
     ) {
       setMenu(false);
+    }
+
+    if (
+      accountMenu &&
+      accountMenuRef.current &&
+      !(accountMenuRef.current as HTMLElement).contains(target as Node) &&
+      target !== accountMenuRef.current
+    ) {
+      setAccountMenu(false);
     }
   };
 
@@ -82,14 +131,22 @@ export default function Header() {
         <ul className={styles.userLinks}>
           <Cart />
           <li className={styles.userIcon}>
-            <FaUser className={styles.icons} />
+            <FaUser onClick={handleAccountMenu} className={styles.icons} />
             <div
+              ref={accountMenuRef}
               className={`${styles.userMenu} ${
                 accountMenu ? styles.accountOpen : ''
               }`}
             >
-              <Link href="/account">My Account</Link>
-              <Link href="/orders">My Orders</Link>
+              <Link onClick={handleAccountMenu} href="/account">
+                My Account
+              </Link>
+              <Link onClick={handleAccountMenu} href="/orders">
+                My Orders
+              </Link>
+              <span onClick={signOut} className={styles.signOut}>
+                Sign Out
+              </span>
             </div>
           </li>
           <li onClick={handleMenu} className={styles.hamburger}>

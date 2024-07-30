@@ -99,7 +99,9 @@ export default function Header() {
           {navLinks.map((link) => {
             return (
               <li key={link.href}>
-                <Link href={link.href}>{link.title}</Link>
+                <Link onClick={handleMenu} href={link.href}>
+                  {link.title}
+                </Link>
               </li>
             );
           })}

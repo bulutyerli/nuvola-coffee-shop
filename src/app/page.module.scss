@@ -23,6 +23,7 @@
     .shopSection {
       display: flex;
       flex-direction: column;
+      position: relative;
 
       .shopTitle {
         text-align: center;
@@ -36,6 +37,15 @@
         max-width: 100%;
         flex-wrap: wrap;
         justify-content: center;
+      }
+
+      .findMore {
+        color: $base-text;
+        margin-top: 1rem;
+        position: absolute;
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
 

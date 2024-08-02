@@ -5,6 +5,8 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import ConfigureAmplifyClientSide from '@/src/amplify-cognito-config';
 import { Providers } from '../redux/provider';
+import { Suspense } from 'react';
+import Loading from './loading';
 
 const roboto = Roboto({ subsets: ['latin'], weight: '400' });
 const kalam = Kalam({
@@ -30,7 +32,7 @@ export default function RootLayout({
           <div className="container">
             <Header />
             <ConfigureAmplifyClientSide />
-            {children}
+            <Suspense fallback={<Loading />}>{children}</Suspense>
             <Footer />
           </div>
         </body>

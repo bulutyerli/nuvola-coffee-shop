@@ -8,7 +8,7 @@
   .innerContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    align-items: start;
+    align-items: flex-start;
     justify-items: center;
     gap: 3rem;
     position: relative;

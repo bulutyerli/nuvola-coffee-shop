@@ -4,7 +4,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  color: $base-text;
 }
 
 html,
@@ -17,4 +16,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: $base-text;
+}
+
+a,
+select {
+  color: $base-text;
 }

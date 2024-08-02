@@ -1,0 +1,49 @@
+@import '../variables.scss';
+
+$steam-color: silver;
+$coffee-color: $secondary-strong;
+$steam-animation: steaming 2500ms ease infinite;
+$steam-height: -10px;
+$steam-start-height: 8px;
+$steam1-delay: 100ms;
+$steam2-delay: 250ms;
+$steam3-delay: 50ms;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+  .svg_wrapper {
+    width: 3rem;
+    height: 3rem;
+
+    .steam {
+      fill: $steam-color;
+      transform: translateY($steam-start-height);
+      animation: $steam-animation;
+
+      &.steam1 {
+        animation-delay: $steam1-delay;
+      }
+
+      &.steam2 {
+        animation-delay: $steam2-delay;
+      }
+
+      &.steam3 {
+        animation-delay: $steam3-delay;
+      }
+    }
+
+    .coffee_cup {
+      fill: $coffee-color;
+    }
+
+    @keyframes steaming {
+      50% {
+        transform: translateY($steam-height);
+      }
+    }
+  }
+}

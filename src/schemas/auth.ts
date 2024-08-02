@@ -35,3 +35,24 @@ export const verificationSchema = z.object({
 export const reSendCodeSchema = z.object({
   email: z.string().trim().email('Invalid email address'),
 });
+
+export const emailSchema = z.object({
+  email: z.string().trim().email('Invalid email address'),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    confirmCode: z.string().trim(),
+    password: z
+      .string()
+      .trim()
+      .min(6, { message: 'Password must be at least 6 characters long' }),
+    rePassword: z
+      .string()
+      .trim()
+      .min(6, { message: 'Re-enter password is required' }),
+  })
+  .refine((data) => data.password === data.rePassword, {
+    message: 'Password do not match',
+    path: ['rePassword'],
+  });

@@ -103,7 +103,6 @@ const cartSlice = createSlice({
       state.items = [];
       state.totalItems = 0;
       state.totalPrice = 0;
-      console.log('Cart cleared in Redux state.');
 
       setCartListFunc(state.items, state.totalPrice, state.totalItems);
     },

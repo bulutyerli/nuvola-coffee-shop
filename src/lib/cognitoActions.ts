@@ -5,11 +5,7 @@ import {
   signOut,
   resendSignUpCode,
   autoSignIn,
-  updateUserAttribute,
-  type UpdateUserAttributeOutput,
-  confirmUserAttribute,
   updatePassword,
-  resetPassword,
   confirmResetPassword,
 } from 'aws-amplify/auth';
 import { getErrorMessage } from '@/src/utils/get-error-message';

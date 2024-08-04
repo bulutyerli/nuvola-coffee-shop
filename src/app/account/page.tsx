@@ -21,13 +21,6 @@ import LoadingSpinner from '@/src/components/LoadingSpinner/LoadingSpinner';
 import { RootState, useDispatch, useSelector } from '@/src/redux/store';
 import { signOutUser } from '@/src/redux/slices/authSlice';
 
-interface UserAttributes {
-  name?: string;
-  family_name?: string;
-  email?: string;
-  sub?: string;
-}
-
 export default function Account() {
   const [userAddresses, setUserAddresses] = useState<Address[] | null>();
   const [newAddress, setNewAddress] = useState(false);
@@ -132,19 +125,15 @@ export default function Account() {
               <FaPlus />
               <span>ADD NEW ADDRESS</span>
             </div>
-            {userAddresses?.length ? (
-              userAddresses.map((address) => (
-                <AddressCard
-                  updateAddress={updateHandler}
-                  deleteAddress={deleteHandler}
-                  key={address.id}
-                  address={address}
-                  editable={true}
-                />
-              ))
-            ) : (
-              <LoadingSpinner />
-            )}
+            {userAddresses?.map((address) => (
+              <AddressCard
+                updateAddress={updateHandler}
+                deleteAddress={deleteHandler}
+                key={address.id}
+                address={address}
+                editable={true}
+              />
+            ))}
           </div>
         </div>
       </Container>

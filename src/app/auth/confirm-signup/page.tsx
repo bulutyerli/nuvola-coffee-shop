@@ -8,12 +8,13 @@ import CustomButton from '@/src/components/CustomButton/CustomButton';
 import { verificationSchema } from '@/src/schemas/auth';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   handleConfirmSignUp,
   handleSendEmailVerificationCode,
 } from '@/src/lib/cognitoActions';
+import { useSelector } from '@/src/redux/store';
 
 type VerifyEmailType = z.infer<typeof verificationSchema>;
 
@@ -32,8 +33,14 @@ export default function ConfirmSignUpPage() {
   } = useForm<VerifyEmailType>({ resolver: zodResolver(verificationSchema) });
 
   const [error, setError] = useState('');
-
   const router = useRouter();
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user?.email_verified) {
+      router.push('/auth/sign-in');
+    }
+  }, [router, user?.email_verified]);
 
   const onSubmit: SubmitHandler<VerifyEmailType> = async (data) => {
     try {

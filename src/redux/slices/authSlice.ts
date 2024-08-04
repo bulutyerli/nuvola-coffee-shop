@@ -7,6 +7,7 @@ interface UserAttributes {
   family_name?: string;
   email?: string;
   sub?: string;
+  email_verified?: string;
 }
 
 interface AuthState {

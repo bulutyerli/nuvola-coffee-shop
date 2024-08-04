@@ -7,8 +7,6 @@ export async function GET() {
   try {
     const user = await AuthGetCurrentUserServer();
 
-    console.log(user);
-
     if (!user) {
       return Response.json({ error: 'Forbidden' }, { status: 403 });
     }

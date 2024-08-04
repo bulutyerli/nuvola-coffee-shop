@@ -40,7 +40,6 @@ export default function SignInPage() {
 
       if (response.success) {
         router.push('/');
-        router.refresh();
       }
     } catch (error) {
       console.log(error);

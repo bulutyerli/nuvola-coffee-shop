@@ -123,14 +123,16 @@ export async function handleSignIn(formData: SignInData) {
       username: email,
       password: password,
     });
+
     if (nextStep.signInStep === 'CONFIRM_SIGN_UP') {
       await resendSignUpCode({
         username: email,
       });
       return { verify: true };
     }
-  } catch (error) {
-    return getErrorMessage(error);
+  } catch (error: any) {
+    getErrorMessage(error);
+    return { error: true, message: error.message };
   }
 
   return { success: true };

@@ -18,6 +18,8 @@ type SignInFormData = z.infer<typeof signInSchema>;
 type Response = {
   verify?: boolean;
   success?: boolean;
+  error?: boolean;
+  message?: string;
 };
 
 export default function SignInPage() {
@@ -40,6 +42,10 @@ export default function SignInPage() {
 
       if (response.success) {
         router.push('/');
+      }
+
+      if (response.error && response.message) {
+        setError(response.message);
       }
     } catch (error) {
       console.log(error);

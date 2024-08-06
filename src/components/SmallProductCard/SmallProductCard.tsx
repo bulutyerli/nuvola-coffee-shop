@@ -5,7 +5,6 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { useDispatch } from '@/src/redux/store';
 import { addMore, deleteItem, removeItem } from '@/src/redux/slices/cartSlice';
 import { FiMinus, FiPlus } from 'react-icons/fi';
-import { getImageUrl } from '@/src/utils/getImageUrl';
 
 export default function SmallProductCard({ data }: { data: CartItem }) {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ export default function SmallProductCard({ data }: { data: CartItem }) {
     <article className={styles.container}>
       <figure className={styles.imageWrapper}>
         <Image
-          src={getImageUrl(data.imageUrl)}
+          src={data.imageUrl}
           width={100}
           height={100}
           alt={data.name}

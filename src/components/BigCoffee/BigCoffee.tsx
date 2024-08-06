@@ -3,7 +3,6 @@
 import { BigCoffeeType } from '@/src/types';
 import styles from './bigCoffee.module.scss';
 import Image from 'next/image';
-import { getImageUrl } from '@/src/utils/getImageUrl';
 import { useEffect, useRef, useState } from 'react';
 
 export default function BigCoffee({ data }: { data: BigCoffeeType }) {
@@ -43,7 +42,7 @@ export default function BigCoffee({ data }: { data: BigCoffeeType }) {
       <div className={styles.contentContainer}>
         <Image
           className={styles.image}
-          src={getImageUrl(data.imageUrl)}
+          src={data?.imageUrl}
           width={800}
           height={800}
           alt={data.name}

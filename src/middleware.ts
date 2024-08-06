@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
       }
     },
   });
-
+  console.log(user);
   if (
     !user &&
     (request.nextUrl.pathname.startsWith('/account') ||

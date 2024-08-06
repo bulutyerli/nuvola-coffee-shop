@@ -16,7 +16,7 @@ const coffeeData: BigCoffeeType[] = [
     title_2: 'Choose Your Brew',
     content_2:
       "Whether you prefer the intensity of a velvety espresso, the delight of a frothy cappuccino, or the refreshment of a smooth cold brew, each cup is a homage to Brazil's finest coffee traditions.",
-    imageUrl: 'products/brazil-big.webp',
+    imageUrl: '/images/brazil-big.webp',
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const coffeeData: BigCoffeeType[] = [
     title_2: 'Craft Your Experience',
     content_2:
       "Whether you seek the warmth of a traditional Colombian 'tinto' the boldness of a cortado, or the exotic allure of a café de olla, each cup is a gateway to the Colombian coffee culture, celebrated for its diverse flavors and unique brewing methods.",
-    imageUrl: 'products/columbia-big.webp',
+    imageUrl: '/images/columbia-big.webp',
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const coffeeData: BigCoffeeType[] = [
     title_2: 'Sip into Serenity',
     content_2:
       'Indulge in the serenity of Mexican coffee, where each sip carries the wisdom of generations. Whether you choose the velvety embrace of espresso, the harmonious notes of cappuccino, or the refreshing simplicity of cold brew, each cup is a tribute to the Chiapas tradition.',
-    imageUrl: 'products/mexico-big.webp',
+    imageUrl: '/images/mexico-big.webp',
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const coffeeData: BigCoffeeType[] = [
     title_2: 'Experience Authenticity',
     content_2:
       "Whether you prefer the simplicity of a traditional Ethiopian coffee ceremony, the exotic allure of a spicy Yirgacheffe, or the boldness of a Sidamo espresso, each cup transports you to the heart of Ethiopia's coffee culture, where coffee is more than a drink; it's a way of life.",
-    imageUrl: 'products/ethiopia-big.webp',
+    imageUrl: '/images/ethiopia-big.webp',
   },
 ];
 

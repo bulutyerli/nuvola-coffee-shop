@@ -2,8 +2,6 @@ import Image from 'next/image';
 import styles from './footer.module.scss';
 import Link from 'next/link';
 import { FaInstagram, FaSquareXTwitter, FaFacebook } from 'react-icons/fa6';
-import Container from '../Container/Container';
-import { getImageUrl } from '@/src/utils/getImageUrl';
 
 export default function Footer() {
   const copyright = new Date().getFullYear();
@@ -108,7 +106,7 @@ export default function Footer() {
         <div className={styles.imageWrapper}>
           <Image
             className={styles.image}
-            src={getImageUrl('/products/footer-beans.webp')}
+            src={'/images/footer-beans.webp'}
             width={200}
             height={200}
             alt="footer coffee beans"

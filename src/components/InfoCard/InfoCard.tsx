@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import styles from './infoCard.module.scss';
-import { getImageUrl } from '@/src/utils/getImageUrl';
 import { InfoType } from '@/src/types';
 import { useEffect, useRef } from 'react';
 
@@ -55,7 +54,7 @@ export default function InfoCard({
       <div className={styles.imageContainer}>
         <Image
           className={styles.image}
-          src={getImageUrl(data.img)}
+          src={data.img}
           width={300}
           height={300}
           alt={data.title}

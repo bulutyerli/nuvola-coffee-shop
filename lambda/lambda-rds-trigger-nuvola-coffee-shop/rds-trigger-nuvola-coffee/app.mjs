@@ -9,6 +9,7 @@ const client = new Client({
   database: process.env.DB_NAME,
   ssl: {
     require: true,
+    rejectUnauthorized: false,
   },
 });
 
@@ -22,10 +23,7 @@ export const lambdaHandler = async (event, context) => {
     const query = 'INSERT INTO users (sub, email) VALUES ($1, $2)';
     await client.query(query, [user_sub, email]);
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'User data inserted successfully' }),
-    };
+    return event;
   } catch (error) {
     console.error('Error:', error);
 

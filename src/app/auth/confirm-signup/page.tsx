@@ -14,7 +14,6 @@ import {
   handleConfirmSignUp,
   handleSendEmailVerificationCode,
 } from '@/src/lib/cognitoActions';
-import { useSelector } from '@/src/redux/store';
 
 type VerifyEmailType = z.infer<typeof verificationSchema>;
 
@@ -34,20 +33,16 @@ export default function ConfirmSignUpPage() {
 
   const [error, setError] = useState('');
   const router = useRouter();
-  const { user } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (user?.email_verified) {
-      router.push('/auth/sign-in');
-    }
-  }, [router, user?.email_verified]);
 
   const onSubmit: SubmitHandler<VerifyEmailType> = async (data) => {
     try {
       const response = (await handleConfirmSignUp(data)) as ResponseType;
+      console.log('response', response);
 
       if (response.success) {
-        router.push('/auth/sign-in');
+        router.push('/');
+      } else {
+        setError(response as string);
       }
     } catch (error) {
       console.log(error);
@@ -122,7 +117,7 @@ export default function ConfirmSignUpPage() {
               alt="3 coffee beans"
             />
           </div>
-          {error.length > 1 && <span className={styles.error}>{error}</span>}
+          {error?.length > 1 && <span className={styles.error}>{error}</span>}
         </section>
       </Container>
     </main>

@@ -95,13 +95,15 @@ export async function handleConfirmSignUp(formData: VerificationFormData) {
 
   const { email, code } = validatedData.data;
   try {
-    const { isSignUpComplete } = await confirmSignUp({
+    const response = await confirmSignUp({
       username: email,
       confirmationCode: code,
     });
-    if (isSignUpComplete) {
+    if (response.isSignUpComplete) {
       await autoSignIn();
       return { success: true };
+    } else {
+      return response;
     }
   } catch (error) {
     return getErrorMessage(error);

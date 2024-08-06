@@ -1,8 +1,6 @@
 import { GroupedOrder } from '@/src/types';
 import styles from './orderCard.module.scss';
-import OrderProductCard from '../OrderProduct/OrderProductCard';
 import Image from 'next/image';
-import { getImageUrl } from '@/src/utils/getImageUrl';
 
 export default function OrderCard({ order }: { order: GroupedOrder }) {
   const orderDate = new Date(order.order_date).toLocaleDateString('en-US', {
@@ -40,7 +38,7 @@ export default function OrderCard({ order }: { order: GroupedOrder }) {
             <div key={index} className={styles.orderCardContainer}>
               <Image
                 className={styles.image}
-                src={getImageUrl(item.product_image)}
+                src={item.product_image}
                 width={75}
                 height={75}
                 alt={item.product_name}

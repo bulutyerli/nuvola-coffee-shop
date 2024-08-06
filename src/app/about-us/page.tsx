@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Container from '../../components/Container/Container';
 import TitleContainer from '../../components/TitleContainer/TitleContainer';
 import styles from './about-us.module.scss';
-import { getImageUrl } from '@/src/utils/getImageUrl';
 
 export default function AboutUsPage() {
   return (
@@ -53,7 +52,7 @@ export default function AboutUsPage() {
             </div>
             <Image
               className={styles.waitress}
-              src={getImageUrl('/products/waitress.webp')}
+              src={'/images/waitress.webp'}
               alt="barista"
               width={600}
               height={600}
@@ -63,7 +62,7 @@ export default function AboutUsPage() {
             <div className={styles.content}>
               <Image
                 className={styles.images}
-                src={getImageUrl('/products/coffeeblend.webp')}
+                src={'/images/coffeeblend.webp'}
                 width={300}
                 height={300}
                 alt="blending coffee"
@@ -92,7 +91,7 @@ export default function AboutUsPage() {
             <div className={styles.content}>
               <Image
                 className={styles.images}
-                src={getImageUrl('/products/beans.webp')}
+                src={'/images/beans.webp'}
                 width={300}
                 height={300}
                 alt="coffee beans"

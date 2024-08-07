@@ -1,7 +1,7 @@
 import { GroupedOrder } from '@/src/types';
 import { db } from '../database';
 import { AuthGetCurrentUserServer } from '../utils/amplify-server-utils';
-import { RawBuilder, sql } from 'kysely';
+import { sql } from 'kysely';
 
 export async function getOrders({ year }: { year?: string }) {
   try {

@@ -40,35 +40,33 @@ export async function POST(request: NextRequest) {
       const addressId: number = parseInt(paymentIntent.metadata.address_id, 10);
 
       try {
-        await db.transaction().execute(async (trx) => {
-          const order = await trx
-            .insertInto('orders')
-            .values({
-              user_sub: userId,
-              total_price: paymentIntent.amount_received
-                ? paymentIntent.amount_received / 100
-                : 0,
-              order_date: new Date(),
-              address_id: addressId,
-              status: 'processing',
-            })
-            .returning('id')
-            .executeTakeFirstOrThrow();
+        // Insert the order first
+        const order = await db
+          .insertInto('orders')
+          .values({
+            user_sub: userId,
+            total_price: paymentIntent.amount_received
+              ? paymentIntent.amount_received / 100
+              : 0,
+            order_date: new Date(),
+            address_id: addressId,
+            status: 'processing',
+          })
+          .returning('id')
+          .executeTakeFirstOrThrow();
 
-          await Promise.all(
-            items.map(async (item) => {
-              return await trx
-                .insertInto('order_items')
-                .values({
-                  order_id: order.id,
-                  product_variant_id: item.id,
-                  quantity: item.quantity,
-                })
-                .returningAll()
-                .executeTakeFirst();
+        // Insert order items one by one
+        for (const item of items) {
+          await db
+            .insertInto('order_items')
+            .values({
+              order_id: order.id,
+              product_variant_id: item.id,
+              quantity: item.quantity,
             })
-          );
-        });
+            .returningAll()
+            .executeTakeFirst();
+        }
 
         console.log('Order and order items successfully inserted.');
       } catch (error: any) {

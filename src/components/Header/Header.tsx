@@ -11,6 +11,7 @@ import Cart from '../Cart/Cart';
 import { RootState, dispatch, useSelector } from '@/src/redux/store';
 import { fetchUser, signOutUser } from '@/src/redux/slices/authSlice';
 import { Hub } from 'aws-amplify/utils';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 
 export default function Header() {
   const [menu, setMenu] = useState<boolean>(false);
@@ -25,7 +26,11 @@ export default function Header() {
     { title: 'Locations', href: '/locations' },
     { title: 'About Us', href: '/about-us' },
   ];
-
+  const getUser = async () => {
+    await dispatch(fetchUser());
+    const user = await fetchUserAttributes();
+    console.log(user);
+  };
   useEffect(() => {
     const unsubscribe = Hub.listen('auth', async ({ payload }) => {
       switch (payload.event) {
@@ -43,9 +48,9 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
-  const getUser = async () => {
-    await dispatch(fetchUser());
-  };
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const signOut = async () => {
     await dispatch(signOutUser());

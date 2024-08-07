@@ -15,12 +15,10 @@ export async function middleware(request: NextRequest) {
           session.tokens?.idToken !== undefined
         );
       } catch (error) {
-        console.log(error);
         return false;
       }
     },
   });
-  console.log(user);
   if (
     !user &&
     (request.nextUrl.pathname.startsWith('/account') ||

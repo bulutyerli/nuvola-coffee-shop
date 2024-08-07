@@ -74,8 +74,6 @@ export interface UsersTable {
   id: Generated<number>;
   sub: string;
   email: string;
-  created_at: Date;
-  updated_at: Date;
 }
 
 export type Users = Selectable<UsersTable>;

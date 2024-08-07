@@ -1,27 +1,12 @@
-import pkg from 'pg';
-const { Client } = pkg;
-
-const client = new Client({
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT, 10),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  ssl: {
-    require: true,
-    rejectUnauthorized: false,
-  },
-});
+import axios from 'axios';
 
 export const lambdaHandler = async (event, context) => {
   try {
-    const user_sub = event.request.userAttributes.sub;
+    const sub = event.request.userAttributes.sub;
     const email = event.request.userAttributes.email;
+    const api = process.env.API_URL;
 
-    await client.connect();
-
-    const query = 'INSERT INTO users (sub, email) VALUES ($1, $2)';
-    await client.query(query, [user_sub, email]);
+    response = axios.post(api, { sub, email });
 
     return event;
   } catch (error) {
@@ -31,7 +16,5 @@ export const lambdaHandler = async (event, context) => {
       statusCode: 500,
       body: JSON.stringify({ message: 'Failed to insert user data' }),
     };
-  } finally {
-    await client.end();
   }
 };

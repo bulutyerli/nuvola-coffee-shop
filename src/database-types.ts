@@ -21,6 +21,7 @@ export interface AddressTable {
   state: string;
   postal_code: string;
   country: string;
+  is_deleted: boolean;
 }
 
 export type Address = Selectable<AddressTable>;

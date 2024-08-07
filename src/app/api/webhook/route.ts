@@ -40,7 +40,6 @@ export async function POST(request: NextRequest) {
       const addressId: number = parseInt(paymentIntent.metadata.address_id, 10);
 
       try {
-        // Insert the order first
         const order = await db
           .insertInto('orders')
           .values({
@@ -55,7 +54,6 @@ export async function POST(request: NextRequest) {
           .returning('id')
           .executeTakeFirstOrThrow();
 
-        // Insert order items one by one
         for (const item of items) {
           await db
             .insertInto('order_items')

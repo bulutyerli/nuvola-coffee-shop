@@ -14,6 +14,7 @@ export async function GET() {
     const addresses = await db
       .selectFrom('addresses')
       .where('addresses.user_sub', '=', user.userId)
+      .where('is_deleted', '=', false)
       .selectAll()
       .execute();
 
@@ -63,6 +64,7 @@ export async function POST(request: NextRequest) {
         state: data.state,
         postal_code: data.postal_code,
         country: data.country,
+        is_deleted: false,
       })
       .returningAll()
       .executeTakeFirst();
@@ -86,7 +88,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     await db
-      .deleteFrom('addresses')
+      .updateTable('addresses')
+      .set({ is_deleted: true })
       .where('addresses.id', '=', parseInt(address_id))
       .executeTakeFirst();
 

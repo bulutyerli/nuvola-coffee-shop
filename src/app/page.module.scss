@@ -41,11 +41,11 @@
 
       .findMore {
         color: $base-text;
-        margin-top: 1rem;
         position: absolute;
-        bottom: -2rem;
+        bottom: -3rem;
         left: 50%;
         transform: translateX(-50%);
+        text-align: center;
       }
     }
 

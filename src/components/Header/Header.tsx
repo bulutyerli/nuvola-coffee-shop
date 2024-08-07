@@ -29,7 +29,6 @@ export default function Header() {
   const getUser = async () => {
     await dispatch(fetchUser());
     const user = await fetchUserAttributes();
-    console.log(user);
   };
   useEffect(() => {
     const unsubscribe = Hub.listen('auth', async ({ payload }) => {

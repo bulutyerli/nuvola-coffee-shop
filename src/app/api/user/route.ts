@@ -1,7 +1,7 @@
 import { db } from '@/src/database';
 import { NextRequest } from 'next/server';
 
-export default async function POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const { sub, email } = await request.json();
 
   try {

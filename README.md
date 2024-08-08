@@ -65,8 +65,11 @@ To get started with the project, follow these steps:
    STRIPE_SECRET_KEY=stripe_secret_key
    STRIPE_SECRET_WEBHOOK_KEY=stripe_secret_webhook_key
 
-   You will also need to add database credentials for postgres. I used vercel postgres in this project it automaticly uses credentials but if you use an other service you should also add db credentials into /database.ts file.
    ```
+
+   You will also need to add database credentials for postgres.
+   I used vercel postgres in this project it automaticly uses credentials but
+   if you use an other service you should also add db credentials into /database.ts file.
 
 4. Run the development server:
 
